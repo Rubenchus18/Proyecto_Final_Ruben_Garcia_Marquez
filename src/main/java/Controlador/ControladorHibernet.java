@@ -265,11 +265,68 @@ public class ControladorHibernet {
             }
             e.printStackTrace();
         } finally {
-            if (session != null && session.isOpen()) {
+            if (session != null) {
                 session.close();
             }
         }
     }
+    
+    public Medicos verDatosMedicos(String nombre) {
+    	Session session=null;
+    	Medicos medicos=new Medicos();
+    	try {
+    		session=sessionFactory.getCurrentSession();
+    		session.beginTransaction();
+    		
+    		Query q=session.createQuery("FROM Medicos WHERE nombre=: nombrem ");
+    		q.setParameter("nombrem", nombre);
+    		medicos=(Medicos) q.getSingleResult();
+    		
+    		session.getTransaction();
+    		
+    	}catch(Exception e) {
+    		if(session!=null) {
+    			session.close();
+    		}
+    		e.printStackTrace();
+    	}finally{
+    		if(session!=null) {
+    			session.close();
+    		}
+    	}
+		return medicos;
+    }
+    public void actualizarMedico(String nombre, String nuevaEspecialidad, String nuevoHorario) {
+        Session session = null;
+        try {
+            session = sessionFactory.getCurrentSession();
+            session.beginTransaction();
 
+            Query<Medicos> query = session.createQuery("FROM Medicos WHERE nombre = :nombre", Medicos.class);
+            query.setParameter("nombre", nombre);
+            Medicos medico = query.uniqueResult();
+
+            if (medico != null) {
+                medico.setEspecialidad(nuevaEspecialidad);
+                medico.setHorario(nuevoHorario);
+
+
+                session.saveOrUpdate(medico);
+                session.getTransaction().commit();
+                System.out.println("Médico actualizado correctamente.");
+            } else {
+                System.out.println("Médico no encontrado: " + nombre);
+            }
+        } catch (Exception e) {
+            if (session != null && session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 
 }
