@@ -10,10 +10,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
@@ -22,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import Vista.Vista;
 import net.bytebuddy.asm.Advice.This;
 import persistencias.Empleados;
+import persistencias.HistorialesMedicos;
 import persistencias.Medicos;
 
 public class Controlador implements ActionListener,MouseListener{
@@ -44,6 +47,8 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.lblNewLabelCaraMedico.addMouseListener(this);
 		   this.vista.lblNewLabelCerrarPerfilMedico.addMouseListener(this);
 		   this.vista.btnRellenarDatos.addActionListener(this);
+		   this.vista.btnBuscarHistorial.addActionListener(this);
+		   this.vista.lblHistorialPaciente.addMouseListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
@@ -58,6 +63,10 @@ public class Controlador implements ActionListener,MouseListener{
 		if(e.getSource()==this.vista.lblNewLabelSalidaMedico) {
 			this.vista.panelInicio.setVisible(true);
 			this.vista.panelMedico.setVisible(false);
+			this.vista.tableHistorialMedico.setVisible(false);
+			this.vista.scrollPane_1.setVisible(false);
+			this.vista.panelFiltar.setVisible(false);
+			this.vista.panelVerDatosMedicos.setVisible(false);
 		}
 		if(e.getSource()==this.vista.lblNewLabelVolverCrear) {
 			this.vista.panelCrearAdmin.setVisible(false);
@@ -78,6 +87,9 @@ public class Controlador implements ActionListener,MouseListener{
 		}
 		if(e.getSource()==this.vista.lblNewLabelCaraMedico) {
 			Medicos medicos=new Medicos();
+			this.vista.tableHistorialMedico.setVisible(false);
+			this.vista.panelFiltar.setVisible(false);
+			this.vista.scrollPane_1.setVisible(false);
 			this.vista.panelVerDatosMedicos.setVisible(true);
 			medicos=hibernate.verDatosMedicos(this.vista.lblNewLabelNombreUsuarioMostrarMedico.getText());
 			
@@ -88,6 +100,12 @@ public class Controlador implements ActionListener,MouseListener{
 		}
 		if(e.getSource()==this.vista.lblNewLabelCerrarPerfilMedico) {
 			this.vista.panelVerDatosMedicos.setVisible(false);
+		}
+		if(e.getSource()==this.vista.lblHistorialPaciente) {
+			this.vista.tableHistorialMedico.setVisible(true);
+			this.vista.scrollPane_1.setVisible(true);
+			this.vista.panelFiltar.setVisible(true);
+			
 		}
 	}
 
@@ -260,6 +278,16 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.panelVerDatosMedicos.setVisible(false);
 			}
 		}
+	
+		if(e.getSource()==this.vista.btnBuscarHistorial) {
+			String nombre=this.vista.textFieldBuscarHistorialPaciente.getText();
+			String direccion=this.vista.textFieldDireccionPaciente.getText();
+			if(nombre.isEmpty()|| direccion.isEmpty()) {
+				this.vista.lblErrorFiltro.setText("Campos obligatorios");
+			}else {
+				mostrarHistorialMedico(nombre,direccion);
+			}
+		}
 		
 	}
 		
@@ -301,6 +329,8 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.btnRellenarDatos.setIcon(fotoEscalarButton(this.vista.btnRellenarDatos, "imagenes/botonmodificar.png"));
 		 this.vista.lblNewLabelCerrarPerfilMedico.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCerrarPerfilMedico, "imagenes/botonVolver.png"));
 		 this.vista.lblNewLabelFondoPerfilMedico.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoPerfilMedico, "imagenes/fondo_admin_panel.jpg"));
+		 this.vista.lblFondoFiltrarHistorial.setIcon(fotoEscalarLabel(this.vista.lblFondoFiltrarHistorial, "imagenes/fondo_admin_panel.jpg"));
+		 this.vista.btnBuscarHistorial.setIcon(fotoEscalarButton(this.vista.btnBuscarHistorial, "imagenes/botonBuscar.png"));
 	 }
 	 public void añadidoRolesComboBox() {
 		  this.vista.comboBoxRoles.addItem("admin");
@@ -335,6 +365,31 @@ public class Controlador implements ActionListener,MouseListener{
 		    }
 
 		    this.vista.tablaUsuarios.setModel(modelo);
+		}
+	 
+	 public void mostrarHistorialMedico(String username, String direccion) {
+		    List<HistorialesMedicos> historial = hibernate.obtenerHistorialMedicoPorUsuario(username, direccion);
+		    if (historial.isEmpty()) {
+		        this.vista.lblErrorFiltro.setText("No se encontró historial médico");
+		        return; 
+		    }
+
+		    DefaultTableModel model = new DefaultTableModel();
+		    model.addColumn("Diagnóstico");
+		    model.addColumn("Tratamiento");
+		    model.addColumn("Receta");
+		    model.addColumn("Fecha");
+
+		    for (HistorialesMedicos hm : historial) {
+		         Object[]datos={
+		            hm.getDiagnostico(),
+		            hm.getTratamiento(),
+		            hm.getReceta(),
+		            hm.getFecha()
+		        };
+		        model.addRow(datos);
+		    }
+		    this.vista.tableHistorialMedico.setModel(model);
 		}
 	 //Hilo
 	 public void iniciarReloj(JLabel label) {	    

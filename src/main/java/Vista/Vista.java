@@ -116,6 +116,16 @@ public class Vista extends JFrame {
 	public JTextField textFieldHorarioMedico;
 	public JTextField textFieldEspecialidadMedico;
 	public JLabel lblNewLabelErrorPefilMedico;
+	public JPanel panelFiltar;
+	public JTable tableHistorialMedico;
+	public JLabel lblNombreDelCliente;
+	public JTextField textFieldBuscarHistorialPaciente;
+	public JButton btnBuscarHistorial;
+	public JLabel lblFondoFiltrarHistorial;
+	public JLabel lblErrorFiltro;
+	public JLabel lblDireccion;
+	public JTextField textFieldDireccionPaciente;
+	public JScrollPane scrollPane_1;
 	/**
 	 * Launch the application.
 	 */
@@ -162,6 +172,63 @@ public class Vista extends JFrame {
 		  panelMedico.setVisible(false);
 		  contentPane.add(panelMedico);
 		  panelMedico.setLayout(null);
+		  
+		  panelFiltar = new JPanel();
+		  panelFiltar.setBounds(938, 112, 290, 566);
+		  panelFiltar.setVisible(false);
+		  
+		  scrollPane_1 = new JScrollPane();
+		  scrollPane_1.setBounds(56, 112, 840, 566);
+		  scrollPane_1.setVisible(false);
+		  panelMedico.add(scrollPane_1);
+		  tableHistorialMedico = new JTable();
+		  scrollPane_1.setViewportView(tableHistorialMedico);
+		  tableHistorialMedico.setVisible(false);
+		  
+		  panelMedico.add(panelFiltar);
+		  panelFiltar.setLayout(null);
+		  
+		  textFieldDireccionPaciente = new JTextField();
+		  textFieldDireccionPaciente.setColumns(10);
+		  textFieldDireccionPaciente.setBounds(36, 187, 224, 46);
+		  panelFiltar.add(textFieldDireccionPaciente);
+		  
+		  lblDireccion = new JLabel("Direccion");
+		  lblDireccion.setHorizontalAlignment(SwingConstants.CENTER);
+		  lblDireccion.setForeground(new Color(255, 128, 0));
+		  lblDireccion.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		  lblDireccion.setBounds(0, 127, 290, 68);
+		  panelFiltar.add(lblDireccion);
+		  
+		  lblErrorFiltro = new JLabel("");
+		  lblErrorFiltro.setHorizontalAlignment(SwingConstants.CENTER);
+		  lblErrorFiltro.setForeground(new Color(255, 128, 0));
+		  lblErrorFiltro.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 15));
+		  lblErrorFiltro.setBounds(0, 382, 290, 68);
+		  panelFiltar.add(lblErrorFiltro);
+		  
+		  lblNombreDelCliente = new JLabel("Nombre Cliente");
+		  lblNombreDelCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		  lblNombreDelCliente.setForeground(new Color(255, 128, 0));
+		  lblNombreDelCliente.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		  lblNombreDelCliente.setBounds(0, 11, 290, 68);
+		  panelFiltar.add(lblNombreDelCliente);
+		  
+		  textFieldBuscarHistorialPaciente = new JTextField();
+		  textFieldBuscarHistorialPaciente.setBounds(36, 79, 224, 46);
+		  panelFiltar.add(textFieldBuscarHistorialPaciente);
+		  textFieldBuscarHistorialPaciente.setColumns(10);
+		  
+		  btnBuscarHistorial = new JButton("");
+		  btnBuscarHistorial.setOpaque(false);
+		  btnBuscarHistorial.setContentAreaFilled(false);
+		  btnBuscarHistorial.setBorderPainted(false);
+		  btnBuscarHistorial.setBounds(36, 217, 224, 191);
+		  panelFiltar.add(btnBuscarHistorial);
+		  
+		  lblFondoFiltrarHistorial = new JLabel("");
+		  lblFondoFiltrarHistorial.setBounds(0, 0, 290, 566);
+		  panelFiltar.add(lblFondoFiltrarHistorial);
 		  
 		  lblNewLabelNombre_1 = new JLabel("VitalMed");
 		  lblNewLabelNombre_1.setHorizontalAlignment(SwingConstants.CENTER);

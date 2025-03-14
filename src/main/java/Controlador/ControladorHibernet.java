@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 import persistencias.Empleados;
+import persistencias.HistorialesMedicos;
 import persistencias.Pacientes;
 import persistencias.Medicos;
 import persistencias.Recepcionistas;
@@ -328,5 +329,37 @@ public class ControladorHibernet {
             }
         }
     }
+    public List<HistorialesMedicos> obtenerHistorialMedicoPorUsuario(String username,String direccion) {
+        Session session = null;
+        List<HistorialesMedicos> historial = null;
+        Pacientes paciente=new Pacientes();
+        try {
+            session = sessionFactory.getCurrentSession();
+            session.beginTransaction();
 
+         
+            Query queryPaciente = session.createQuery("FROM Pacientes WHERE nombre=: nombrepp and direccion=:direccion", Pacientes.class);
+            queryPaciente.setParameter("nombrepp", username);
+            queryPaciente.setParameter("direccion", direccion);
+             paciente = (Pacientes) queryPaciente.uniqueResult();
+
+            if (paciente != null) {
+                Query<HistorialesMedicos> queryHistorial = session.createQuery("FROM HistorialesMedicos WHERE pacientes.id = :pacienteId", HistorialesMedicos.class);
+                queryHistorial.setParameter("pacienteId", paciente.getId());
+                historial = queryHistorial.getResultList();
+            }
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session != null && session.getTransaction() != null) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return historial;
+    }
 }
