@@ -287,7 +287,7 @@ public class Vista extends JFrame {
 		  btnGuardarHistorialMedico.setOpaque(false);
 		  btnGuardarHistorialMedico.setContentAreaFilled(false);
 		  btnGuardarHistorialMedico.setBorderPainted(false);
-		  btnGuardarHistorialMedico.setBounds(26, 517, 310, 156);
+		  btnGuardarHistorialMedico.setBounds(26, 492, 310, 191);
 		  panelCrearHistorialMedico.add(btnGuardarHistorialMedico);
 		  
 		  lblNewLabelFondoHistorialMedico = new JLabel("");
