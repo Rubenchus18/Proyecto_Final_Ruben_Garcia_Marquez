@@ -55,5 +55,9 @@
 	<classpathentry kind="lib" path="C:/Users/Ruben/Downloads/P1_GarciaFermin_GarciaRuben/P1_GarciaFermin_GarciaRuben/lib/hibernate/mysql-connector-java-8.0.18.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Ruben/Downloads/P1_GarciaFermin_GarciaRuben/P1_GarciaFermin_GarciaRuben/lib/hibernate/stax-ex-1.8.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Ruben/Downloads/P1_GarciaFermin_GarciaRuben/P1_GarciaFermin_GarciaRuben/lib/hibernate/txw2-2.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/jgoodies-common-1.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/jgoodies-looks-2.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.6.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

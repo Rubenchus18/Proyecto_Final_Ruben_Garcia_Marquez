@@ -40,6 +40,7 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
+import com.toedter.calendar.JCalendar;
 
 
 public class Vista extends JFrame {
@@ -126,6 +127,22 @@ public class Vista extends JFrame {
 	public JLabel lblDireccion;
 	public JTextField textFieldDireccionPaciente;
 	public JScrollPane scrollPane_1;
+	public JPanel panelCrearHistorialMedico;
+	public JLabel lblNewLabelNombre_2;
+	public JTextField textFieldNombrePaciente;
+	public JLabel lblNewLabelNombre_3;
+	public JTextField textFieldNombreMedico;
+	public JLabel lblNewLabelNombre_4;
+	public JTextField textFieldDiagnostico;
+	public JLabel lblNewLabelNombre_5;
+	public JTextField textFieldTratamiento;
+	public JLabel lblNewLabelNombre_6;
+	public JTextField textFieldReceta;
+	public JLabel lblNewLabelNombre_7;
+	public JCalendar calendarioMedico;
+	public JButton btnGuardarHistorialMedico;
+	public JLabel lblNewLabelFondoHistorialMedico;
+	public JLabel lblErrorRegistroMedico;
 	/**
 	 * Launch the application.
 	 */
@@ -180,6 +197,102 @@ public class Vista extends JFrame {
 		  scrollPane_1 = new JScrollPane();
 		  scrollPane_1.setBounds(56, 112, 840, 566);
 		  scrollPane_1.setVisible(false);
+		  
+		  panelCrearHistorialMedico = new JPanel();
+		  panelCrearHistorialMedico.setBounds(66, 90, 862, 633);
+		  panelCrearHistorialMedico.setVisible(false);
+		  panelMedico.add(panelCrearHistorialMedico);
+		  
+		  panelCrearHistorialMedico.setLayout(null);
+		  
+		  lblErrorRegistroMedico = new JLabel("");
+		  lblErrorRegistroMedico.setHorizontalAlignment(SwingConstants.CENTER);
+		  lblErrorRegistroMedico.setForeground(new Color(255, 128, 0));
+		  lblErrorRegistroMedico.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		  lblErrorRegistroMedico.setBounds(346, 552, 506, 68);
+		  panelCrearHistorialMedico.add(lblErrorRegistroMedico);
+		  
+		  lblNewLabelNombre_2 = new JLabel("Nombre paciente");
+		  lblNewLabelNombre_2.setHorizontalAlignment(SwingConstants.CENTER);
+		  lblNewLabelNombre_2.setForeground(new Color(255, 128, 0));
+		  lblNewLabelNombre_2.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		  lblNewLabelNombre_2.setBounds(38, 35, 248, 68);
+		  panelCrearHistorialMedico.add(lblNewLabelNombre_2);
+		  
+		  textFieldNombrePaciente = new JTextField();
+		  textFieldNombrePaciente.setBounds(38, 114, 248, 36);
+		  panelCrearHistorialMedico.add(textFieldNombrePaciente);
+		  textFieldNombrePaciente.setColumns(10);
+		  
+		  lblNewLabelNombre_3 = new JLabel("Nombre medico");
+		  lblNewLabelNombre_3.setHorizontalAlignment(SwingConstants.CENTER);
+		  lblNewLabelNombre_3.setForeground(new Color(255, 128, 0));
+		  lblNewLabelNombre_3.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		  lblNewLabelNombre_3.setBounds(509, 35, 248, 68);
+		  panelCrearHistorialMedico.add(lblNewLabelNombre_3);
+		  
+		  textFieldNombreMedico = new JTextField();
+		  textFieldNombreMedico.setColumns(10);
+		  textFieldNombreMedico.setBounds(509, 114, 248, 36);
+		  panelCrearHistorialMedico.add(textFieldNombreMedico);
+		  
+		  lblNewLabelNombre_4 = new JLabel("Diagnostico");
+		  lblNewLabelNombre_4.setHorizontalAlignment(SwingConstants.CENTER);
+		  lblNewLabelNombre_4.setForeground(new Color(255, 128, 0));
+		  lblNewLabelNombre_4.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		  lblNewLabelNombre_4.setBounds(38, 168, 248, 68);
+		  panelCrearHistorialMedico.add(lblNewLabelNombre_4);
+		  
+		  textFieldDiagnostico = new JTextField();
+		  textFieldDiagnostico.setColumns(10);
+		  textFieldDiagnostico.setBounds(38, 230, 248, 105);
+		  panelCrearHistorialMedico.add(textFieldDiagnostico);
+		  
+		  lblNewLabelNombre_5 = new JLabel("Tratamiento");
+		  lblNewLabelNombre_5.setHorizontalAlignment(SwingConstants.CENTER);
+		  lblNewLabelNombre_5.setForeground(new Color(255, 128, 0));
+		  lblNewLabelNombre_5.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		  lblNewLabelNombre_5.setBounds(509, 161, 248, 68);
+		  panelCrearHistorialMedico.add(lblNewLabelNombre_5);
+		  
+		  textFieldTratamiento = new JTextField();
+		  textFieldTratamiento.setColumns(10);
+		  textFieldTratamiento.setBounds(509, 230, 248, 105);
+		  panelCrearHistorialMedico.add(textFieldTratamiento);
+		  
+		  lblNewLabelNombre_6 = new JLabel("Receta");
+		  lblNewLabelNombre_6.setHorizontalAlignment(SwingConstants.CENTER);
+		  lblNewLabelNombre_6.setForeground(new Color(255, 128, 0));
+		  lblNewLabelNombre_6.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		  lblNewLabelNombre_6.setBounds(38, 357, 248, 68);
+		  panelCrearHistorialMedico.add(lblNewLabelNombre_6);
+		  
+		  textFieldReceta = new JTextField();
+		  textFieldReceta.setColumns(10);
+		  textFieldReceta.setBounds(38, 436, 248, 105);
+		  panelCrearHistorialMedico.add(textFieldReceta);
+		  
+		  lblNewLabelNombre_7 = new JLabel("Fecha");
+		  lblNewLabelNombre_7.setHorizontalAlignment(SwingConstants.CENTER);
+		  lblNewLabelNombre_7.setForeground(new Color(255, 128, 0));
+		  lblNewLabelNombre_7.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		  lblNewLabelNombre_7.setBounds(495, 357, 248, 68);
+		  panelCrearHistorialMedico.add(lblNewLabelNombre_7);
+		  
+		  calendarioMedico = new JCalendar();
+		  calendarioMedico.setBounds(509, 425, 238, 116);
+		  panelCrearHistorialMedico.add(calendarioMedico);
+		  
+		  btnGuardarHistorialMedico = new JButton("");
+		  btnGuardarHistorialMedico.setOpaque(false);
+		  btnGuardarHistorialMedico.setContentAreaFilled(false);
+		  btnGuardarHistorialMedico.setBorderPainted(false);
+		  btnGuardarHistorialMedico.setBounds(26, 517, 310, 156);
+		  panelCrearHistorialMedico.add(btnGuardarHistorialMedico);
+		  
+		  lblNewLabelFondoHistorialMedico = new JLabel("");
+		  lblNewLabelFondoHistorialMedico.setBounds(0, 0, 874, 633);
+		  panelCrearHistorialMedico.add(lblNewLabelFondoHistorialMedico);
 		  panelMedico.add(scrollPane_1);
 		  tableHistorialMedico = new JTable();
 		  scrollPane_1.setViewportView(tableHistorialMedico);

@@ -362,4 +362,47 @@ public class ControladorHibernet {
         }
         return historial;
     }
+    public void crearHistorialMedico(String nombrePaciente, String nombreMedico, String diagnostico, String tratamiento, String receta, Date fecha) {
+       Session session=null;
+       Pacientes paciente=null;
+       Medicos medicos=null;
+        try {
+        	 session =sessionFactory.getCurrentSession();
+        	 session.beginTransaction();
+        	 
+            Query querypaciente=session.createQuery("FROM Pacientes WHERE nombre = :nombre");
+            		querypaciente.setParameter("nombre", nombrePaciente);
+            		paciente=(Pacientes) querypaciente.uniqueResult();
+
+                    
+            Query medicosquery =session.createQuery("FROM Medicos WHERE nombre = :nombre");
+            medicosquery.setParameter("nombre", nombreMedico);
+            medicos=(Medicos) medicosquery.uniqueResult();
+
+            if (paciente != null && medicos != null) {
+               
+                HistorialesMedicos historial = new HistorialesMedicos();
+                historial.setPacientes(paciente);
+                historial.setMedicos(medicos);
+                historial.setDiagnostico(diagnostico);
+                historial.setTratamiento(tratamiento);
+                historial.setReceta(receta);
+                historial.setFecha(fecha);
+
+                
+                session.save(historial);
+                session.getTransaction().commit();
+                System.out.println("Historial médico creado exitosamente.");
+            } else {
+                System.out.println("No se encontró el paciente o el médico.");
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+        	if (session != null) {
+                session.close();
+            }
+        }
+    }
+	
 }
