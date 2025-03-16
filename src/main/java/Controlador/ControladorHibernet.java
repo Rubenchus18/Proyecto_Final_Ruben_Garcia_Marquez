@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+import persistencias.Citas;
 import persistencias.Empleados;
 import persistencias.HistorialesMedicos;
 import persistencias.Pacientes;
@@ -403,6 +404,35 @@ public class ControladorHibernet {
                 session.close();
             }
         }
+    }
+    public List<Citas> obtenerCitasPorMedicoYFecha(String nombreMedico, java.sql.Date fecha) {
+        Session session = null;
+        List<Citas> citas = null;
+
+        try {
+            session = sessionFactory.getCurrentSession();
+            session.beginTransaction();
+
+            String hql = "FROM Citas c JOIN FETCH c.medicos WHERE c.medicos.nombre = :nombreMedico AND c.fecha = :fecha";
+            Query<Citas> query = session.createQuery(hql, Citas.class);
+            query.setParameter("nombreMedico", nombreMedico);
+            query.setParameter("fecha", fecha);
+
+            citas = query.getResultList(); 
+
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+
+        return citas; 
     }
 	
 }

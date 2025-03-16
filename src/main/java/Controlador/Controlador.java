@@ -19,12 +19,14 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
 
 import Vista.Vista;
 import net.bytebuddy.asm.Advice.This;
+import persistencias.Citas;
 import persistencias.Empleados;
 import persistencias.HistorialesMedicos;
 import persistencias.Medicos;
@@ -53,6 +55,8 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.lblHistorialPaciente.addMouseListener(this);
 		   this.vista.lblRegistro.addMouseListener(this);
 		   this.vista.btnGuardarHistorialMedico.addActionListener(this);
+		   this.vista.lblVerCitas.addMouseListener(this);
+		   this.vista.btnFiltrarCitas.addActionListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
@@ -72,6 +76,8 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelFiltar.setVisible(false);
 			this.vista.panelVerDatosMedicos.setVisible(false);
 			this.vista.panelCrearHistorialMedico.setVisible(false);
+			this.vista.scrollPane_2.setVisible(false);
+			this.vista.panelFiltrarCitas.setVisible(false);
 		}
 		if(e.getSource()==this.vista.lblNewLabelVolverCrear) {
 			this.vista.panelCrearAdmin.setVisible(false);
@@ -97,6 +103,8 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.scrollPane_1.setVisible(false);
 			this.vista.panelVerDatosMedicos.setVisible(true);
 			this.vista.panelCrearHistorialMedico.setVisible(false);
+			this.vista.scrollPane_2.setVisible(false);
+			this.vista.panelFiltrarCitas.setVisible(false);
 			medicos=hibernate.verDatosMedicos(this.vista.lblNewLabelNombreUsuarioMostrarMedico.getText());
 			
 				this.vista.lblNewLabelNombreMedico.setText(medicos.getNombre());
@@ -112,13 +120,27 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.scrollPane_1.setVisible(true);
 			this.vista.panelFiltar.setVisible(true);
 			this.vista.panelCrearHistorialMedico.setVisible(false);
-		}
+			this.vista.scrollPane_2.setVisible(false);
+			this.vista.panelFiltrarCitas.setVisible(false);
+			}
 		if(e.getSource()==this.vista.lblRegistro) {
 			this.vista.panelCrearHistorialMedico.setVisible(true);
 			this.vista.panelVerDatosMedicos.setVisible(false);
 			this.vista.tableHistorialMedico.setVisible(false);
 			this.vista.scrollPane_1.setVisible(false);
 			this.vista.panelFiltar.setVisible(false);
+			this.vista.scrollPane_2.setVisible(false);
+			this.vista.panelFiltrarCitas.setVisible(false);
+		}
+		if(e.getSource()==this.vista.lblVerCitas) {
+			
+			this.vista.tableHistorialMedico.setVisible(false);
+			this.vista.scrollPane_1.setVisible(false);
+			this.vista.panelFiltar.setVisible(false);
+			this.vista.panelVerDatosMedicos.setVisible(false);
+			this.vista.panelCrearHistorialMedico.setVisible(false);
+			this.vista.scrollPane_2.setVisible(true);
+			this.vista.panelFiltrarCitas.setVisible(true);
 		}
 	}
 
@@ -323,6 +345,24 @@ public class Controlador implements ActionListener,MouseListener{
 		    }
 		    
 		}
+		if (e.getSource() == this.vista.btnFiltrarCitas) {
+		  
+		    String nombre = this.vista.textFieldNombreMedicoCita.getText();
+		    Calendar calendario = this.vista.calendarioCitas.getCalendar();
+		    java.util.Date utilDate = calendario.getTime();
+		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+		    if (nombre.isEmpty()) {
+		        this.vista.lblNewLabelErrorCitas.setText("Campos obligatorios");
+		    } else {
+
+		        this.vista.lblNewLabelErrorCitas.setText("");
+		        List<Citas> citas = hibernate.obtenerCitasPorMedicoYFecha(nombre, sqlDate);
+		      
+		            mostrarCitasEnTabla(this.vista.tableMostrarResultadoCitas, citas);
+		        
+		    }
+		}
 		
 	}
 		
@@ -368,6 +408,10 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.btnBuscarHistorial.setIcon(fotoEscalarButton(this.vista.btnBuscarHistorial, "imagenes/botonBuscar.png"));
 		 this.vista.btnGuardarHistorialMedico.setIcon(fotoEscalarButton(this.vista.btnGuardarHistorialMedico, "imagenes/botonGuardar.png"));
 		 this.vista.lblNewLabelFondoHistorialMedico.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoHistorialMedico, "imagenes/fondo_admin_panel.jpg"));
+		 this.vista.lblFotoMedicoInicio.setIcon(fotoEscalarLabel(this.vista.lblFotoMedicoInicio, "imagenes/fotosMedicos.png"));
+		 this.vista.lblFondoEfecto.setIcon(fotoEscalarLabel(this.vista.lblFondoEfecto, "imagenes/fondo_inicio.jpg"));
+		 this.vista.btnFiltrarCitas.setIcon(fotoEscalarButton(this.vista.btnFiltrarCitas, "imagenes/botonBuscar.png"));
+		 this.vista.lblNewLabelFondoFiltrarCita.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoFiltrarCita, "imagenes/fondo_admin_panel.jpg"));
 	 }
 	 public void añadidoRolesComboBox() {
 		  this.vista.comboBoxRoles.addItem("admin");
@@ -428,6 +472,27 @@ public class Controlador implements ActionListener,MouseListener{
 		    }
 		    this.vista.tableHistorialMedico.setModel(model);
 		}
+	 public void mostrarCitasEnTabla(JTable tableMostrarResultadoCitas, List<Citas> citas) {
+		  
+		    DefaultTableModel model = new DefaultTableModel();
+
+		    model.addColumn("Nombre del Médico");
+		    model.addColumn("Motivo de la Cita");
+		    model.addColumn("Hora de la Cita");
+		    model.addColumn("Fecha de la Cita");
+
+		    for (Citas cita : citas) {
+		        Object[] fila = new Object[4];
+		        fila[0] = cita.getMedicos().getNombre(); // Nombre del médico
+		        fila[1] = cita.getMotivo();             // Motivo de la cita
+		        fila[2] = cita.getHora();               // Hora de la cita
+		        fila[3] = cita.getFecha().toString();   // Fecha de la cita
+		        model.addRow(fila);
+		    }
+
+		    // Asignar el modelo a la tabla
+		    tableMostrarResultadoCitas.setModel(model);
+		}
 	 //Hilo
 	 public void iniciarReloj(JLabel label) {
 		    Thread hiloReloj = new Thread(() -> {
@@ -442,7 +507,7 @@ public class Controlador implements ActionListener,MouseListener{
 		                });
 		                Thread.sleep(1000);
 		            } catch (InterruptedException e) {
-		                // Restaurar el estado de interrupción y salir del bucle
+		              
 		                Thread.currentThread().interrupt();
 		                break;
 		            }
