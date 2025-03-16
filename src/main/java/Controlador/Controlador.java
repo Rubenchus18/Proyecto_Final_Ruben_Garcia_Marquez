@@ -483,14 +483,12 @@ public class Controlador implements ActionListener,MouseListener{
 
 		    for (Citas cita : citas) {
 		        Object[] fila = new Object[4];
-		        fila[0] = cita.getMedicos().getNombre(); // Nombre del médico
-		        fila[1] = cita.getMotivo();             // Motivo de la cita
-		        fila[2] = cita.getHora();               // Hora de la cita
-		        fila[3] = cita.getFecha().toString();   // Fecha de la cita
+		        fila[0] = cita.getMedicos().getNombre(); 
+		        fila[1] = cita.getMotivo();             
+		        fila[2] = cita.getHora();               
+		        fila[3] = cita.getFecha().toString();   
 		        model.addRow(fila);
 		    }
-
-		    // Asignar el modelo a la tabla
 		    tableMostrarResultadoCitas.setModel(model);
 		}
 	 //Hilo

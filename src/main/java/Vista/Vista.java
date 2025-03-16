@@ -40,6 +40,11 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
+
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.IntelliJTheme;
+import com.sun.tools.javac.main.Main;
 import com.toedter.calendar.JCalendar;
 
 
@@ -160,6 +165,7 @@ public class Vista extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		IntelliJTheme.setup(Vista.class.getResourceAsStream("/solarized_light_theme.theme.json"));
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -200,6 +206,86 @@ public class Vista extends JFrame {
 		 panelMedico = new JPanel();
 		 panelMedico.setBounds(0, 0, 1329, 734);
 		 panelMedico.setVisible(false);
+		 
+		panelInicio = new JPanel();
+		panelInicio.setBounds(0, 0, 1329, 742);
+		
+		contentPane.add(panelInicio);
+		panelInicio.setLayout(null);
+		
+		separator_2 = new JSeparator();
+		separator_2.setBackground(new Color(255, 128, 0));
+		separator_2.setOrientation(SwingConstants.VERTICAL);
+		separator_2.setBounds(452, -38, 18, 780);
+		panelInicio.add(separator_2);
+		
+		
+		labelHora = new JLabel("");
+		labelHora.setHorizontalAlignment(SwingConstants.CENTER);
+		labelHora.setForeground(new Color(255, 128, 0));
+		labelHora.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		labelHora.setBackground(new Color(255, 128, 64));
+		labelHora.setBounds(943, 11, 376, 83);
+		panelInicio.add(labelHora);
+		
+		 lblNewLabelError = new JLabel("");
+		 lblNewLabelError.setHorizontalAlignment(SwingConstants.CENTER);
+		 lblNewLabelError.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 20));
+		 lblNewLabelError.setBackground(new Color(255, 0, 0));
+		 lblNewLabelError.setBounds(34, 621, 376, 83);
+		 panelInicio.add(lblNewLabelError);
+		 
+		  lblNewLabelContraseña = new JLabel("Contraseña");
+		  lblNewLabelContraseña.setForeground(new Color(255, 128, 0));
+		  lblNewLabelContraseña.setBackground(new Color(255, 128, 0));
+		  lblNewLabelContraseña.setHorizontalAlignment(SwingConstants.CENTER);
+		  lblNewLabelContraseña.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 33));
+		  lblNewLabelContraseña.setBounds(34, 400, 376, 83);
+		  panelInicio.add(lblNewLabelContraseña);
+		  
+		   btnNewButtonInicioSesion = new JButton("");
+		   btnNewButtonInicioSesion.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 11));
+		   btnNewButtonInicioSesion.setBounds(138, 549, 173, 155);
+		   btnNewButtonInicioSesion.setContentAreaFilled(false); 
+		   btnNewButtonInicioSesion.setBorderPainted(false);
+		   panelInicio.add(btnNewButtonInicioSesion);
+		   
+		    lblNewLabelNombreUsuario = new JLabel("Nombre Usuario");
+		    lblNewLabelNombreUsuario.setForeground(new Color(255, 128, 0));
+		    lblNewLabelNombreUsuario.setBackground(new Color(255, 128, 64));
+		    lblNewLabelNombreUsuario.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 33));
+		    lblNewLabelNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
+		    lblNewLabelNombreUsuario.setBounds(34, 236, 376, 83);
+		    
+		    panelInicio.add(lblNewLabelNombreUsuario);
+		    
+		    textFieldContraseña = new JTextField();
+		    textFieldContraseña.setColumns(10);
+		    textFieldContraseña.setBounds(44, 479, 366, 57);
+		    panelInicio.add(textFieldContraseña);
+		    
+		    textFieldNombreUsuario = new JTextField();
+		    textFieldNombreUsuario.setBounds(44, 330, 366, 57);
+		    panelInicio.add(textFieldNombreUsuario);
+		    textFieldNombreUsuario.setColumns(10);
+		    
+		lblLogo = new JLabel("");
+		lblLogo.setBounds(80, -38, 287, 263);
+		panelInicio.add(lblLogo);
+		
+		lblFotoMedicoInicio = new JLabel("");
+		lblFotoMedicoInicio.setBackground(new Color(255, 255, 255));
+		lblFotoMedicoInicio.setBounds(452, 0, 642, 742);
+		panelInicio.add(lblFotoMedicoInicio);
+		
+		lblFondoEfecto = new JLabel("");
+		lblFondoEfecto.setBackground(new Color(0, 255, 255));
+		lblFondoEfecto.setBounds(0, 0, 453, 742);
+		panelInicio.add(lblFondoEfecto);
+		
+		lblFondo = new JLabel("");
+		lblFondo.setBounds(0, 0, 1329, 825);
+		panelInicio.add(lblFondo);
 		 contentPane.add(panelMedico);
 		 panelMedico.setLayout(null);
 		 
@@ -536,86 +622,6 @@ public class Vista extends JFrame {
 		 lblNewLabelFondoMedico = new JLabel("");
 		 lblNewLabelFondoMedico.setBounds(0, 0, 1319, 734);
 		 panelMedico.add(lblNewLabelFondoMedico);
-		 
-		panelInicio = new JPanel();
-		panelInicio.setBounds(0, 0, 1329, 742);
-		
-		contentPane.add(panelInicio);
-		panelInicio.setLayout(null);
-		
-		separator_2 = new JSeparator();
-		separator_2.setBackground(new Color(255, 128, 0));
-		separator_2.setOrientation(SwingConstants.VERTICAL);
-		separator_2.setBounds(452, -38, 18, 780);
-		panelInicio.add(separator_2);
-		
-		
-		labelHora = new JLabel("");
-		labelHora.setHorizontalAlignment(SwingConstants.CENTER);
-		labelHora.setForeground(new Color(255, 128, 0));
-		labelHora.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		labelHora.setBackground(new Color(255, 128, 64));
-		labelHora.setBounds(943, 11, 376, 83);
-		panelInicio.add(labelHora);
-		
-		 lblNewLabelError = new JLabel("");
-		 lblNewLabelError.setHorizontalAlignment(SwingConstants.CENTER);
-		 lblNewLabelError.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 20));
-		 lblNewLabelError.setBackground(new Color(255, 0, 0));
-		 lblNewLabelError.setBounds(34, 621, 376, 83);
-		 panelInicio.add(lblNewLabelError);
-		 
-		  lblNewLabelContraseña = new JLabel("Contraseña");
-		  lblNewLabelContraseña.setForeground(new Color(255, 128, 0));
-		  lblNewLabelContraseña.setBackground(new Color(255, 128, 0));
-		  lblNewLabelContraseña.setHorizontalAlignment(SwingConstants.CENTER);
-		  lblNewLabelContraseña.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 33));
-		  lblNewLabelContraseña.setBounds(34, 400, 376, 83);
-		  panelInicio.add(lblNewLabelContraseña);
-		  
-		   btnNewButtonInicioSesion = new JButton("");
-		   btnNewButtonInicioSesion.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 11));
-		   btnNewButtonInicioSesion.setBounds(138, 549, 173, 155);
-		   btnNewButtonInicioSesion.setContentAreaFilled(false); 
-		   btnNewButtonInicioSesion.setBorderPainted(false);
-		   panelInicio.add(btnNewButtonInicioSesion);
-		   
-		    lblNewLabelNombreUsuario = new JLabel("Nombre Usuario");
-		    lblNewLabelNombreUsuario.setForeground(new Color(255, 128, 0));
-		    lblNewLabelNombreUsuario.setBackground(new Color(255, 128, 64));
-		    lblNewLabelNombreUsuario.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 33));
-		    lblNewLabelNombreUsuario.setHorizontalAlignment(SwingConstants.CENTER);
-		    lblNewLabelNombreUsuario.setBounds(34, 236, 376, 83);
-		    
-		    panelInicio.add(lblNewLabelNombreUsuario);
-		    
-		    textFieldContraseña = new JTextField();
-		    textFieldContraseña.setColumns(10);
-		    textFieldContraseña.setBounds(44, 479, 366, 57);
-		    panelInicio.add(textFieldContraseña);
-		    
-		    textFieldNombreUsuario = new JTextField();
-		    textFieldNombreUsuario.setBounds(44, 330, 366, 57);
-		    panelInicio.add(textFieldNombreUsuario);
-		    textFieldNombreUsuario.setColumns(10);
-		    
-		lblLogo = new JLabel("");
-		lblLogo.setBounds(80, -38, 287, 263);
-		panelInicio.add(lblLogo);
-		
-		lblFotoMedicoInicio = new JLabel("");
-		lblFotoMedicoInicio.setBackground(new Color(255, 255, 255));
-		lblFotoMedicoInicio.setBounds(452, 0, 642, 742);
-		panelInicio.add(lblFotoMedicoInicio);
-		
-		lblFondoEfecto = new JLabel("");
-		lblFondoEfecto.setBackground(new Color(0, 255, 255));
-		lblFondoEfecto.setBounds(0, 0, 453, 742);
-		panelInicio.add(lblFondoEfecto);
-		
-		lblFondo = new JLabel("");
-		lblFondo.setBounds(0, 0, 1329, 825);
-		panelInicio.add(lblFondo);
 		 contentPane.add(panelAdmin);
 		 panelAdmin.setLayout(null);
 		    
