@@ -30,6 +30,8 @@ import persistencias.Citas;
 import persistencias.Empleados;
 import persistencias.HistorialesMedicos;
 import persistencias.Medicos;
+import persistencias.Pacientes;
+import persistencias.Recepcionistas;
 
 public class Controlador implements ActionListener,MouseListener{
 	private Vista vista;
@@ -49,7 +51,6 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.btnEditarTotal.addActionListener(this);
 		   this.vista.lblNewLabelSalidaMedico.addMouseListener(this);
 		   this.vista.lblNewLabelCaraMedico.addMouseListener(this);
-		   this.vista.lblNewLabelCerrarPerfilMedico.addMouseListener(this);
 		   this.vista.btnRellenarDatos.addActionListener(this);
 		   this.vista.btnBuscarHistorial.addActionListener(this);
 		   this.vista.lblHistorialPaciente.addMouseListener(this);
@@ -57,6 +58,10 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.btnGuardarHistorialMedico.addActionListener(this);
 		   this.vista.lblVerCitas.addMouseListener(this);
 		   this.vista.btnFiltrarCitas.addActionListener(this);
+		   this.vista.lblNewLabelCaraRecepcionista.addMouseListener(this);
+		   this.vista.lblNewLabelSalidaRecepcionista.addMouseListener(this);
+		   this.vista.lblRegistro_Nuevo_Pacientes.addMouseListener(this);
+		   this.vista.btnNewButtonCrearPacienteRecepcion.addActionListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
@@ -64,6 +69,7 @@ public class Controlador implements ActionListener,MouseListener{
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		//Administrador
 		if(e.getSource()==this.vista.lblNewLabelSalida) {
 			this.vista.panelInicio.setVisible(true);
 			this.vista.panelAdmin.setVisible(false);
@@ -96,6 +102,7 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.btnNewButtonCrear.setEnabled(true);
 			this.vista.tablaUsuarios.setEnabled(true);
 		}
+		//Medico
 		if(e.getSource()==this.vista.lblNewLabelCaraMedico) {
 			Medicos medicos=new Medicos();
 			this.vista.tableHistorialMedico.setVisible(false);
@@ -112,9 +119,7 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.textFieldHorarioMedico.setText(medicos.getHorario());
 			
 		}
-		if(e.getSource()==this.vista.lblNewLabelCerrarPerfilMedico) {
-			this.vista.panelVerDatosMedicos.setVisible(false);
-		}
+		
 		if(e.getSource()==this.vista.lblHistorialPaciente) {
 			this.vista.tableHistorialMedico.setVisible(true);
 			this.vista.scrollPane_1.setVisible(true);
@@ -142,6 +147,32 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.scrollPane_2.setVisible(true);
 			this.vista.panelFiltrarCitas.setVisible(true);
 		}
+		//Recepcioniste
+		if(e.getSource()== this.vista.lblNewLabelCaraRecepcionista) {
+			this.vista.panelInformacionPaciente.setVisible(true);
+			Recepcionistas recepecionista=new Recepcionistas();
+			String nombre=this.vista.lblNewLabelNombreUsuarioMostrarRecepcionista.getText();
+			recepecionista=hibernate.cogerDatosRecpecionista(nombre);
+			this.vista.lblNewLabelNombrePaciente.setText(recepecionista.getNombre());
+			
+		}
+		if(e.getSource()==this.vista.lblNewLabelSalidaRecepcionista) {
+			this.vista.panelInicio.setVisible(true);
+			this.vista.panelRececipnista.setVisible(false);
+		}
+		if(e.getSource()==this.vista.lblRegistro_Nuevo_Pacientes) {
+			this.vista.panelCrearPacienteRecepcion.setVisible(true);
+		}
+		//DobleClick
+		if(e.getClickCount()==2) {
+			if(e.getSource()== this.vista.lblNewLabelCaraRecepcionista) {
+				this.vista.panelInformacionPaciente.setVisible(false);
+			}
+			if(e.getSource()==this.vista.lblNewLabelCaraMedico) {
+				this.vista.panelVerDatosMedicos.setVisible(false);
+			}
+		}
+	
 	}
 
 	@Override
@@ -184,9 +215,13 @@ public class Controlador implements ActionListener,MouseListener{
 					this.vista.panelInicio.setVisible(false);
 					this.vista.panelMedico.setVisible(true);
 					this.vista.lblNewLabelNombreUsuarioMostrarMedico.setText(nombre);
+					this.vista.panelFiltrarCitas.setVisible(true);
+					this.vista.scrollPane_2.setVisible(true);
+					this.vista.tableMostrarResultadoCitas.setVisible(true);
 				}else if(rol.equalsIgnoreCase("recepcionista")) {
 					this.vista.panelInicio.setVisible(false);
 					this.vista.panelRececipnista.setVisible(true);
+					this.vista.lblNewLabelNombreUsuarioMostrarRecepcionista.setText(nombre);
 				}else if(rol.equalsIgnoreCase("paciente")) {
 					this.vista.panelInicio.setVisible(false);
 					this.vista.panelPacientes.setVisible(true);
@@ -363,6 +398,23 @@ public class Controlador implements ActionListener,MouseListener{
 		        
 		    }
 		}
+		//Recepcionista
+		if(e.getSource()==this.vista.btnNewButtonCrearPacienteRecepcion) {
+			String nombre=this.vista.textField_NombrePaciente.getText();
+			String contraseña=this.vista.passwordFieldContraseñaPacienteRecepcion.getText();
+			String direccion=this.vista.textFieldDireccionPacienteRecepcion.getText();
+			String telefono=this.vista.textFieldTelefonoPacienteRecepcion.getText();
+			Calendar calendario = this.vista.calendarFechaNacimientoPacienteRecepcion.getCalendar();
+		    java.util.Date utilDate = calendario.getTime();
+		    java.sql.Date fechaNacimientoPaciente = new java.sql.Date(utilDate.getTime());
+		    if(nombre.isEmpty()||contraseña.isEmpty()|| direccion.isEmpty()|| telefono.isEmpty()) {
+		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setText("Campos obligatorios");
+		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.RED);
+		    }else{
+		    	hibernate.crearPacienteRecepcionista(nombre, contraseña, direccion, telefono, fechaNacimientoPaciente);
+		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setText("Se ha creado en todo momento");
+		    }
+		}
 		
 	}
 		
@@ -402,7 +454,6 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.lblRegistro.setIcon(fotoEscalarLabel(this.vista.lblRegistro,"imagenes/Registro.png"));		 
 		 this.vista.lblNewLabelLogoMedico.setIcon(fotoEscalarLabel(this.vista.lblNewLabelLogoMedico,"imagenes/logo.png"));
 		 this.vista.btnRellenarDatos.setIcon(fotoEscalarButton(this.vista.btnRellenarDatos, "imagenes/botonmodificar.png"));
-		 this.vista.lblNewLabelCerrarPerfilMedico.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCerrarPerfilMedico, "imagenes/botonVolver.png"));
 		 this.vista.lblNewLabelFondoPerfilMedico.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoPerfilMedico, "imagenes/fondo_admin_panel.jpg"));
 		 this.vista.lblFondoFiltrarHistorial.setIcon(fotoEscalarLabel(this.vista.lblFondoFiltrarHistorial, "imagenes/fondo_admin_panel.jpg"));
 		 this.vista.btnBuscarHistorial.setIcon(fotoEscalarButton(this.vista.btnBuscarHistorial, "imagenes/botonBuscar.png"));
@@ -419,6 +470,10 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.lblNewLabelLogoRecepcionista.setIcon(fotoEscalarLabel(this.vista.lblNewLabelLogoRecepcionista, "imagenes/logo.png"));
 		 this.vista.lblNewLabelCaraRecepcionista.setIcon(fotoEscalarLabel(this.vista.lblNewLabelLogoRecepcionista, "imagenes/foto_perfil.png"));
 		 this.vista.lblNewLabelFondoRecepcionista.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoRecepcionista, "imagenes/fondo_aplicacion.jpg"));
+		 this.vista.lblNewLabelFondoPerfilRecepcionista.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoRecepcionista, "imagenes/fondo_admin_panel.jpg"));
+		 this.vista.lblNewLabelFondoPanelCrearPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoRecepcionista, "imagenes/fondo_admin_panel.jpg"));
+		 this.vista.btnNewButtonCrearPacienteRecepcion.setIcon(fotoEscalarButton(this.vista.btnNewButtonCrearPacienteRecepcion, "imagenes/botonGuardar.png"));
+		 this.vista.lblNewLabelMarcoMapa.setIcon(fotoEscalarLabel(this.vista.lblNewLabelMarcoMapa, "imagenes/marcomapa.png"));
 	 }
 	 public void añadidoRolesComboBox() {
 		  this.vista.comboBoxRoles.addItem("admin");

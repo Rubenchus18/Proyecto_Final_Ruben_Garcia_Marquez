@@ -2,50 +2,46 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.toedter</groupId>
-  <artifactId>jcalendar</artifactId>
-  <version>1.4</version>
-  <name>JCalendar</name>
-  <url>http://www.toedter.com/en/jcalendar/</url>
-  <description>
-    JCalendar is a Java date chooser bean for graphically picking a
-    date. JCalendar is composed of several other Java beans, a
-    JDayChooser, a JMonthChooser and a JYearChooser. All these beans
-    have a locale property, provide several icons (Color 16x16, Color
-    32x32, Mono 16x16 and Mono 32x32) and their own locale property
-    editor. So they can easily be used in GUI builders. Also part of the
-    package is a JDateChooser, a bean composed of an IDateEditor (for
-    direct date editing) and a button for opening a JCalendar for
-    selecting the date.
-  </description>
-
-  <licenses>
-    <license>
-      <name>GNU LESSER GENERAL PUBLIC LICENSE</name>
-      <url>http://www.gnu.org/licenses/lgpl.txt</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>
-
-  <scm>
-    <url>http://www.toedter.com/en/jcalendar/</url>
-  </scm>
-
-  <developers>
-    <developer>
-      <id>KaiTödter</id>
-      <name>Kai Tödter</name>
-      <email>kai@toedter.com</email>
-    </developer>
-  </developers>
   
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.tuproyecto</groupId>
+  <artifactId>tu-proyecto</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
   <dependencies>
     <dependency>
-      <groupId>com.jgoodies</groupId>
-      <artifactId>jgoodies-looks</artifactId>
-      <version>2.5.2</version>
-      <optional>true</optional>
+      <groupId>org.jxmapviewer</groupId>
+      <artifactId>jxmapviewer2</artifactId>
+      <version>2.5</version>
+    </dependency>
+	<dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>5.6.14.Final</version> <!-- Versión de Hibernate -->
+    </dependency>
+      <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.33</version> <!-- Versión del conector de MySQL -->
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

@@ -434,5 +434,89 @@ public class ControladorHibernet {
 
         return citas; 
     }
+	public Pacientes cogerDatosPaciente(String nombreCliente) {
+		Session session=null;
+		Pacientes paciente=new Pacientes();
+		try{
+			session=sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query q=session.createQuery("FROM Pacientes WHERE nombre=:nombrep");
+			q.setParameter("nombrep", nombreCliente);
+			paciente=(Pacientes) q.getSingleResult();
+			
+			session.getTransaction().commit();
+		}catch(Exception e) {
+			e.printStackTrace();
+			if(session!=null) {
+				session.getTransaction().rollback();
+			}
+		}finally {
+			if(session!=null) {
+				 session.close();
+			}
+		}
+		return paciente;
+	}
+	public Recepcionistas cogerDatosRecpecionista(String nombreRecepcionista) {
+		Session session=null;
+		Recepcionistas recpecionista=new Recepcionistas();
+		try{
+			session=sessionFactory.getCurrentSession();
+			session.beginTransaction();
+			
+			Query q=session.createQuery("FROM Recepcionistas WHERE nombre=:nombrep");
+			q.setParameter("nombrep", nombreRecepcionista);
+			recpecionista=(Recepcionistas) q.getSingleResult();
+			
+			session.getTransaction().commit();
+		}catch(Exception e) {
+			e.printStackTrace();
+			if(session!=null) {
+				session.getTransaction().rollback();
+			}
+		}finally {
+			if(session!=null) {
+				 session.close();
+			}
+		}
+		return recpecionista;
+	}
+	public void crearPacienteRecepcionista(String username, String password, String direccion, String telefono, Date fechaNacimiento) {
+	    Session session = null;
+	    try {
+	        session = sessionFactory.getCurrentSession();
+	   
+	        session.beginTransaction();
+	     
+	        Empleados empleado = new Empleados();
+	        empleado.setUsername(username);      
+	        empleado.setPassword(password);      
+	        empleado.setRol("paciente");         
+	      
+	        session.save(empleado);             
+	   
+	        Pacientes paciente = new Pacientes();
+	        paciente.setNombre(username);         
+	        paciente.setDireccion(direccion);    
+	        paciente.setTelefono(telefono);      
+	        paciente.setFechaNacimiento(fechaNacimiento); 
+	        paciente.setEmpleados(empleado);  
+	        
+	      
+	        session.save(paciente);             
 	
+	        session.getTransaction().commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	   
+	        if (session != null && session.getTransaction() != null) {
+	            session.getTransaction().rollback();
+	        }
+	    } finally {
+	        if (session != null) {
+	            session.close();
+	        }
+	    }
+	}
 }
