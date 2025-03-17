@@ -341,7 +341,7 @@ public class Controlador implements ActionListener,MouseListener{
 		    	this.vista.lblErrorRegistroMedico.setText("Rellena todos los campos");
 		    }else {
 		    	hibernate.crearHistorialMedico(nombrepaciente, nombremedico, diagnostico, tratamiento, receta, sqlDate);
-		    	this.vista.lblErrorRegistroMedico.setText(receta);
+		    	this.vista.lblErrorRegistroMedico.setText("Creada perfectamente");
 		    }
 		    
 		}
@@ -412,6 +412,13 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.lblFondoEfecto.setIcon(fotoEscalarLabel(this.vista.lblFondoEfecto, "imagenes/fondo_inicio.jpg"));
 		 this.vista.btnFiltrarCitas.setIcon(fotoEscalarButton(this.vista.btnFiltrarCitas, "imagenes/botonBuscar.png"));
 		 this.vista.lblNewLabelFondoFiltrarCita.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoFiltrarCita, "imagenes/fondo_admin_panel.jpg"));
+		 this.vista.lblNewLabelSalidaRecepcionista.setIcon(fotoEscalarLabel(this.vista.lblNewLabelSalidaRecepcionista, "imagenes/botonVolver.png"));
+		 this.vista.lblRegistro_Nuevo_Pacientes.setIcon(fotoEscalarLabel(this.vista.lblRegistro_Nuevo_Pacientes, "imagenes/NuevoPaciente.png"));
+		 this.vista.lbl_Programacion_Citas.setIcon(fotoEscalarLabel(this.vista.lbl_Programacion_Citas, "imagenes/NuevaCita.png"));
+		 this.vista.lblEmision_de_Facturas.setIcon(fotoEscalarLabel(this.vista.lblEmision_de_Facturas, "imagenes/emisionFacturas.png"));
+		 this.vista.lblNewLabelLogoRecepcionista.setIcon(fotoEscalarLabel(this.vista.lblNewLabelLogoRecepcionista, "imagenes/logo.png"));
+		 this.vista.lblNewLabelCaraRecepcionista.setIcon(fotoEscalarLabel(this.vista.lblNewLabelLogoRecepcionista, "imagenes/foto_perfil.png"));
+		 this.vista.lblNewLabelFondoRecepcionista.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoRecepcionista, "imagenes/fondo_aplicacion.jpg"));
 	 }
 	 public void añadidoRolesComboBox() {
 		  this.vista.comboBoxRoles.addItem("admin");
