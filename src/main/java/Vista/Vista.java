@@ -53,15 +53,8 @@ import org.jxmapviewer.viewer.GeoPosition;
 import org.jxmapviewer.JXMapKit;
 import org.jxmapviewer.JXMapViewer;
 import javax.swing.JTextPane;
-import demo.AnnotationDemo1;
-import demo.BarChart3DDemo1;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
-import demo.AreaChartDemo1;
-import demo.BarChart3DDemo4;
-import demo.HideSeriesDemo3;
-import demo.SpiderWebChartDemo1;
-import demo.ChartPanelSerializationTest;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
@@ -234,10 +227,7 @@ public class Vista extends JFrame {
 	public JLabel lblNewLabelErrorCrearCitaRecpecion;
 	public JLabel lblNewLabelFondoPanelCrearCitaRecepcion;
 	public JTextField textFieldMotivoCitaRecepcion;
-	public AnnotationDemo1 annotationDemo1;
-	public BarChart3DDemo1 barChart3DDemo1;
 	public ChartFrame chartFrame;
-	public AreaChartDemo1 areaChartDemo1;
 	public XChartPanel chartPanel;
 	public XChartPanel chartPanel_1;
 	public XChartPanel chartPanel_2;
@@ -600,9 +590,6 @@ public class Vista extends JFrame {
 		contentPane.add(panelInicio);
 		panelInicio.setLayout(null);
 		
-		annotationDemo1 = new AnnotationDemo1((String) null);
-		annotationDemo1.setTitle("");
-		annotationDemo1.setBounds(556, 107, 200, 50);
 		 GeoPosition clinica = new GeoPosition(38.97627620849862, -3.9133207171836717);
 		
 		lblEncontrarnos = new JLabel("Ubicacion ");
