@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.sql.Time;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 
 import java.util.List;
@@ -20,10 +22,17 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
+
+import org.knowm.xchart.CategoryChart;
+import org.knowm.xchart.CategoryChartBuilder;
+import org.knowm.xchart.XChartPanel;
+import org.knowm.xchart.XYChart;
+import org.knowm.xchart.XYChartBuilder;
 
 import Vista.Vista;
 import net.bytebuddy.asm.Advice.This;
@@ -65,6 +74,9 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.btnNewButtonCrearPacienteRecepcion.addActionListener(this);
 		   this.vista.lbl_Programacion_Citas.addMouseListener(this);
 		   this.vista.btnNewButtonCrearCitaRecepcion.addActionListener(this);
+		   this.vista.lblEmision_de_Facturas.addMouseListener(this);
+		   this.vista.btnNewButtonExprotarCSV.addActionListener(this);
+		   this.vista.btnNewButtonExportarPDF.addActionListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
@@ -150,7 +162,7 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.scrollPane_2.setVisible(true);
 			this.vista.panelFiltrarCitas.setVisible(true);
 		}
-		//Recepcioniste
+		//Recepcionista
 		if(e.getSource()== this.vista.lblNewLabelCaraRecepcionista) {
 			this.vista.panelInformacionPaciente.setVisible(true);
 			Recepcionistas recepecionista=new Recepcionistas();
@@ -158,19 +170,59 @@ public class Controlador implements ActionListener,MouseListener{
 			recepecionista=hibernate.cogerDatosRecpecionista(nombre);
 			this.vista.lblNewLabelNombrePaciente.setText(recepecionista.getNombre());
 			this.vista.panelProgramarCitasRecpecionosta.setVisible(false);
-			this.vista.panelCrearPacienteRecepcion.setVisible(false);	
+			this.vista.panelCrearPacienteRecepcion.setVisible(false);
+			this.vista.panelExportacion.setVisible(false);
+			   this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
 		}
 		if(e.getSource()==this.vista.lblNewLabelSalidaRecepcionista) {
 			this.vista.panelInicio.setVisible(true);
 			this.vista.panelRececipnista.setVisible(false);
+			this.vista.panelExportacion.setVisible(false);
+			   this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
 		}
 		if(e.getSource()==this.vista.lblRegistro_Nuevo_Pacientes) {
 			this.vista.panelCrearPacienteRecepcion.setVisible(true);
 			this.vista.panelProgramarCitasRecpecionosta.setVisible(false);
+			this.vista.panelExportacion.setVisible(false);
+			   this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
 		}
 		if(e.getSource()==this.vista.lbl_Programacion_Citas) {
 			this.vista.panelProgramarCitasRecpecionosta.setVisible(true);
 			this.vista.panelCrearPacienteRecepcion.setVisible(false);
+			this.vista.panelExportacion.setVisible(false);
+			   this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
+		}
+		if (e.getSource() == this.vista.lblEmision_de_Facturas) {
+		    double[] totales = hibernate.obtenerTotalesFacturas(); 
+		    double totalPagadas = totales[0];
+		    double totalNoPagadas = totales[1];
+
+		    CategoryChart chart = new CategoryChartBuilder()
+		            .width(934)  
+		            .height(469) 
+		            .title("Ganancias") 
+		            .xAxisTitle("Estado de Facturas") 
+		            .yAxisTitle("Dinero (€)") 
+		            .build();
+
+		    chart.addSeries("Facturas", 
+		                    Arrays.asList("Facturas Pagadas", "Facturas Sin Pagar"), 
+		                    Arrays.asList(totalPagadas, totalNoPagadas)); 
+
+		    chart.getStyler().setSeriesColors(new Color[]{Color.green}); 
+		    chart.getStyler().setChartBackgroundColor(Color.white);
+		    chart.getStyler().setChartFontColor(Color.BLACK);
+		    XChartPanel<CategoryChart> chartPanel_3 = new XChartPanel<>(chart);
+		    chartPanel_3.setBounds(10, 11, 934, 469); 
+
+		    
+		    this.vista.panelEmisiondeFacturasRecepcionista.removeAll();
+		    this.vista.panelEmisiondeFacturasRecepcionista.add(chartPanel_3);
+		    this.vista.panelEmisiondeFacturasRecepcionista.revalidate();
+		    this.vista.panelEmisiondeFacturasRecepcionista.repaint();
+		    this.vista.panelEmisiondeFacturasRecepcionista.setVisible(true);
+		    this.vista.panelExportacion.setVisible(true);
+		    
 		}
 		//DobleClick
 		if(e.getClickCount()==2) {
@@ -232,6 +284,7 @@ public class Controlador implements ActionListener,MouseListener{
 					this.vista.panelInicio.setVisible(false);
 					this.vista.panelRececipnista.setVisible(true);
 					this.vista.lblNewLabelNombreUsuarioMostrarRecepcionista.setText(nombre);
+					this.vista.panelCrearPacienteRecepcion.setVisible(true);
 				}else if(rol.equalsIgnoreCase("paciente")) {
 					this.vista.panelInicio.setVisible(false);
 					this.vista.panelPacientes.setVisible(true);
@@ -450,7 +503,13 @@ public class Controlador implements ActionListener,MouseListener{
 			    }
 			}
 		}
-		
+		if(e.getSource()==this.vista.btnNewButtonExprotarCSV) {
+			hibernate.exportarFacturasACSV("documentos/FacturasConsulta.csv");
+		}
+		if(e.getSource()==this.vista.btnNewButtonExportarPDF) {
+			hibernate.exportarFacturasAPDF("documentos/FacturasConsulta.pdf");
+		}
+			
 	}
 		
 	//Metodo
@@ -511,6 +570,9 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.lblNewLabelMarcoMapa.setIcon(fotoEscalarLabel(this.vista.lblNewLabelMarcoMapa, "imagenes/marcomapa.png"));
 		 this.vista.btnNewButtonCrearCitaRecepcion.setIcon(fotoEscalarButton(this.vista.btnNewButtonCrearCitaRecepcion, "imagenes/botonGuardar.png"));
 		 this.vista.lblNewLabelFondoPanelCrearCitaRecepcion.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoPanelCrearCitaRecepcion, "imagenes/fondo_admin_panel.jpg"));
+		 this.vista.lblNewLabelFondoEmisionFacturasRecepcion.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoEmisionFacturasRecepcion, "imagenes/fondo_admin_panel.jpg"));
+		 this.vista.btnNewButtonExportarPDF.setIcon(fotoEscalarButton(this.vista.btnNewButtonExportarPDF, "imagenes/exportarPDF.png"));
+		 this.vista.btnNewButtonExprotarCSV.setIcon(fotoEscalarButton(this.vista.btnNewButtonExprotarCSV, "imagenes/botonExportarCSV.png"));
 	 }
 	 public void añadidoRolesComboBox() {
 		  this.vista.comboBoxRoles.addItem("admin");
@@ -591,6 +653,7 @@ public class Controlador implements ActionListener,MouseListener{
 		    }
 		    tableMostrarResultadoCitas.setModel(model);
 		}
+	 
 	 //Hilo
 	 public void iniciarReloj(JLabel label) {
 		    Thread hiloReloj = new Thread(() -> {

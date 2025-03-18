@@ -48,5 +48,6 @@
 	<classpathentry kind="lib" path="lib/jcommon-1.0.23.jar"/>
 	<classpathentry kind="lib" path="lib/jfreechart-1.0.19.jar"/>
 	<classpathentry kind="lib" path="jfreechart-1.0.19-demo.jar"/>
+	<classpathentry kind="lib" path="lib/xchart-3.8.8.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

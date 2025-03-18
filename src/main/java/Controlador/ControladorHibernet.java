@@ -1,11 +1,23 @@
 package Controlador;
 
+import java.io.FileWriter;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+import java.math.BigDecimal;
+import java.sql.Date;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
@@ -558,4 +570,151 @@ public class ControladorHibernet {
 	            session.close();
 	        }
 	    }
+	  public double[] obtenerTotalesFacturas() {
+		    double[] totales = new double[2];
+		    Session session = sessionFactory.openSession();
+		    try {
+		        session.beginTransaction();
+
+		        Query<BigDecimal> queryPagadas = session.createQuery(
+		            "SELECT SUM(monto) FROM Facturas WHERE pagado = true", BigDecimal.class);
+		        BigDecimal totalPagadas = queryPagadas.uniqueResult();
+		        totales[0] = (totalPagadas != null) ? totalPagadas.doubleValue() : 0.0;
+
+		        
+		        Query<BigDecimal> queryNoPagadas = session.createQuery(
+		            "SELECT SUM(monto) FROM Facturas WHERE pagado = false", BigDecimal.class);
+		        BigDecimal totalNoPagadas = queryNoPagadas.uniqueResult();
+		        totales[1] = (totalNoPagadas != null) ? totalNoPagadas.doubleValue() : 0.0;
+
+		        session.getTransaction().commit();
+		    } catch (Exception e) {
+		        if (session != null && session.getTransaction() != null) {
+		            session.getTransaction().rollback();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        if (session != null) {
+		            session.close();
+		        }
+		    }
+		    return totales;
+		}
+	  public void exportarFacturasACSV(String archivoCSV) {
+		    Session session = null;
+		    try {
+		        session = sessionFactory.getCurrentSession();
+		        session.beginTransaction();
+
+		        String hql = "SELECT f.id, p.nombre, f.monto, f.fecha, f.pagado, h.tratamiento " +
+		                     "FROM Facturas f " +
+		                     "JOIN f.pacientes p " +
+		                     "LEFT JOIN HistorialesMedicos h ON h.pacientes.id = p.id " +
+		                     "ORDER BY f.id";
+
+		        Query<Object[]> query = session.createQuery(hql, Object[].class);
+		        List<Object[]> resultados = query.getResultList();
+
+		        try (FileWriter writer = new FileWriter(archivoCSV)) {
+		            writer.write("ID,Nombre del Cliente,Importe,Fecha,Tratamiento,¿Pagado?\n");
+		            for (Object[] fila : resultados) {
+		                int id = (int) fila[0];
+		                String nombreCliente = (String) fila[1];
+		                double importe = (double) fila[2];
+		                Date fecha = (Date) fila[3];
+		                boolean pagado = (boolean) fila[4];
+		                String tratamiento = (fila[5] != null) ? (String) fila[5] : "Sin tratamiento";
+
+		                writer.write(String.format("%d,%s,%.2f,%s,%s,%s\n",
+		                    id, nombreCliente, importe, fecha.toString(), tratamiento, pagado ? "Sí" : "No"));
+		            }
+
+		            System.out.println("Datos exportados correctamente a " + archivoCSV);
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+
+		        session.getTransaction().commit();
+		    } catch (Exception e) {
+		        if (session != null && session.getTransaction() != null) {
+		            session.getTransaction().rollback();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        if (session != null) {
+		            session.close();
+		        }
+		    }
+		}
+	  public void exportarFacturasAPDF(String archivoPDF) {
+		    Session session = null;
+		    Document document = new Document();
+		   
+		    try {
+		        PdfWriter.getInstance(document, new FileOutputStream(archivoPDF));
+		        document.open();
+
+		        session = sessionFactory.getCurrentSession();
+		        session.beginTransaction();
+
+		        String hql = "SELECT f.id, p.nombre, f.monto, f.fecha, f.pagado, h.tratamiento " +
+		                     "FROM Facturas f " +
+		                     "JOIN f.pacientes p " +
+		                     "LEFT JOIN HistorialesMedicos h ON h.pacientes.id = p.id " +
+		                     "ORDER BY f.id";
+
+		        Query<Object[]> query = session.createQuery(hql, Object[].class);
+		        List<Object[]> resultados = query.getResultList();
+
+		        PdfPTable table = new PdfPTable(6); 
+		        table.setWidthPercentage(100); 
+
+		        table.addCell("ID");
+		        table.addCell("Nombre del Cliente");
+		        table.addCell("Importe");
+		        table.addCell("Fecha");
+		        table.addCell("Tratamiento");
+		        table.addCell("¿Pagado?");
+
+		        for (Object[] fila : resultados) {
+		            int id = (int) fila[0];
+		            String nombreCliente = (String) fila[1];
+		            BigDecimal montoBigDecimal = (BigDecimal) fila[2];
+		            double importe = montoBigDecimal.doubleValue();
+		            Date fecha = (Date) fila[3];
+		            boolean pagado = (boolean) fila[4];
+		            String tratamiento = (fila[5] != null) ? (String) fila[5] : "Sin tratamiento";
+
+		            table.addCell(String.valueOf(id));
+		            table.addCell(nombreCliente);
+		            table.addCell(String.format("%.2f", importe));
+		            table.addCell(fecha.toString());
+		            table.addCell(tratamiento);
+		            table.addCell(pagado ? "Sí" : "No");
+		        }
+		        Image imagen = Image.getInstance("imagenes/logo.png"); 
+	            imagen.scaleToFit(200, 200); 
+	            imagen.setAlignment(Image.ALIGN_CENTER);
+	            document.add(imagen);
+		        document.add(new Paragraph("Reporte de Facturas"));
+		        document.add(new Paragraph(" "));
+		        document.add(table);
+
+
+		        session.getTransaction().commit();
+		    } catch (Exception e) {
+		        if (session != null && session.getTransaction() != null) {
+		            session.getTransaction().rollback();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        if (document != null && document.isOpen()) {
+		            document.close(); 
+		        }
+		        if (session != null) {
+		            session.close();
+		        }
+		    }
+		}
+	  
 }
