@@ -45,5 +45,8 @@
 	<classpathentry kind="lib" path="lib/solarized_theme.jar"/>
 	<classpathentry kind="lib" path="lib/intellij-orange-rain-light-theme-1.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/jxmapviewer2-2.5.jar"/>
+	<classpathentry kind="lib" path="lib/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="jfreechart-1.0.19-demo.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

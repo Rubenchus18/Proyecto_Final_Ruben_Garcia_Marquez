@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.sql.Time;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -62,6 +63,8 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.lblNewLabelSalidaRecepcionista.addMouseListener(this);
 		   this.vista.lblRegistro_Nuevo_Pacientes.addMouseListener(this);
 		   this.vista.btnNewButtonCrearPacienteRecepcion.addActionListener(this);
+		   this.vista.lbl_Programacion_Citas.addMouseListener(this);
+		   this.vista.btnNewButtonCrearCitaRecepcion.addActionListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
@@ -154,7 +157,8 @@ public class Controlador implements ActionListener,MouseListener{
 			String nombre=this.vista.lblNewLabelNombreUsuarioMostrarRecepcionista.getText();
 			recepecionista=hibernate.cogerDatosRecpecionista(nombre);
 			this.vista.lblNewLabelNombrePaciente.setText(recepecionista.getNombre());
-			
+			this.vista.panelProgramarCitasRecpecionosta.setVisible(false);
+			this.vista.panelCrearPacienteRecepcion.setVisible(false);	
 		}
 		if(e.getSource()==this.vista.lblNewLabelSalidaRecepcionista) {
 			this.vista.panelInicio.setVisible(true);
@@ -162,6 +166,11 @@ public class Controlador implements ActionListener,MouseListener{
 		}
 		if(e.getSource()==this.vista.lblRegistro_Nuevo_Pacientes) {
 			this.vista.panelCrearPacienteRecepcion.setVisible(true);
+			this.vista.panelProgramarCitasRecpecionosta.setVisible(false);
+		}
+		if(e.getSource()==this.vista.lbl_Programacion_Citas) {
+			this.vista.panelProgramarCitasRecpecionosta.setVisible(true);
+			this.vista.panelCrearPacienteRecepcion.setVisible(false);
 		}
 		//DobleClick
 		if(e.getClickCount()==2) {
@@ -172,6 +181,7 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.panelVerDatosMedicos.setVisible(false);
 			}
 		}
+
 	
 	}
 
@@ -415,6 +425,31 @@ public class Controlador implements ActionListener,MouseListener{
 		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setText("Se ha creado en todo momento");
 		    }
 		}
+		if(e.getSource()==this.vista.btnNewButtonCrearCitaRecepcion) {
+			String nombreCliente = this.vista.textFieldNombrePacienteCitaRecepcion.getText();
+			String nombreMedico = this.vista.textFieldNombreMedicoCitaRecepcion.getText();
+			Calendar calendario = this.vista.calendarCitaPaciente.getCalendar();
+			java.util.Date utilDate = calendario.getTime();
+			java.sql.Date fechaCitaPaciente = new java.sql.Date(utilDate.getTime());
+			String horaTexto = this.vista.textFieldHoraCitaPaciente.getText(); 
+			String motivo = this.vista.textFieldMotivoCitaRecepcion.getText();
+			if (nombreCliente.isEmpty() || nombreMedico.isEmpty() || motivo.isEmpty() || horaTexto.isEmpty()) {
+			    this.vista.lblNewLabelErrorCrearCitaRecpecion.setText("Campos obligatorios");
+			    this.vista.lblNewLabelErrorCrearCitaRecpecion.setForeground(Color.RED);
+			} else if (!horaTexto.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")) {	   
+			    this.vista.lblNewLabelErrorCrearCitaRecpecion.setText("Formato de hora inválido (HH:mm)");
+			    this.vista.lblNewLabelErrorCrearCitaRecpecion.setForeground(Color.RED);
+			} else {
+			    try {
+			        Time hora = Time.valueOf(horaTexto + ":00"); 
+			        hibernate.crearCitaRecepcion(nombreCliente, nombreMedico, fechaCitaPaciente, hora, motivo);
+			    } catch (Exception g) {
+			        
+			        this.vista.lblNewLabelErrorCrearCitaRecpecion.setText("Error al procesar la hora");
+			        this.vista.lblNewLabelErrorCrearCitaRecpecion.setForeground(Color.RED);
+			    }
+			}
+		}
 		
 	}
 		
@@ -474,6 +509,8 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.lblNewLabelFondoPanelCrearPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoRecepcionista, "imagenes/fondo_admin_panel.jpg"));
 		 this.vista.btnNewButtonCrearPacienteRecepcion.setIcon(fotoEscalarButton(this.vista.btnNewButtonCrearPacienteRecepcion, "imagenes/botonGuardar.png"));
 		 this.vista.lblNewLabelMarcoMapa.setIcon(fotoEscalarLabel(this.vista.lblNewLabelMarcoMapa, "imagenes/marcomapa.png"));
+		 this.vista.btnNewButtonCrearCitaRecepcion.setIcon(fotoEscalarButton(this.vista.btnNewButtonCrearCitaRecepcion, "imagenes/botonGuardar.png"));
+		 this.vista.lblNewLabelFondoPanelCrearCitaRecepcion.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoPanelCrearCitaRecepcion, "imagenes/fondo_admin_panel.jpg"));
 	 }
 	 public void añadidoRolesComboBox() {
 		  this.vista.comboBoxRoles.addItem("admin");
@@ -535,20 +572,21 @@ public class Controlador implements ActionListener,MouseListener{
 		    this.vista.tableHistorialMedico.setModel(model);
 		}
 	 public void mostrarCitasEnTabla(JTable tableMostrarResultadoCitas, List<Citas> citas) {
-		  
 		    DefaultTableModel model = new DefaultTableModel();
 
 		    model.addColumn("Nombre del Médico");
+		    model.addColumn("Nombre del Paciente");
 		    model.addColumn("Motivo de la Cita");
 		    model.addColumn("Hora de la Cita");
 		    model.addColumn("Fecha de la Cita");
 
 		    for (Citas cita : citas) {
-		        Object[] fila = new Object[4];
-		        fila[0] = cita.getMedicos().getNombre(); 
-		        fila[1] = cita.getMotivo();             
-		        fila[2] = cita.getHora();               
-		        fila[3] = cita.getFecha().toString();   
+		        Object[] fila = new Object[5];
+		        fila[0] = cita.getMedicos().getNombre();
+		        fila[1] = cita.getPacientes().getNombre();   
+		        fila[2] = cita.getMotivo();             
+		        fila[3] = cita.getHora();               
+		        fila[4] = cita.getFecha().toString();   
 		        model.addRow(fila);
 		    }
 		    tableMostrarResultadoCitas.setModel(model);

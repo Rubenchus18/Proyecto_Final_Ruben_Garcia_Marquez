@@ -1,6 +1,7 @@
 package Controlador;
 
 import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -413,12 +414,13 @@ public class ControladorHibernet {
             session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
-            String hql = "FROM Citas c JOIN FETCH c.medicos WHERE c.medicos.nombre = :nombreMedico AND c.fecha = :fecha";
+          
+            String hql = "FROM Citas c JOIN FETCH c.medicos JOIN FETCH c.pacientes WHERE c.medicos.nombre = :nombreMedico AND c.fecha = :fecha";
             Query<Citas> query = session.createQuery(hql, Citas.class);
             query.setParameter("nombreMedico", nombreMedico);
             query.setParameter("fecha", fecha);
 
-            citas = query.getResultList(); 
+            citas = query.getResultList(); // Obtener la lista de citas
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -432,7 +434,7 @@ public class ControladorHibernet {
             }
         }
 
-        return citas; 
+        return citas; // Retornar la lista de citas
     }
 	public Pacientes cogerDatosPaciente(String nombreCliente) {
 		Session session=null;
@@ -519,4 +521,41 @@ public class ControladorHibernet {
 	        }
 	    }
 	}
+	  public void crearCitaRecepcion(String nombrePaciente, String nombreMedico, Date fecha, Time hora, String motivo) {
+	        Session session = sessionFactory.openSession();
+	        try {
+	        	  session = sessionFactory.getCurrentSession();
+	       	   
+	  	        session.beginTransaction();
+
+	            Pacientes paciente = (Pacientes) session.createQuery("FROM Pacientes WHERE nombre = :nombre")
+	                                                  .setParameter("nombre", nombrePaciente)
+	                                                  .uniqueResult();
+
+	            Medicos medico = (Medicos) session.createQuery("FROM Medicos WHERE nombre = :nombre")
+	                                           .setParameter("nombre", nombreMedico)
+	                                           .uniqueResult();
+
+	            if (paciente != null && medico != null) {
+	                Citas nuevaCita = new Citas();
+	                nuevaCita.setFecha(fecha);
+	                nuevaCita.setHora(hora);
+	                nuevaCita.setPacientes(paciente);
+	                nuevaCita.setMedicos(medico);
+	                nuevaCita.setMotivo(motivo);
+	                session.save(nuevaCita);
+	            } else {
+	                System.out.println("Paciente o Médico no encontrado.");
+	            }
+
+	            session.getTransaction().commit();
+	        } catch (Exception e) {
+	            if (session != null) {
+	            	session.getTransaction().rollback();
+	            }
+	            e.printStackTrace();
+	        } finally {
+	            session.close();
+	        }
+	    }
 }
