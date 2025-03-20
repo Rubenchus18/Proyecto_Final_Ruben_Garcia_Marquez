@@ -620,7 +620,8 @@ public class ControladorHibernet {
 		            for (Object[] fila : resultados) {
 		                int id = (int) fila[0];
 		                String nombreCliente = (String) fila[1];
-		                double importe = (double) fila[2];
+		                BigDecimal importeBD = (BigDecimal) fila[2]; 
+		                double importe = importeBD.doubleValue();
 		                Date fecha = (Date) fila[3];
 		                boolean pagado = (boolean) fila[4];
 		                String tratamiento = (fila[5] != null) ? (String) fila[5] : "Sin tratamiento";
@@ -716,5 +717,6 @@ public class ControladorHibernet {
 		        }
 		    }
 		}
+	  
 	  
 }

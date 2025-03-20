@@ -77,6 +77,7 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.lblEmision_de_Facturas.addMouseListener(this);
 		   this.vista.btnNewButtonExprotarCSV.addActionListener(this);
 		   this.vista.btnNewButtonExportarPDF.addActionListener(this);
+		   this.vista.lblNewLabelCaraPaciente.addMouseListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
@@ -222,8 +223,21 @@ public class Controlador implements ActionListener,MouseListener{
 		    this.vista.panelEmisiondeFacturasRecepcionista.repaint();
 		    this.vista.panelEmisiondeFacturasRecepcionista.setVisible(true);
 		    this.vista.panelExportacion.setVisible(true);
+		    this.vista.panelProgramarCitasRecpecionosta.setVisible(false);
+			this.vista.panelCrearPacienteRecepcion.setVisible(false);
+			this.vista.panelInformacionPaciente.setVisible(false);
 		    
 		}
+		//Paciente
+			if(e.getSource()==this.vista.lblNewLabelCaraPaciente) {
+				this.vista.panelInformacionPaciente_1.setVisible(true);
+				String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();
+				Pacientes paciente=hibernate.cogerDatosPaciente(nombre);
+				this.vista.lblNewLabelNombrePaciente_1.setText(paciente.getNombre());
+				this.vista.textFieldDireccion_PanelPaciente.setText(paciente.getDireccion());
+				this.vista.textField_Telefono_PanelPaciente.setText(paciente.getTelefono());
+				this.vista.calendarFechaNacimientoPaciente_1.setDate(paciente.getFechaNacimiento());
+			}
 		//DobleClick
 		if(e.getClickCount()==2) {
 			if(e.getSource()== this.vista.lblNewLabelCaraRecepcionista) {
@@ -231,6 +245,9 @@ public class Controlador implements ActionListener,MouseListener{
 			}
 			if(e.getSource()==this.vista.lblNewLabelCaraMedico) {
 				this.vista.panelVerDatosMedicos.setVisible(false);
+			}
+			if(e.getSource()==this.vista.panelInformacionPaciente_1) {
+				this.vista.panelInformacionPaciente_1.setVisible(false);
 			}
 		}
 
@@ -288,6 +305,7 @@ public class Controlador implements ActionListener,MouseListener{
 				}else if(rol.equalsIgnoreCase("paciente")) {
 					this.vista.panelInicio.setVisible(false);
 					this.vista.panelPacientes.setVisible(true);
+					this.vista.lblNewLabelNombreUsuarioMostrarPaciente.setText(nombre);
 				}
 			}else {
 				this.vista.lblNewLabelError.setText("Usuario o Contraseña no existe");
@@ -573,7 +591,15 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.lblNewLabelFondoEmisionFacturasRecepcion.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoEmisionFacturasRecepcion, "imagenes/fondo_admin_panel.jpg"));
 		 this.vista.btnNewButtonExportarPDF.setIcon(fotoEscalarButton(this.vista.btnNewButtonExportarPDF, "imagenes/exportarPDF.png"));
 		 this.vista.btnNewButtonExprotarCSV.setIcon(fotoEscalarButton(this.vista.btnNewButtonExprotarCSV, "imagenes/botonExportarCSV.png"));
-	 }
+		 this.vista.lblNewLabelSalida_Paciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelSalida_Paciente, "imagenes/botonVolver.png"));
+		 this.vista.lblVerCitasPaciente.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/vercitas.png"));
+		 this.vista.lblVerHistorialMedico.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/Historial.png"));
+		 this.vista.lblPagarFacturas.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas, "imagenes/btnPagarFacturas.png"));
+		 this.vista.lblNewLabelFondoPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoPaciente, "imagenes/fondo_aplicacion.jpg"));
+		 this.vista.lblNewLabelCaraPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCaraPaciente, "imagenes/foto_perfil.png"));
+		 this.vista.lblNewLabelLogoMedico_Paciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCaraPaciente, "imagenes/logo.png"));
+		 this.vista.lblNewLabel_FondoInformacionPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabel_FondoInformacionPaciente, "imagenes/fondo_admin_panel.jpg"));
+	 	}
 	 public void añadidoRolesComboBox() {
 		  this.vista.comboBoxRoles.addItem("admin");
 		    this.vista.comboBoxRoles.addItem("medico");
