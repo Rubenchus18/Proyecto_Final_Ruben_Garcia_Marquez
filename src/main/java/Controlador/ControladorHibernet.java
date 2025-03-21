@@ -717,6 +717,36 @@ public class ControladorHibernet {
 		        }
 		    }
 		}
+	  public List<Object[]> obtenerDetallesCitasPorPaciente(String nombrePaciente) {
+		    Session session=null;
+		    List<Object[]> resultados=null;
+		    try {
+		    		session=sessionFactory.getCurrentSession();
+		    		session.beginTransaction();
+		    		  String consulta = "SELECT p.nombre, m.nombre, m.especialidad, c.fecha, c.hora, c.motivo " +
+				                 "FROM Citas c " +
+				                 "INNER JOIN c.pacientes p " +
+				                 "INNER JOIN c.medicos m " +
+				                 "WHERE p.nombre = :nombrePaciente";
+				    Query<Object[]> query = session.createQuery(consulta, Object[].class);
+				    query.setParameter("nombrePaciente", nombrePaciente);
+				    resultados = query.getResultList();
+				    
+				    session.getTransaction().commit();
+		    }catch(Exception e) {
+		    	 if (session != null) {
+			            session.getTransaction().rollback();
+			        }
+		    	 e.printStackTrace();
+
+		    }finally {
+		    	 if (session != null) {
+			            session.close();
+			        }
+		    }
+		  
+		    return resultados;
+		}
 	  
 	  
 }

@@ -19,9 +19,9 @@ if (empty($nombre) || empty($contraseña) || empty($direccion) || empty($telefon
 }
 
 
-$contraseña_hasheada = password_hash($contraseña, PASSWORD_DEFAULT);
 
-$query_empleado = "INSERT INTO Empleados (username, password, rol) VALUES ('$nombre', '$contraseña_hasheada', '$rol')";
+
+$query_empleado = "INSERT INTO Empleados (username, password, rol) VALUES ('$nombre', '$contraseña', '$rol')";
 if (mysqli_query($conexion, $query_empleado)) {
     echo "Empleado insertado correctamente. ID: " . mysqli_insert_id($conexion) . "<br>";
     $empleado_id = mysqli_insert_id($conexion);

@@ -249,6 +249,8 @@ public class Vista extends JFrame {
 	public JLabel lblNewLabelLogoMedico_Paciente;
 	public JLabel lblNewLabelNombre_24;
 	public JLabel lblNewLabel_FondoInformacionPaciente;
+	public JTable tableVerCitasPacientes;
+	public JScrollPane scrollPane_3;
 	/**
 	 * Launch the application.
 	 */
@@ -305,6 +307,15 @@ public class Vista extends JFrame {
 		     panelPacientes.setVisible(false);
 		     contentPane.add(panelPacientes);
 		     panelPacientes.setLayout(null);
+		     
+		     scrollPane_3 = new JScrollPane();
+		     scrollPane_3.setBounds(42, 90, 895, 633);
+		     scrollPane_3.setVisible(false);
+		     panelPacientes.add(scrollPane_3);
+		     
+		     tableVerCitasPacientes = new JTable();
+		     scrollPane_3.setViewportView(tableVerCitasPacientes);
+		     tableVerCitasPacientes.setVisible(false);
 		     
 		     lblPagarFacturas = new JLabel("");
 		     lblPagarFacturas.setHorizontalAlignment(SwingConstants.RIGHT);

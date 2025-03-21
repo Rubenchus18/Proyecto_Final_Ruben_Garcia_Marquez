@@ -23,6 +23,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
@@ -78,6 +79,7 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.btnNewButtonExprotarCSV.addActionListener(this);
 		   this.vista.btnNewButtonExportarPDF.addActionListener(this);
 		   this.vista.lblNewLabelCaraPaciente.addMouseListener(this);
+		   this.vista.lblVerCitasPaciente.addMouseListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
@@ -237,6 +239,15 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.textFieldDireccion_PanelPaciente.setText(paciente.getDireccion());
 				this.vista.textField_Telefono_PanelPaciente.setText(paciente.getTelefono());
 				this.vista.calendarFechaNacimientoPaciente_1.setDate(paciente.getFechaNacimiento());
+			}
+			if(e.getSource()==this.vista.lblVerCitasPaciente) {
+				String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();	
+				System.out.println(nombre);
+				this.vista.tableVerCitasPacientes.setVisible(true);
+				this.vista.scrollPane_3.setVisible(true);
+				List<Object[]> detallesCitas = hibernate.obtenerDetallesCitasPorPaciente(nombre);
+				mostrarCitasEnTabla(nombre,detallesCitas,this.vista.tableVerCitasPacientes);
+				
 			}
 		//DobleClick
 		if(e.getClickCount()==2) {
@@ -679,6 +690,23 @@ public class Controlador implements ActionListener,MouseListener{
 		    }
 		    tableMostrarResultadoCitas.setModel(model);
 		}
+	  public static void mostrarCitasEnTabla(String nombrePaciente,List<Object[]> detallesCitas,JTable citas) {
+
+	        DefaultTableModel model = new DefaultTableModel();
+	        model.addColumn("Paciente");
+	        model.addColumn("Médico");
+	        model.addColumn("Especialidad");
+	        model.addColumn("Fecha");
+	        model.addColumn("Hora");
+	        model.addColumn("Motivo");
+
+	       
+	        for (Object[] detalle : detallesCitas) {
+	            model.addRow(detalle);
+	        }
+	        citas.setModel(model);
+	        
+	    }
 	 
 	 //Hilo
 	 public void iniciarReloj(JLabel label) {
