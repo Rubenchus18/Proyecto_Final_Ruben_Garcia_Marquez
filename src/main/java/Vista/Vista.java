@@ -243,7 +243,6 @@ public class Vista extends JFrame {
 	public JLabel lblNewLabelSalida_Paciente;
 	public JLabel lblNewLabelNombreUsuarioMostrarPaciente;
 	public JLabel lblNewLabelCaraPaciente;
-	public JLabel lblPagarFacturas;
 	public JLabel lblVerHistorialMedico;
 	public JLabel lblVerCitasPaciente;
 	public JLabel lblNewLabelLogoMedico_Paciente;
@@ -251,6 +250,14 @@ public class Vista extends JFrame {
 	public JLabel lblNewLabel_FondoInformacionPaciente;
 	public JTable tableVerCitasPacientes;
 	public JScrollPane scrollPane_3;
+	public JTable tableVerHistorialMedico;
+	public JScrollPane scrollPane_4;
+	public JTable tableVerFacturas_Paciente;
+	public JScrollPane scrollPane_5;
+	public JLabel lblPagarFacturas;
+	public JLabel lblPagarFacturas_Definitiva;
+	public JLabel lblPagarFacturas_1;
+	public JPanel panelDatos_Cliente;
 	/**
 	 * Launch the application.
 	 */
@@ -311,18 +318,56 @@ public class Vista extends JFrame {
 		     scrollPane_3 = new JScrollPane();
 		     scrollPane_3.setBounds(42, 90, 895, 633);
 		     scrollPane_3.setVisible(false);
+		     
+		     scrollPane_4 = new JScrollPane();
+		     scrollPane_4.setBounds(42, 90, 895, 633);
+		     scrollPane_4.setVisible(false);
+		     
+		     panelDatos_Cliente = new JPanel();
+		     panelDatos_Cliente.setBounds(204, 166, 611, 442);
+		     panelDatos_Cliente.setVisible(false);
+		     panelPacientes.add(panelDatos_Cliente);
+		     
+		     lblPagarFacturas_1 = new JLabel("");
+		     lblPagarFacturas_1.setHorizontalAlignment(SwingConstants.CENTER);
+		     lblPagarFacturas_1.setForeground(new Color(255, 128, 0));
+		     lblPagarFacturas_1.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		     lblPagarFacturas_1.setBounds(974, 364, 332, 134);
+		     panelPacientes.add(lblPagarFacturas_1);
+		     
+		     lblPagarFacturas_Definitiva = new JLabel("");
+		     lblPagarFacturas_Definitiva.setHorizontalAlignment(SwingConstants.CENTER);
+		     lblPagarFacturas_Definitiva.setForeground(new Color(255, 128, 0));
+		     lblPagarFacturas_Definitiva.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		     lblPagarFacturas_Definitiva.setBounds(974, 90, 332, 301);
+		     lblPagarFacturas_Definitiva.setVisible(false);
+		     panelPacientes.add(lblPagarFacturas_Definitiva);
+		     
+		     lblPagarFacturas = new JLabel("");
+		     lblPagarFacturas.setHorizontalAlignment(SwingConstants.CENTER);
+		     lblPagarFacturas.setForeground(new Color(255, 128, 0));
+		     lblPagarFacturas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		     lblPagarFacturas.setBounds(387, -23, 113, 134);
+		     panelPacientes.add(lblPagarFacturas);
+		     
+		     scrollPane_5 = new JScrollPane();
+		     scrollPane_5.setBounds(42, 90, 895, 633);
+		     scrollPane_5.setVisible(false);
+		     panelPacientes.add(scrollPane_5);
+		     
+		     tableVerFacturas_Paciente = new JTable();
+		     scrollPane_5.setViewportView(tableVerFacturas_Paciente);
+		     tableVerFacturas_Paciente.setVisible(false);
+		     panelPacientes.add(scrollPane_4);
+		     
+		     tableVerHistorialMedico = new JTable();
+		     scrollPane_4.setViewportView(tableVerHistorialMedico);
+		     tableVerHistorialMedico.setVisible(false);
 		     panelPacientes.add(scrollPane_3);
 		     
 		     tableVerCitasPacientes = new JTable();
 		     scrollPane_3.setViewportView(tableVerCitasPacientes);
 		     tableVerCitasPacientes.setVisible(false);
-		     
-		     lblPagarFacturas = new JLabel("");
-		     lblPagarFacturas.setHorizontalAlignment(SwingConstants.RIGHT);
-		     lblPagarFacturas.setForeground(new Color(255, 128, 0));
-		     lblPagarFacturas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		     lblPagarFacturas.setBounds(379, -23, 113, 134);
-		     panelPacientes.add(lblPagarFacturas);
 		     
 		     lblVerHistorialMedico = new JLabel("");
 		     lblVerHistorialMedico.setHorizontalAlignment(SwingConstants.CENTER);

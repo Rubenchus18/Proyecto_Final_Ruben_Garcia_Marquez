@@ -747,6 +747,72 @@ public class ControladorHibernet {
 		  
 		    return resultados;
 		}
+	  public List<Object[]> obtenerHistorialMedicoPaciente(String nombre) {
+		    Session session = null;
+		    List<Object[]> resultados = null;
+		    try {
+		        session = sessionFactory.getCurrentSession();
+		        session.beginTransaction();
+		        
+		        String consulta = "SELECT P.nombre, M.nombre, HM.diagnostico, HM.tratamiento, HM.receta, HM.fecha " +
+		                          "FROM HistorialesMedicos HM " +
+		                          "INNER JOIN HM.pacientes P " +
+		                          "INNER JOIN HM.medicos M " +
+		                          "WHERE P.nombre = :nombrePaciente";
+		        
+		        Query<Object[]> query = session.createQuery(consulta, Object[].class);
+		        query.setParameter("nombrePaciente", nombre);
+		        
+		        resultados = query.getResultList();
+		        
+		        session.getTransaction().commit();
+		    } catch (Exception e) {
+		        if (session != null) {
+		            session.getTransaction().rollback();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		    	if (session != null) {
+		            session.close();
+		        }
+		    }
+		    return resultados;
+		}
 	  
+	  public List<Object[]> obtenerFacturaCliente(String nombre) {
+		    Session session = null;
+		    List<Object[]> resultados = null;
+		    try {
+		        session = sessionFactory.getCurrentSession();
+		        session.beginTransaction();
+		        
+		        String consulta = "SELECT "
+		                + "p.nombre AS nombre_paciente, "
+		                + "p.direccion AS direccion_paciente, "
+		                + "f.monto AS monto_factura, "
+		                + "f.fecha AS fecha_factura, "
+		                + "CASE WHEN f.pagado = true THEN 'Pagado' ELSE 'Pendiente' END AS estado_pago "
+		                + "FROM Facturas f "
+		                + "INNER JOIN Pacientes p ON f.pacientes = p.id "
+		                + "WHERE p.nombre = :nombre";
+		        
+		        Query<Object[]> query = session.createQuery(consulta, Object[].class);
+		        query.setParameter("nombre",nombre);
+		        
+		        resultados = query.getResultList();
+		        
+		        session.getTransaction().commit();
+		    } catch(Exception e) {
+		        e.printStackTrace();
+		        if (session != null) {
+		            session.getTransaction().rollback();
+		        }
+		    } finally {
+		        if (session != null) {
+		            session.close();
+		        }
+		    }
+		    return resultados;
+		}
 	  
 }

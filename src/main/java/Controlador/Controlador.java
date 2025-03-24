@@ -80,6 +80,8 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.btnNewButtonExportarPDF.addActionListener(this);
 		   this.vista.lblNewLabelCaraPaciente.addMouseListener(this);
 		   this.vista.lblVerCitasPaciente.addMouseListener(this);
+		   this.vista.lblVerHistorialMedico.addMouseListener(this);
+		   this.vista.lblPagarFacturas.addMouseListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
@@ -239,15 +241,49 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.textFieldDireccion_PanelPaciente.setText(paciente.getDireccion());
 				this.vista.textField_Telefono_PanelPaciente.setText(paciente.getTelefono());
 				this.vista.calendarFechaNacimientoPaciente_1.setDate(paciente.getFechaNacimiento());
+				this.vista.tableVerFacturas_Paciente.setVisible(false);
+				this.vista.scrollPane_5.setVisible(false);
+				this.vista.tableVerCitasPacientes.setVisible(false);
+				this.vista.scrollPane_3.setVisible(false);
+				this.vista.tableVerHistorialMedico.setVisible(false);
+				this.vista.scrollPane_4.setVisible(false);
 			}
 			if(e.getSource()==this.vista.lblVerCitasPaciente) {
 				String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();	
-				System.out.println(nombre);
+			
 				this.vista.tableVerCitasPacientes.setVisible(true);
 				this.vista.scrollPane_3.setVisible(true);
+				this.vista.tableVerHistorialMedico.setVisible(false);
+				this.vista.scrollPane_4.setVisible(false);
+				this.vista.tableVerFacturas_Paciente.setVisible(false);
+				this.vista.scrollPane_5.setVisible(false);
 				List<Object[]> detallesCitas = hibernate.obtenerDetallesCitasPorPaciente(nombre);
-				mostrarCitasEnTabla(nombre,detallesCitas,this.vista.tableVerCitasPacientes);
+				mostrarCitasEnTabla(detallesCitas,this.vista.tableVerCitasPacientes);
 				
+			}
+			if(e.getSource()==this.vista.lblVerHistorialMedico) {
+				String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();
+				this.vista.tableVerHistorialMedico.setVisible(true);
+				this.vista.scrollPane_4.setVisible(true);
+				this.vista.tableVerFacturas_Paciente.setVisible(false);
+				this.vista.scrollPane_5.setVisible(false);
+				this.vista.tableVerCitasPacientes.setVisible(false);
+				this.vista.scrollPane_3.setVisible(false);
+				List<Object[]> detallesCitas = hibernate.obtenerHistorialMedicoPaciente(nombre);
+				mostrarHistorialClienteEnTabla(detallesCitas,this.vista.tableVerHistorialMedico);
+			}
+			if(e.getSource()==this.vista.lblPagarFacturas) {
+				String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();
+				this.vista.tableVerFacturas_Paciente.setVisible(true);
+				this.vista.scrollPane_5.setVisible(true);
+				this.vista.tableVerCitasPacientes.setVisible(false);
+				this.vista.scrollPane_3.setVisible(false);
+				this.vista.tableVerHistorialMedico.setVisible(false);
+				this.vista.scrollPane_4.setVisible(false);
+				this.vista.lblPagarFacturas_Definitiva.setVisible(true);
+				this.vista.lblPagarFacturas_Definitiva.setEnabled(false);
+				List<Object[]> detallesCitas=hibernate.obtenerFacturaCliente(nombre);
+				mostrarFacturasCliente(detallesCitas,this.vista.tableVerFacturas_Paciente);
 			}
 		//DobleClick
 		if(e.getClickCount()==2) {
@@ -610,6 +646,7 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.lblNewLabelCaraPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCaraPaciente, "imagenes/foto_perfil.png"));
 		 this.vista.lblNewLabelLogoMedico_Paciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCaraPaciente, "imagenes/logo.png"));
 		 this.vista.lblNewLabel_FondoInformacionPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabel_FondoInformacionPaciente, "imagenes/fondo_admin_panel.jpg"));
+		 this.vista.lblPagarFacturas_Definitiva.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas_Definitiva, "imagenes/btnPagar.png"));
 	 	}
 	 public void añadidoRolesComboBox() {
 		  this.vista.comboBoxRoles.addItem("admin");
@@ -690,7 +727,7 @@ public class Controlador implements ActionListener,MouseListener{
 		    }
 		    tableMostrarResultadoCitas.setModel(model);
 		}
-	  public static void mostrarCitasEnTabla(String nombrePaciente,List<Object[]> detallesCitas,JTable citas) {
+	  public static void mostrarCitasEnTabla(List<Object[]> detallesCitas,JTable citas) {
 
 	        DefaultTableModel model = new DefaultTableModel();
 	        model.addColumn("Paciente");
@@ -707,6 +744,66 @@ public class Controlador implements ActionListener,MouseListener{
 	        citas.setModel(model);
 	        
 	    }
+	  public static void mostrarHistorialClienteEnTabla(List<Object[]> detallesCitas, JTable historial) {
+		    DefaultTableModel model = new DefaultTableModel();
+		    model.addColumn("Paciente");
+		    model.addColumn("Médico");
+		    model.addColumn("Especialidad");
+		    model.addColumn("Fecha");
+		    model.addColumn("Hora");
+		    model.addColumn("Motivo");
+
+	
+		    for (Object[] detalle : detallesCitas) {
+		        model.addRow(detalle);
+		    }
+
+		    historial.setModel(model);
+		}
+	  public static void mostrarFacturasCliente(List<Object[]> detallesFacturas, JTable facturas) {
+		    DefaultTableModel model = new DefaultTableModel();
+		  
+		    model.addColumn("Paciente");
+		    model.addColumn("Dirección");
+		    model.addColumn("Monto");
+		    model.addColumn("Fecha");
+		    model.addColumn("Estado");
+		    
+		  
+		    model.setRowCount(0);
+		    
+		    if (detallesFacturas != null) {
+		        for (Object[] fila : detallesFacturas) {
+		      
+		            Object[] rowData = new Object[5];
+		            
+		       
+		            rowData[0] = fila.length > 0 ? fila[0] : ""; 
+		            rowData[1] = fila.length > 1 ? fila[1] : "";
+		            rowData[2] = fila.length > 2 ? fila[2] : 0.0; 
+		            rowData[3] = fila.length > 3 ? fila[3] : "";  
+		            
+		           
+		            if (fila.length > 4) {
+		                rowData[4] = (fila[4] instanceof Boolean) ? 
+		                             ((Boolean)fila[4] ? "Pagado" : "Pendiente") : 
+		                             fila[4].toString();
+		            } else {
+		                rowData[4] = "Pendiente";
+		            }
+		            
+		            model.addRow(rowData);
+		        }
+		    }
+		    
+		    facturas.setModel(model);
+		
+		    facturas.getColumnModel().getColumn(0).setPreferredWidth(150);
+		    facturas.getColumnModel().getColumn(1).setPreferredWidth(200);
+		    facturas.getColumnModel().getColumn(2).setPreferredWidth(80);  
+		    facturas.getColumnModel().getColumn(3).setPreferredWidth(100);
+		    facturas.getColumnModel().getColumn(4).setPreferredWidth(80); 
+		}
 	 
 	 //Hilo
 	 public void iniciarReloj(JLabel label) {
