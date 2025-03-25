@@ -59,6 +59,7 @@ import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
 import org.knowm.xchart.internal.chartpart.Chart;
+import javax.swing.JFormattedTextField;
 
 
 public class Vista extends JFrame {
@@ -255,9 +256,18 @@ public class Vista extends JFrame {
 	public JTable tableVerFacturas_Paciente;
 	public JScrollPane scrollPane_5;
 	public JLabel lblPagarFacturas;
+	public JPanel panelDatos_Cliente_Factura;
+	public JLabel lblNewLabelFondo_Datos_Cliente_Factura;
+	public JLabel lblNewLabelNombre_25;
+	public JLabel lblNewLabelNombre_26;
+	public JLabel lblNewLabelNombre_27;
+	public JLabel lblNewLabelNombre_28;
+	public JTextField textField_Titular_Tarjeta;
+	public JTextField textField_Numero_Tarjeta;
+	public JTextField textField_CSV_Tarjeta;
+	public JCalendar calendar_fecha_expiracion_tarjeta;
+	public JLabel lblPagarFactura;
 	public JLabel lblPagarFacturas_Definitiva;
-	public JLabel lblPagarFacturas_1;
-	public JPanel panelDatos_Cliente;
 	/**
 	 * Launch the application.
 	 */
@@ -323,25 +333,78 @@ public class Vista extends JFrame {
 		     scrollPane_4.setBounds(42, 90, 895, 633);
 		     scrollPane_4.setVisible(false);
 		     
-		     panelDatos_Cliente = new JPanel();
-		     panelDatos_Cliente.setBounds(204, 166, 611, 442);
-		     panelDatos_Cliente.setVisible(false);
-		     panelPacientes.add(panelDatos_Cliente);
-		     
-		     lblPagarFacturas_1 = new JLabel("");
-		     lblPagarFacturas_1.setHorizontalAlignment(SwingConstants.CENTER);
-		     lblPagarFacturas_1.setForeground(new Color(255, 128, 0));
-		     lblPagarFacturas_1.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		     lblPagarFacturas_1.setBounds(974, 364, 332, 134);
-		     panelPacientes.add(lblPagarFacturas_1);
+		     panelDatos_Cliente_Factura = new JPanel();
+		     panelDatos_Cliente_Factura.setBounds(204, 166, 611, 442);
+		     panelDatos_Cliente_Factura.setVisible(false);
 		     
 		     lblPagarFacturas_Definitiva = new JLabel("");
+		     lblPagarFacturas_Definitiva.setBounds(947, 261, 332, 301);
+		     panelPacientes.add(lblPagarFacturas_Definitiva);
 		     lblPagarFacturas_Definitiva.setHorizontalAlignment(SwingConstants.CENTER);
 		     lblPagarFacturas_Definitiva.setForeground(new Color(255, 128, 0));
 		     lblPagarFacturas_Definitiva.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		     lblPagarFacturas_Definitiva.setBounds(974, 90, 332, 301);
 		     lblPagarFacturas_Definitiva.setVisible(false);
-		     panelPacientes.add(lblPagarFacturas_Definitiva);
+		     panelPacientes.add(panelDatos_Cliente_Factura);
+		     
+		     panelDatos_Cliente_Factura.setLayout(null);
+		     
+		     lblPagarFactura = new JLabel("");
+		     lblPagarFactura.setHorizontalAlignment(SwingConstants.CENTER);
+		     lblPagarFactura.setForeground(new Color(255, 128, 0));
+		     lblPagarFactura.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		     lblPagarFactura.setBounds(384, 291, 113, 134);
+		     panelDatos_Cliente_Factura.add(lblPagarFactura);
+		     
+		     calendar_fecha_expiracion_tarjeta = new JCalendar();
+		     calendar_fecha_expiracion_tarjeta.setBounds(49, 236, 184, 153);
+		     panelDatos_Cliente_Factura.add(calendar_fecha_expiracion_tarjeta);
+		     
+		     textField_CSV_Tarjeta = new JTextField();
+		     textField_CSV_Tarjeta.setColumns(10);
+		     textField_CSV_Tarjeta.setBounds(336, 236, 197, 44);
+		     panelDatos_Cliente_Factura.add(textField_CSV_Tarjeta);
+		     
+		     textField_Numero_Tarjeta = new JTextField();
+		     textField_Numero_Tarjeta.setColumns(10);
+		     textField_Numero_Tarjeta.setBounds(336, 113, 197, 44);
+		     panelDatos_Cliente_Factura.add(textField_Numero_Tarjeta);
+		     
+		     textField_Titular_Tarjeta = new JTextField();
+		     textField_Titular_Tarjeta.setBounds(49, 113, 197, 44);
+		     panelDatos_Cliente_Factura.add(textField_Titular_Tarjeta);
+		     textField_Titular_Tarjeta.setColumns(10);
+		     
+		     lblNewLabelNombre_26 = new JLabel("Numero Tarjeta");
+		     lblNewLabelNombre_26.setHorizontalAlignment(SwingConstants.CENTER);
+		     lblNewLabelNombre_26.setForeground(new Color(255, 128, 0));
+		     lblNewLabelNombre_26.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		     lblNewLabelNombre_26.setBounds(251, 58, 360, 68);
+		     panelDatos_Cliente_Factura.add(lblNewLabelNombre_26);
+		     
+		     lblNewLabelNombre_25 = new JLabel("Titular");
+		     lblNewLabelNombre_25.setHorizontalAlignment(SwingConstants.CENTER);
+		     lblNewLabelNombre_25.setForeground(new Color(255, 128, 0));
+		     lblNewLabelNombre_25.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		     lblNewLabelNombre_25.setBounds(0, 58, 300, 68);
+		     panelDatos_Cliente_Factura.add(lblNewLabelNombre_25);
+		     
+		     lblNewLabelNombre_27 = new JLabel("Expiracion");
+		     lblNewLabelNombre_27.setHorizontalAlignment(SwingConstants.CENTER);
+		     lblNewLabelNombre_27.setForeground(new Color(255, 128, 0));
+		     lblNewLabelNombre_27.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		     lblNewLabelNombre_27.setBounds(0, 178, 300, 68);
+		     panelDatos_Cliente_Factura.add(lblNewLabelNombre_27);
+		     
+		     lblNewLabelNombre_28 = new JLabel("CVC");
+		     lblNewLabelNombre_28.setHorizontalAlignment(SwingConstants.CENTER);
+		     lblNewLabelNombre_28.setForeground(new Color(255, 128, 0));
+		     lblNewLabelNombre_28.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		     lblNewLabelNombre_28.setBounds(251, 178, 360, 68);
+		     panelDatos_Cliente_Factura.add(lblNewLabelNombre_28);
+		     
+		     lblNewLabelFondo_Datos_Cliente_Factura = new JLabel("");
+		     lblNewLabelFondo_Datos_Cliente_Factura.setBounds(0, 0, 611, 442);
+		     panelDatos_Cliente_Factura.add(lblNewLabelFondo_Datos_Cliente_Factura);
 		     
 		     lblPagarFacturas = new JLabel("");
 		     lblPagarFacturas.setHorizontalAlignment(SwingConstants.CENTER);

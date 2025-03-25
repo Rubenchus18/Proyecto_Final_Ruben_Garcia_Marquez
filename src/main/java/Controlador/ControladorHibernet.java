@@ -814,5 +814,42 @@ public class ControladorHibernet {
 		    }
 		    return resultados;
 		}
-	  
+	  public void actualizarEstadoFactura(String direccion, BigDecimal monto, java.sql.Date fecha) {
+		    Session session = null;
+		    Transaction transaction = null;
+		    Pacientes p=new Pacientes();
+		    try {
+		        session = sessionFactory.openSession();
+		         session.beginTransaction();
+		        
+		        Query q=session.createQuery("FROM Pacientes WHERE direccion=: direcciones");
+		        q.setParameter("direcciones", direccion);
+		        p=(Pacientes) q.getSingleResult();
+		        
+		        String sql = "UPDATE Facturas f " +
+		                "SET f.pagado = 1 " +
+		                "WHERE f.paciente_id = :id_paciente " +
+		                "AND f.monto = :dinero " +
+		                "AND f.fecha = :fecha";
+
+		   Query q2 = session.createNativeQuery(sql);
+		   q2.setParameter("id_paciente", p.getId());
+		   q2.setParameter("dinero", monto);
+		   q2.setParameter("fecha", fecha);
+		   int updated = q2.executeUpdate(); 
+		        
+		        
+		        session.getTransaction().commit();
+		    } catch (Exception e) {
+		        if (session != null) {
+		        	session.getTransaction().rollback();
+		        }
+		        e.printStackTrace();
+		      
+		    } finally {
+		        if (session != null) {
+		            session.close();
+		        }
+		    }
+		}
 }

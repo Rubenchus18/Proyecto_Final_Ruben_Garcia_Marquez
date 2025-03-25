@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -34,6 +35,8 @@ import org.knowm.xchart.CategoryChartBuilder;
 import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
+
+import com.stripe.model.Event.Data;
 
 import Vista.Vista;
 import net.bytebuddy.asm.Advice.This;
@@ -82,6 +85,9 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.lblVerCitasPaciente.addMouseListener(this);
 		   this.vista.lblVerHistorialMedico.addMouseListener(this);
 		   this.vista.lblPagarFacturas.addMouseListener(this);
+		   this.vista.tableVerFacturas_Paciente.addMouseListener(this);
+		   this.vista.lblPagarFacturas_Definitiva.addMouseListener(this);
+		   this.vista.lblPagarFactura.addMouseListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
@@ -285,6 +291,68 @@ public class Controlador implements ActionListener,MouseListener{
 				List<Object[]> detallesCitas=hibernate.obtenerFacturaCliente(nombre);
 				mostrarFacturasCliente(detallesCitas,this.vista.tableVerFacturas_Paciente);
 			}
+			if(e.getSource() == this.vista.tableVerFacturas_Paciente) {
+			    int seleccionfactura = this.vista.tableVerFacturas_Paciente.getSelectedRow();
+			    if (seleccionfactura >= 0) {
+			        this.vista.lblPagarFacturas_Definitiva.setEnabled(true);
+
+			        String paciente = (String) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 0); 
+			        String direccion = (String) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 1);    
+			        Object valorDinero = this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 2);
+			        Double dinero = null;
+			        
+			        if (valorDinero instanceof BigDecimal) {
+			            dinero = ((BigDecimal) valorDinero).doubleValue();
+			        } else if (valorDinero instanceof Double) {
+			            dinero = (Double) valorDinero;
+			        } else if (valorDinero != null) {
+			            dinero = Double.parseDouble(valorDinero.toString());
+			        }
+			        
+			        Date fecha = (Date) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 3); 
+			        String estado = (String) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 4); 
+			        
+			        this.vista.tableVerFacturas_Paciente.putClientProperty("selectedRow", seleccionfactura);
+			    }
+			}
+				if(e.getSource()==this.vista.lblPagarFacturas_Definitiva) {
+					this.vista.panelDatos_Cliente_Factura.setVisible(true);
+				}
+			  
+				if(e.getSource()== this.vista.lblPagarFactura) {
+				  String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();
+				  int seleccionfactura = (Integer) this.vista.tableVerFacturas_Paciente.getClientProperty("selectedRow");
+				  String titular=this.vista.textField_Titular_Tarjeta.getText();
+				  String numero=this.vista.textField_Numero_Tarjeta.getText();
+				  String csv=this.vista.textField_CSV_Tarjeta.getText();
+				  Date fecha_tarjete=this.vista.calendar_fecha_expiracion_tarjeta.getDate();
+				  if(titular.isEmpty()||numero.isEmpty()||csv.isEmpty()) {
+					  
+				  }else {
+					  if (seleccionfactura >= 0) {
+					        String direccion = (String) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 1);
+					        Object valorMonto = this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 2);
+			                BigDecimal monto;
+			                if (valorMonto instanceof BigDecimal) {
+			                    monto = (BigDecimal) valorMonto;
+			                } else if (valorMonto instanceof Double) {
+			                    monto = BigDecimal.valueOf((Double) valorMonto);
+			                } else {
+			                    monto = new BigDecimal(valorMonto.toString());
+			                }
+					        Date fecha = (Date) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 3);
+					        java.sql.Date fechaSQL = new java.sql.Date(fecha.getTime());
+					      
+					        hibernate.actualizarEstadoFactura(direccion, monto, fechaSQL);
+					        this.vista.panelDatos_Cliente_Factura.setVisible(false);
+					        List<Object[]> detallesCitas=hibernate.obtenerFacturaCliente(nombre);
+							mostrarFacturasCliente(detallesCitas,this.vista.tableVerFacturas_Paciente);
+							this.vista.panelDatos_Cliente_Factura.setVisible(false);
+					    }
+				  }
+				 
+			  }
+			
 		//DobleClick
 		if(e.getClickCount()==2) {
 			if(e.getSource()== this.vista.lblNewLabelCaraRecepcionista) {
@@ -574,9 +642,10 @@ public class Controlador implements ActionListener,MouseListener{
 		if(e.getSource()==this.vista.btnNewButtonExportarPDF) {
 			hibernate.exportarFacturasAPDF("documentos/FacturasConsulta.pdf");
 		}
-			
-	}
 		
+				
+			
+	}	
 	//Metodo
 	public ImageIcon fotoEscalarLabel(JLabel label, String url) {
         ImageIcon imagenDefecto = new ImageIcon(url);
@@ -646,7 +715,10 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.lblNewLabelCaraPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCaraPaciente, "imagenes/foto_perfil.png"));
 		 this.vista.lblNewLabelLogoMedico_Paciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCaraPaciente, "imagenes/logo.png"));
 		 this.vista.lblNewLabel_FondoInformacionPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabel_FondoInformacionPaciente, "imagenes/fondo_admin_panel.jpg"));
-		 this.vista.lblPagarFacturas_Definitiva.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas_Definitiva, "imagenes/btnPagar.png"));
+		 this.vista.lblNewLabelFondo_Datos_Cliente_Factura.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondo_Datos_Cliente_Factura, "imagenes/fondo_admin_panel.jpg"));
+		 this.vista.lblPagarFactura.setIcon(fotoEscalarLabel(this.vista.lblPagarFactura, "imagenes/btn_pagar.png"));
+		this.vista.lblPagarFacturas_Definitiva.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas_Definitiva, "imagenes/btn_pagar.png"));
+		 
 	 	}
 	 public void añadidoRolesComboBox() {
 		  this.vista.comboBoxRoles.addItem("admin");
@@ -765,7 +837,7 @@ public class Controlador implements ActionListener,MouseListener{
 		  
 		    model.addColumn("Paciente");
 		    model.addColumn("Dirección");
-		    model.addColumn("Monto");
+		    model.addColumn("Dinero");
 		    model.addColumn("Fecha");
 		    model.addColumn("Estado");
 		    
