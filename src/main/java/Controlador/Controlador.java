@@ -2,6 +2,7 @@ package Controlador;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +39,8 @@ import org.knowm.xchart.XYChartBuilder;
 
 import com.stripe.model.Event.Data;
 
+import Api.EsqueletoInteractivoAPI;
+import Api.EsqueletoInteractivoAPI.ZonaEsqueleto;
 import Vista.Vista;
 import net.bytebuddy.asm.Advice.This;
 import persistencias.Citas;
@@ -88,10 +91,12 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.tableVerFacturas_Paciente.addMouseListener(this);
 		   this.vista.lblPagarFacturas_Definitiva.addMouseListener(this);
 		   this.vista.lblPagarFactura.addMouseListener(this);
+		   this.vista.tableHistorialMedico.addMouseListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
 		    añadidoRolesComboBox();
+		   
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -172,6 +177,35 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelCrearHistorialMedico.setVisible(false);
 			this.vista.scrollPane_2.setVisible(true);
 			this.vista.panelFiltrarCitas.setVisible(true);
+		}
+		if(e.getSource() == this.vista.tableHistorialMedico) {
+		    int seleccion_historial = this.vista.tableHistorialMedico.getSelectedRow();
+		    if (seleccion_historial >= 0) {  
+		      
+		        this.vista.panelEsqueleto.removeAll();
+		        
+		        EsqueletoInteractivoAPI panelEsqueleto = new EsqueletoInteractivoAPI();
+		        panelEsqueleto.setPreferredSize(new Dimension(50, 100));
+		        
+		        this.vista.panelEsqueleto.setLayout(new BorderLayout());
+		        
+		        
+		        this.vista.panelEsqueleto.add(panelEsqueleto, BorderLayout.CENTER);
+		        
+		       
+		        String diagnostico = (String) this.vista.tableHistorialMedico.getValueAt(seleccion_historial, 0); 
+		        
+		       
+		        configurarEsqueletoPorDiagnostico(panelEsqueleto, diagnostico);
+		        
+		        
+		        this.vista.panelEsqueleto.setVisible(true);
+		        this.vista.panelEsqueleto.revalidate();
+		        this.vista.panelEsqueleto.repaint();
+		        
+		       
+		        SwingUtilities.updateComponentTreeUI(this.vista.panelEsqueleto.getTopLevelAncestor());
+		    }
 		}
 		//Recepcionista
 		if(e.getSource()== this.vista.lblNewLabelCaraRecepcionista) {
@@ -876,7 +910,46 @@ public class Controlador implements ActionListener,MouseListener{
 		    facturas.getColumnModel().getColumn(3).setPreferredWidth(100);
 		    facturas.getColumnModel().getColumn(4).setPreferredWidth(80); 
 		}
+	  	
+	  public void configurarEsqueletoPorDiagnostico(EsqueletoInteractivoAPI esqueleto, String diagnostico) {
+		   
+		    esqueleto.limpiarSelecciones();
+		   
+		    Color colorDolor = new Color(255, 100, 100); 
+
+		    if (diagnostico != null) {
+		        String diagLower = diagnostico.toLowerCase();
+		        
+		        if (diagLower.contains("cabeza") || diagLower.contains("cefalea") || diagLower.contains("migraña")) {
+		            esqueleto.setColorSeleccion(colorDolor);
+		            esqueleto.colorearZona(EsqueletoInteractivoAPI.ZonaEsqueleto.CABEZA);
+		        }
+		        if (diagLower.contains("brazo izquierdo") || diagLower.contains("hombro izquierdo")) {
+		            esqueleto.setColorSeleccion(colorDolor);
+		            esqueleto.colorearZona(EsqueletoInteractivoAPI.ZonaEsqueleto.BRAZO_IZQUIERDO);
+		        }
+		        if (diagLower.contains("brazo derecho") || diagLower.contains("hombro derecho")) {
+		            esqueleto.setColorSeleccion(colorDolor);
+		            esqueleto.colorearZona(EsqueletoInteractivoAPI.ZonaEsqueleto.BRAZO_DERECHO);
+		        }
+		        if (diagLower.contains("espalda") || diagLower.contains("columna") || diagLower.contains("lumbar")) {
+		            esqueleto.setColorSeleccion(colorDolor);
+		            esqueleto.colorearZona(EsqueletoInteractivoAPI.ZonaEsqueleto.TORSO);
+		        }
+		        if (diagLower.contains("pierna izquierda") || diagLower.contains("rodilla izquierda")) {
+		            esqueleto.setColorSeleccion(colorDolor);
+		            esqueleto.colorearZona(EsqueletoInteractivoAPI.ZonaEsqueleto.PIERNA_IZQUIERDA);
+		        }
+		        if (diagLower.contains("pierna derecha") || diagLower.contains("rodilla derecha")) {
+		            esqueleto.setColorSeleccion(colorDolor);
+		            esqueleto.colorearZona(EsqueletoInteractivoAPI.ZonaEsqueleto.PIERNA_DERECHA);
+		        }
+		        
+		    }
+	  }
 	 
+	  
+
 	 //Hilo
 	 public void iniciarReloj(JLabel label) {
 		    Thread hiloReloj = new Thread(() -> {
