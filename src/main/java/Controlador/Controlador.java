@@ -92,6 +92,7 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.lblPagarFacturas_Definitiva.addMouseListener(this);
 		   this.vista.lblPagarFactura.addMouseListener(this);
 		   this.vista.tableHistorialMedico.addMouseListener(this);
+		   this.vista.lblNewLabelSalida_Paciente.addMouseListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
@@ -273,6 +274,10 @@ public class Controlador implements ActionListener,MouseListener{
 		    
 		}
 		//Paciente
+			if(e.getSource()==this.vista.lblNewLabelSalida_Paciente) {
+				this.vista.panelPacientes.setVisible(false);
+				this.vista.panelInicio.setVisible(true);
+			}
 			if(e.getSource()==this.vista.lblNewLabelCaraPaciente) {
 				this.vista.panelInformacionPaciente_1.setVisible(true);
 				String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();
@@ -287,33 +292,47 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.scrollPane_3.setVisible(false);
 				this.vista.tableVerHistorialMedico.setVisible(false);
 				this.vista.scrollPane_4.setVisible(false);
+				this.vista.tableVerFacturas_Paciente.setVisible(false);
+				this.vista.scrollPane_5.setVisible(false);
+				this.vista.lblPagarFacturas_Definitiva.setVisible(false);
+				this.vista.panelDatos_Cliente_Factura.setVisible(false);
 			}
 			if(e.getSource()==this.vista.lblVerCitasPaciente) {
 				String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();	
-			
+				this.vista.panelInformacionPaciente_1.setVisible(false);
 				this.vista.tableVerCitasPacientes.setVisible(true);
 				this.vista.scrollPane_3.setVisible(true);
 				this.vista.tableVerHistorialMedico.setVisible(false);
 				this.vista.scrollPane_4.setVisible(false);
 				this.vista.tableVerFacturas_Paciente.setVisible(false);
 				this.vista.scrollPane_5.setVisible(false);
+				this.vista.tableVerFacturas_Paciente.setVisible(false);
+				this.vista.scrollPane_5.setVisible(false);
+				this.vista.lblPagarFacturas_Definitiva.setVisible(false);
+				this.vista.panelDatos_Cliente_Factura.setVisible(false);
 				List<Object[]> detallesCitas = hibernate.obtenerDetallesCitasPorPaciente(nombre);
 				mostrarCitasEnTabla(detallesCitas,this.vista.tableVerCitasPacientes);
 				
 			}
 			if(e.getSource()==this.vista.lblVerHistorialMedico) {
 				String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();
+				this.vista.panelInformacionPaciente_1.setVisible(false);
 				this.vista.tableVerHistorialMedico.setVisible(true);
 				this.vista.scrollPane_4.setVisible(true);
 				this.vista.tableVerFacturas_Paciente.setVisible(false);
 				this.vista.scrollPane_5.setVisible(false);
 				this.vista.tableVerCitasPacientes.setVisible(false);
 				this.vista.scrollPane_3.setVisible(false);
+				this.vista.tableVerFacturas_Paciente.setVisible(false);
+				this.vista.scrollPane_5.setVisible(false);
+				this.vista.lblPagarFacturas_Definitiva.setVisible(false);
+				this.vista.panelDatos_Cliente_Factura.setVisible(false);
 				List<Object[]> detallesCitas = hibernate.obtenerHistorialMedicoPaciente(nombre);
 				mostrarHistorialClienteEnTabla(detallesCitas,this.vista.tableVerHistorialMedico);
 			}
 			if(e.getSource()==this.vista.lblPagarFacturas) {
 				String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();
+				this.vista.panelInformacionPaciente_1.setVisible(false);
 				this.vista.tableVerFacturas_Paciente.setVisible(true);
 				this.vista.scrollPane_5.setVisible(true);
 				this.vista.tableVerCitasPacientes.setVisible(false);
@@ -322,6 +341,7 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.scrollPane_4.setVisible(false);
 				this.vista.lblPagarFacturas_Definitiva.setVisible(true);
 				this.vista.lblPagarFacturas_Definitiva.setEnabled(false);
+				this.vista.panelDatos_Cliente_Factura.setVisible(false);
 				List<Object[]> detallesCitas=hibernate.obtenerFacturaCliente(nombre);
 				mostrarFacturasCliente(detallesCitas,this.vista.tableVerFacturas_Paciente);
 			}
@@ -361,7 +381,7 @@ public class Controlador implements ActionListener,MouseListener{
 				  String csv=this.vista.textField_CSV_Tarjeta.getText();
 				  Date fecha_tarjete=this.vista.calendar_fecha_expiracion_tarjeta.getDate();
 				  if(titular.isEmpty()||numero.isEmpty()||csv.isEmpty()) {
-					  
+					 this.vista.lblNewLabelError_Tarjeta.setText("Todos los campos obligatorios");
 				  }else {
 					  if (seleccionfactura >= 0) {
 					        String direccion = (String) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 1);
@@ -455,6 +475,10 @@ public class Controlador implements ActionListener,MouseListener{
 					this.vista.panelInicio.setVisible(false);
 					this.vista.panelPacientes.setVisible(true);
 					this.vista.lblNewLabelNombreUsuarioMostrarPaciente.setText(nombre);
+					this.vista.tableVerCitasPacientes.setVisible(true);
+					this.vista.scrollPane_3.setVisible(true);
+					List<Object[]> detallesCitas = hibernate.obtenerDetallesCitasPorPaciente(nombre);
+					mostrarCitasEnTabla(detallesCitas,this.vista.tableVerCitasPacientes);
 				}
 			}else {
 				this.vista.lblNewLabelError.setText("Usuario o Contraseña no existe");
