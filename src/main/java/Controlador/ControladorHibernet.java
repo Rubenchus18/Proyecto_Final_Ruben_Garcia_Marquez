@@ -23,6 +23,7 @@ import org.hibernate.query.Query;
 
 import persistencias.Citas;
 import persistencias.Empleados;
+import persistencias.Facturas;
 import persistencias.HistorialesMedicos;
 import persistencias.Pacientes;
 import persistencias.Medicos;
@@ -852,4 +853,34 @@ public class ControladorHibernet {
 		        }
 		    }
 		}
+	  public void crearFacturaPorNombrePaciente(String nombrePaciente, BigDecimal monto, Date fechaCreacion) {
+		  Session session = null;
+
+	        try {
+	        	 session = sessionFactory.openSession();
+		         session.beginTransaction();
+
+	            Pacientes paciente = (Pacientes) session.createQuery(
+	                    "FROM Pacientes p WHERE p.nombre = :nombre")
+	                    .setParameter("nombre", nombrePaciente)
+	                    .getSingleResult();
+
+	            if (paciente != null) {
+	                Facturas nuevaFactura = new Facturas();
+	                nuevaFactura.setPacientes(paciente);
+	                nuevaFactura.setMonto(monto);
+	                nuevaFactura.setFecha(fechaCreacion);
+	                nuevaFactura.setPagado(false);
+	                session.save(nuevaFactura);    
+	            }
+	            session.getTransaction().commit();
+	        } catch (Exception e) {
+	            if (session != null) {
+	                session.getTransaction().rollback();
+	            }
+	            e.printStackTrace();
+	        } finally {
+	            session.close();
+	        }
+	    }
 }

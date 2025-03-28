@@ -93,6 +93,8 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.lblPagarFactura.addMouseListener(this);
 		   this.vista.tableHistorialMedico.addMouseListener(this);
 		   this.vista.lblNewLabelSalida_Paciente.addMouseListener(this);
+		   this.vista.lblCrearFacturas.addMouseListener(this);
+		   this.vista.lblCCrearFacturasFinal.addMouseListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
@@ -181,30 +183,17 @@ public class Controlador implements ActionListener,MouseListener{
 		}
 		if(e.getSource() == this.vista.tableHistorialMedico) {
 		    int seleccion_historial = this.vista.tableHistorialMedico.getSelectedRow();
-		    if (seleccion_historial >= 0) {  
-		      
-		        this.vista.panelEsqueleto.removeAll();
-		        
+		    if (seleccion_historial >= 0) {  		      
+		        this.vista.panelEsqueleto.removeAll(); 
 		        EsqueletoInteractivoAPI panelEsqueleto = new EsqueletoInteractivoAPI();
-		        panelEsqueleto.setPreferredSize(new Dimension(50, 100));
-		        
+		        panelEsqueleto.setPreferredSize(new Dimension(50, 100)); 
 		        this.vista.panelEsqueleto.setLayout(new BorderLayout());
-		        
-		        
 		        this.vista.panelEsqueleto.add(panelEsqueleto, BorderLayout.CENTER);
-		        
-		       
 		        String diagnostico = (String) this.vista.tableHistorialMedico.getValueAt(seleccion_historial, 0); 
-		        
-		       
 		        configurarEsqueletoPorDiagnostico(panelEsqueleto, diagnostico);
-		        
-		        
 		        this.vista.panelEsqueleto.setVisible(true);
 		        this.vista.panelEsqueleto.revalidate();
 		        this.vista.panelEsqueleto.repaint();
-		        
-		       
 		        SwingUtilities.updateComponentTreeUI(this.vista.panelEsqueleto.getTopLevelAncestor());
 		    }
 		}
@@ -218,25 +207,29 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelProgramarCitasRecpecionosta.setVisible(false);
 			this.vista.panelCrearPacienteRecepcion.setVisible(false);
 			this.vista.panelExportacion.setVisible(false);
-			   this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
+			this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
+			this.vista.panelCrearFacturasRecepcion.setVisible(false);
 		}
 		if(e.getSource()==this.vista.lblNewLabelSalidaRecepcionista) {
 			this.vista.panelInicio.setVisible(true);
 			this.vista.panelRececipnista.setVisible(false);
 			this.vista.panelExportacion.setVisible(false);
 			   this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
+			   this.vista.panelCrearFacturasRecepcion.setVisible(false);
 		}
 		if(e.getSource()==this.vista.lblRegistro_Nuevo_Pacientes) {
 			this.vista.panelCrearPacienteRecepcion.setVisible(true);
 			this.vista.panelProgramarCitasRecpecionosta.setVisible(false);
 			this.vista.panelExportacion.setVisible(false);
 			   this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
+			   this.vista.panelCrearFacturasRecepcion.setVisible(false);
 		}
 		if(e.getSource()==this.vista.lbl_Programacion_Citas) {
 			this.vista.panelProgramarCitasRecpecionosta.setVisible(true);
 			this.vista.panelCrearPacienteRecepcion.setVisible(false);
 			this.vista.panelExportacion.setVisible(false);
 			   this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
+			   this.vista.panelCrearFacturasRecepcion.setVisible(false);
 		}
 		if (e.getSource() == this.vista.lblEmision_de_Facturas) {
 		    double[] totales = hibernate.obtenerTotalesFacturas(); 
@@ -271,8 +264,41 @@ public class Controlador implements ActionListener,MouseListener{
 		    this.vista.panelProgramarCitasRecpecionosta.setVisible(false);
 			this.vista.panelCrearPacienteRecepcion.setVisible(false);
 			this.vista.panelInformacionPaciente.setVisible(false);
+			this.vista.panelCrearFacturasRecepcion.setVisible(false);
 		    
 		}
+		if(e.getSource()== this.vista.lblCrearFacturas) {
+			this.vista.panelInformacionPaciente.setVisible(false);
+			this.vista.panelProgramarCitasRecpecionosta.setVisible(false);
+			this.vista.panelCrearPacienteRecepcion.setVisible(false);
+			this.vista.panelExportacion.setVisible(false);
+			this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
+			this.vista.panelCrearFacturasRecepcion.setVisible(true);
+			
+			
+			}
+			if(e.getSource()== this.vista.lblCCrearFacturasFinal) {
+				BigDecimal importetext = null;
+				this.vista.panelCrearFacturasRecepcion.setVisible(true);
+				String nombrePaciente=this.vista.textFieldNombredelPaciente.getText();
+				String importe=this.vista.textFieldImporte.getText();
+				importe = importe.replace(',', '.');
+				importetext = new BigDecimal(importe);	
+				Calendar calendario = this.vista.calendarFecha_Creacion_Factura.getCalendar(); 
+				    int day = calendario.get(Calendar.DAY_OF_MONTH);
+				    int month = calendario.get(Calendar.MONTH) + 1; 
+				    int year = calendario.get(Calendar.YEAR);
+				    java.util.Date utilDate = calendario.getTime();
+				    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+				 if(nombrePaciente.isEmpty()||importe.isEmpty()) {
+					 this.vista.lblErrorCrearFacturasPaciente.setText("Todos los campos son obligatorios");
+				 }else{
+					 hibernate.crearFacturaPorNombrePaciente(nombrePaciente, importetext, sqlDate);
+					 this.vista.lblErrorCrearFacturasPaciente.setText("Creado perfectamente");
+					 this.vista.lblErrorCrearFacturasPaciente.setForeground(Color.GREEN);
+				 }
+				    
+			}
 		//Paciente
 			if(e.getSource()==this.vista.lblNewLabelSalida_Paciente) {
 				this.vista.panelPacientes.setVisible(false);
@@ -776,8 +802,10 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.lblNewLabelFondo_Datos_Cliente_Factura.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondo_Datos_Cliente_Factura, "imagenes/fondo_admin_panel.jpg"));
 		 this.vista.lblPagarFactura.setIcon(fotoEscalarLabel(this.vista.lblPagarFactura, "imagenes/btn_pagar.png"));
 		this.vista.lblPagarFacturas_Definitiva.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas_Definitiva, "imagenes/btn_pagar.png"));
-		 
-	 	}
+		this.vista.lblCrearFacturas.setIcon(fotoEscalarLabel(this.vista.lblCrearFacturas, "imagenes/btnCrearFacturas.png"));
+		this.vista.lbFondo_Panel_Crear_Facturas.setIcon(fotoEscalarLabel(this.vista.lbFondo_Panel_Crear_Facturas, "imagenes/fondo_admin_panel.jpg"));
+		this.vista.lblCCrearFacturasFinal.setIcon(fotoEscalarLabel(this.vista.lblCCrearFacturasFinal, "imagenes/btn_pagar.png"));
+	 }
 	 public void añadidoRolesComboBox() {
 		  this.vista.comboBoxRoles.addItem("admin");
 		    this.vista.comboBoxRoles.addItem("medico");
