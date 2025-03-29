@@ -321,6 +321,7 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.tableVerFacturas_Paciente.setVisible(false);
 				this.vista.scrollPane_5.setVisible(false);
 				this.vista.lblPagarFacturas_Definitiva.setVisible(false);
+				this.vista.tableVerFacturas_Paciente.setEnabled(true);
 				this.vista.panelDatos_Cliente_Factura.setVisible(false);
 			}
 			if(e.getSource()==this.vista.lblVerCitasPaciente) {
@@ -336,6 +337,7 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.scrollPane_5.setVisible(false);
 				this.vista.lblPagarFacturas_Definitiva.setVisible(false);
 				this.vista.panelDatos_Cliente_Factura.setVisible(false);
+				this.vista.tableVerFacturas_Paciente.setEnabled(true);
 				List<Object[]> detallesCitas = hibernate.obtenerDetallesCitasPorPaciente(nombre);
 				mostrarCitasEnTabla(detallesCitas,this.vista.tableVerCitasPacientes);
 				
@@ -353,6 +355,7 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.scrollPane_5.setVisible(false);
 				this.vista.lblPagarFacturas_Definitiva.setVisible(false);
 				this.vista.panelDatos_Cliente_Factura.setVisible(false);
+				this.vista.tableVerFacturas_Paciente.setEnabled(true);
 				List<Object[]> detallesCitas = hibernate.obtenerHistorialMedicoPaciente(nombre);
 				mostrarHistorialClienteEnTabla(detallesCitas,this.vista.tableVerHistorialMedico);
 			}
@@ -368,13 +371,16 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.lblPagarFacturas_Definitiva.setVisible(true);
 				this.vista.lblPagarFacturas_Definitiva.setEnabled(false);
 				this.vista.panelDatos_Cliente_Factura.setVisible(false);
+				this.vista.tableVerFacturas_Paciente.setEnabled(true);
 				List<Object[]> detallesCitas=hibernate.obtenerFacturaCliente(nombre);
 				mostrarFacturasCliente(detallesCitas,this.vista.tableVerFacturas_Paciente);
 			}
 			if(e.getSource() == this.vista.tableVerFacturas_Paciente) {
 			    int seleccionfactura = this.vista.tableVerFacturas_Paciente.getSelectedRow();
 			    if (seleccionfactura >= 0) {
-			        this.vista.lblPagarFacturas_Definitiva.setEnabled(true);
+			    	String estado = (String) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 4); 
+			    	boolean estaPagada =  estado.equalsIgnoreCase("Pagado");
+			    	this.vista.lblPagarFacturas_Definitiva.setEnabled(!estaPagada);
 
 			        String paciente = (String) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 0); 
 			        String direccion = (String) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 1);    
@@ -390,15 +396,15 @@ public class Controlador implements ActionListener,MouseListener{
 			        }
 			        
 			        Date fecha = (Date) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 3); 
-			        String estado = (String) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 4); 
+			        
 			        
 			        this.vista.tableVerFacturas_Paciente.putClientProperty("selectedRow", seleccionfactura);
 			    }
 			}
-				if(e.getSource()==this.vista.lblPagarFacturas_Definitiva) {
+			if(e.getSource()==this.vista.lblPagarFacturas_Definitiva) {
 					this.vista.panelDatos_Cliente_Factura.setVisible(true);
+					this.vista.tableVerFacturas_Paciente.setEnabled(false);
 				}
-			  
 				if(e.getSource()== this.vista.lblPagarFactura) {
 				  String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();
 				  int seleccionfactura = (Integer) this.vista.tableVerFacturas_Paciente.getClientProperty("selectedRow");
@@ -428,6 +434,7 @@ public class Controlador implements ActionListener,MouseListener{
 					        List<Object[]> detallesCitas=hibernate.obtenerFacturaCliente(nombre);
 							mostrarFacturasCliente(detallesCitas,this.vista.tableVerFacturas_Paciente);
 							this.vista.panelDatos_Cliente_Factura.setVisible(false);
+							this.vista.tableVerFacturas_Paciente.setEnabled(true);
 					    }
 				  }
 				 
