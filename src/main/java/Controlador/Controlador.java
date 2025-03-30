@@ -16,6 +16,9 @@ import java.util.Arrays;
 import java.util.Calendar;
 
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.AbstractButton;
 import javax.swing.DefaultListModel;
@@ -186,7 +189,7 @@ public class Controlador implements ActionListener,MouseListener{
 		    if (seleccion_historial >= 0) {  		      
 		        this.vista.panelEsqueleto.removeAll(); 
 		        EsqueletoInteractivoAPI panelEsqueleto = new EsqueletoInteractivoAPI();
-		        panelEsqueleto.setPreferredSize(new Dimension(50, 100)); 
+		        panelEsqueleto.setPreferredSize(new Dimension(100, 100)); 
 		        this.vista.panelEsqueleto.setLayout(new BorderLayout());
 		        this.vista.panelEsqueleto.add(panelEsqueleto, BorderLayout.CENTER);
 		        String diagnostico = (String) this.vista.tableHistorialMedico.getValueAt(seleccion_historial, 0); 
@@ -291,10 +294,10 @@ public class Controlador implements ActionListener,MouseListener{
 				    java.util.Date utilDate = calendario.getTime();
 				    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 				 if(nombrePaciente.isEmpty()||importe.isEmpty()) {
-					 this.vista.lblErrorCrearFacturasPaciente.setText("Todos los campos son obligatorios");
+					 mostrarLabelTemporalmente( this.vista.lblErrorCrearFacturasPaciente,"Todos los campos son obligatorios");
 				 }else{
 					 hibernate.crearFacturaPorNombrePaciente(nombrePaciente, importetext, sqlDate);
-					 this.vista.lblErrorCrearFacturasPaciente.setText("Creado perfectamente");
+					 mostrarLabelTemporalmente(this.vista.lblErrorCrearFacturasPaciente,"Creado perfectamente");
 					 this.vista.lblErrorCrearFacturasPaciente.setForeground(Color.GREEN);
 				 }
 				    
@@ -413,7 +416,7 @@ public class Controlador implements ActionListener,MouseListener{
 				  String csv=this.vista.textField_CSV_Tarjeta.getText();
 				  Date fecha_tarjete=this.vista.calendar_fecha_expiracion_tarjeta.getDate();
 				  if(titular.isEmpty()||numero.isEmpty()||csv.isEmpty()) {
-					 this.vista.lblNewLabelError_Tarjeta.setText("Todos los campos obligatorios");
+					 mostrarLabelTemporalmente(this.vista.lblNewLabelError_Tarjeta,"Todos los campos obligatorios");
 				  }else {
 					  if (seleccionfactura >= 0) {
 					        String direccion = (String) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 1);
@@ -514,7 +517,7 @@ public class Controlador implements ActionListener,MouseListener{
 					mostrarCitasEnTabla(detallesCitas,this.vista.tableVerCitasPacientes);
 				}
 			}else {
-				this.vista.lblNewLabelError.setText("Usuario o Contraseña no existe");
+				mostrarLabelTemporalmente(this.vista.lblNewLabelError,"Usuario o Contraseña no existe");
 				this.vista.lblNewLabelError.setForeground(new Color(139, 0, 0));
 			}
 			
@@ -542,7 +545,7 @@ public class Controlador implements ActionListener,MouseListener{
 		    String rol = (String) this.vista.comboBoxRoles.getSelectedItem(); 
 
 		    if (nombre.isEmpty() || contraseña.isEmpty() || rol.isEmpty()) {
-		        this.vista.lblErrorCrear.setText("Campos obligatorios");
+		        mostrarLabelTemporalmente(this.vista.lblErrorCrear,"Campos obligatorios");
 		    } else {
 		    	Integer id=null;
 		    	System.out.println(rol);
@@ -589,7 +592,8 @@ public class Controlador implements ActionListener,MouseListener{
 				  String contraseña=this.vista.textFieldContraseñaEditar.getText();
 				  String rol =this.vista.lblLaborNombre.getText(); 
 				  if(nombreUsuario.isEmpty()||contraseña.isEmpty()||rol.isEmpty()) {
-					  this.vista.lblErrorEditar.setText("Campos obligatorios");
+					
+					  mostrarLabelTemporalmente( this.vista.lblErrorEditar,"Campos obligatorios");
 				  }else {
 					  hibernate.EditarUsuario(nombreUsuario, contraseña, rol);
 					  mostrarUsuariosEnJTable();
@@ -629,7 +633,8 @@ public class Controlador implements ActionListener,MouseListener{
 			String horaria=this.vista.textFieldHorarioMedico.getText();
 			
 			if(especialidad.isEmpty()||horaria.isEmpty()) {
-				this.vista.lblNewLabelErrorPefilMedico.setText("Campos Obligatorios");
+				  mostrarLabelTemporalmente(this.vista.lblNewLabelErrorPefilMedico,"Campos Obligatorios");
+			
 			}else {
 				hibernate.actualizarMedico(nombre,especialidad,horaria);
 				this.vista.panelVerDatosMedicos.setVisible(false);
@@ -640,7 +645,8 @@ public class Controlador implements ActionListener,MouseListener{
 			String nombre=this.vista.textFieldBuscarHistorialPaciente.getText();
 			String direccion=this.vista.textFieldDireccionPaciente.getText();
 			if(nombre.isEmpty()|| direccion.isEmpty()) {
-				this.vista.lblErrorFiltro.setText("Campos obligatorios");
+				mostrarLabelTemporalmente(this.vista.lblErrorFiltro,"Campos obligatorios");
+				
 			}else {
 				mostrarHistorialMedico(nombre,direccion);
 			}
@@ -660,10 +666,10 @@ public class Controlador implements ActionListener,MouseListener{
 		    java.util.Date utilDate = calendario.getTime();
 		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		    if(nombrepaciente.isEmpty()||nombremedico.isEmpty()||diagnostico.isEmpty()||tratamiento.isEmpty()||receta.isEmpty()) {
-		    	this.vista.lblErrorRegistroMedico.setText("Rellena todos los campos");
+		    	mostrarLabelTemporalmente(this.vista.lblErrorRegistroMedico,"Rellena todos los campos");
 		    }else {
 		    	hibernate.crearHistorialMedico(nombrepaciente, nombremedico, diagnostico, tratamiento, receta, sqlDate);
-		    	this.vista.lblErrorRegistroMedico.setText("Creada perfectamente");
+		    	mostrarLabelTemporalmente(this.vista.lblErrorRegistroMedico,"Creada perfectamente");
 		    }
 		    
 		}
@@ -675,7 +681,7 @@ public class Controlador implements ActionListener,MouseListener{
 		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
 		    if (nombre.isEmpty()) {
-		        this.vista.lblNewLabelErrorCitas.setText("Campos obligatorios");
+		        mostrarLabelTemporalmente( this.vista.lblNewLabelErrorCitas,"Campos obligatorios");
 		    } else {
 
 		        this.vista.lblNewLabelErrorCitas.setText("");
@@ -695,11 +701,11 @@ public class Controlador implements ActionListener,MouseListener{
 		    java.util.Date utilDate = calendario.getTime();
 		    java.sql.Date fechaNacimientoPaciente = new java.sql.Date(utilDate.getTime());
 		    if(nombre.isEmpty()||contraseña.isEmpty()|| direccion.isEmpty()|| telefono.isEmpty()) {
-		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setText("Campos obligatorios");
+		    	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Campos obligatorios");
 		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.RED);
 		    }else{
 		    	hibernate.crearPacienteRecepcionista(nombre, contraseña, direccion, telefono, fechaNacimientoPaciente);
-		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setText("Se ha creado en todo momento");
+		    	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Se ha creado en todo momento");
 		    }
 		}
 		if(e.getSource()==this.vista.btnNewButtonCrearCitaRecepcion) {
@@ -711,18 +717,17 @@ public class Controlador implements ActionListener,MouseListener{
 			String horaTexto = this.vista.textFieldHoraCitaPaciente.getText(); 
 			String motivo = this.vista.textFieldMotivoCitaRecepcion.getText();
 			if (nombreCliente.isEmpty() || nombreMedico.isEmpty() || motivo.isEmpty() || horaTexto.isEmpty()) {
-			    this.vista.lblNewLabelErrorCrearCitaRecpecion.setText("Campos obligatorios");
+			    mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearCitaRecpecion,"Campos obligatorios");
 			    this.vista.lblNewLabelErrorCrearCitaRecpecion.setForeground(Color.RED);
-			} else if (!horaTexto.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")) {	   
-			    this.vista.lblNewLabelErrorCrearCitaRecpecion.setText("Formato de hora inválido (HH:mm)");
+			} else if (!horaTexto.matches("^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$")) {
+				mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearCitaRecpecion,"Formato de hora inválido (HH:mm)");
 			    this.vista.lblNewLabelErrorCrearCitaRecpecion.setForeground(Color.RED);
 			} else {
 			    try {
 			        Time hora = Time.valueOf(horaTexto + ":00"); 
 			        hibernate.crearCitaRecepcion(nombreCliente, nombreMedico, fechaCitaPaciente, hora, motivo);
 			    } catch (Exception g) {
-			        
-			        this.vista.lblNewLabelErrorCrearCitaRecpecion.setText("Error al procesar la hora");
+			    	mostrarLabelTemporalmente( this.vista.lblNewLabelErrorCrearCitaRecpecion,"Error al procesar la hora");
 			        this.vista.lblNewLabelErrorCrearCitaRecpecion.setForeground(Color.RED);
 			    }
 			}
@@ -1031,6 +1036,20 @@ public class Controlador implements ActionListener,MouseListener{
 		    });
 
 		    hiloReloj.start();
+		}
+	 public void mostrarLabelTemporalmente(JLabel label, String mensaje) {
+		    label.setText(mensaje);
+		    label.setVisible(true);
+
+		    ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+	
+		    executor.schedule(() -> {
+		        SwingUtilities.invokeLater(() -> {
+		            label.setText("");
+		            label.setVisible(false);
+		        });
+		        executor.shutdown(); 
+		    }, 3, TimeUnit.SECONDS); 
 		}
 	 
 }
