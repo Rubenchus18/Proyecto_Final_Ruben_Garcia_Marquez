@@ -23,6 +23,10 @@ public class EsqueletoInteractivoAPI extends JPanel {
         areasZonas = new HashMap<>();
         colorSeleccion = Color.RED;
         
+        // Configurar el panel como transparente
+        setOpaque(false); 
+        setPreferredSize(new Dimension(400, 650));
+
         // Inicializar áreas
         areasZonas.put(ZonaEsqueleto.CABEZA, new Rectangle());
         areasZonas.put(ZonaEsqueleto.TORSO, new Rectangle());
@@ -30,16 +34,20 @@ public class EsqueletoInteractivoAPI extends JPanel {
         areasZonas.put(ZonaEsqueleto.BRAZO_DERECHO, new Rectangle());
         areasZonas.put(ZonaEsqueleto.PIERNA_IZQUIERDA, new Rectangle());
         areasZonas.put(ZonaEsqueleto.PIERNA_DERECHA, new Rectangle());
-        
-        setPreferredSize(new Dimension(400, 650));
-        setBackground(Color.WHITE);
-        
+
+        // Eventos del mouse
         addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 manejarClic(e);
             }
         });
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        // No llamar a super.paintComponent(g) para evitar pintar el fondo
+        dibujarEsqueleto(g); // Solo dibuja el esqueleto
     }
 
     private void manejarClic(MouseEvent e) {
@@ -53,21 +61,6 @@ public class EsqueletoInteractivoAPI extends JPanel {
         }
     }
 
-    public void setColorSeleccion(Color color) {
-        this.colorSeleccion = color;
-    }
-
-    public void limpiarSelecciones() {
-        zonasColoreadas.clear();
-        repaint();
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        dibujarEsqueleto(g);
-    }
-
     private ZonaEsqueleto verificarClic(int x, int y) {
         for (Map.Entry<ZonaEsqueleto, Rectangle> entry : areasZonas.entrySet()) {
             if (entry.getValue().contains(x, y)) {
@@ -79,8 +72,8 @@ public class EsqueletoInteractivoAPI extends JPanel {
 
     protected void dibujarEsqueleto(Graphics g) {
         int centroX = getWidth() / 2;
-       
-        // Dibujar y actualizar las áreas interactivas
+
+        // Dibuja y actualiza las áreas interactivas
         areasZonas.put(ZonaEsqueleto.CABEZA, 
             dibujarZona(g, ZonaEsqueleto.CABEZA, centroX-30, 50, 60, 60));
         
@@ -99,12 +92,7 @@ public class EsqueletoInteractivoAPI extends JPanel {
         areasZonas.put(ZonaEsqueleto.PIERNA_DERECHA, 
             dibujarZona(g, ZonaEsqueleto.PIERNA_DERECHA, centroX+10, 230, 40, 120));
     }
-    public void colorearZona(ZonaEsqueleto zona) {
-        if (zona != null) {
-            this.zonasColoreadas.put(zona, this.colorSeleccion);
-            this.repaint(); 
-        }
-    }
+
     private Rectangle dibujarZona(Graphics g, ZonaEsqueleto zona, int x, int y, int width, int height) {
         // Relleno de la zona
         g.setColor(zonasColoreadas.getOrDefault(zona, Color.LIGHT_GRAY));
@@ -115,5 +103,21 @@ public class EsqueletoInteractivoAPI extends JPanel {
         g.drawOval(x, y, width, height);
         
         return new Rectangle(x, y, width, height);
+    }
+
+    public void setColorSeleccion(Color color) {
+        colorSeleccion = color;
+    }
+
+    public void colorearZona(ZonaEsqueleto zona) {
+        if (zona != null) {
+            zonasColoreadas.put(zona, colorSeleccion);
+            repaint();
+        }
+    }
+
+    public void limpiarSelecciones() {
+        zonasColoreadas.clear();
+        repaint();
     }
 }

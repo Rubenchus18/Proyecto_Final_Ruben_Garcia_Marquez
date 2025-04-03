@@ -255,7 +255,7 @@ public class ControladorHibernet {
             }
         }
     }
-
+    
     public void crearRecepcionista(String nombre) {
         Session session = null;
         Empleados emple=new Empleados();
@@ -290,12 +290,16 @@ public class ControladorHibernet {
     public Medicos verDatosMedicos(String nombre) {
     	Session session=null;
     	Medicos medicos=new Medicos();
+    	Empleados empleado=new Empleados();
     	try {
     		session=sessionFactory.getCurrentSession();
     		session.beginTransaction();
     		
-    		Query q=session.createQuery("FROM Medicos WHERE nombre=: nombrem ");
-    		q.setParameter("nombrem", nombre);
+    		Query q2=session.createQuery("FROM Empleados WHERE username= :nombreuser");
+    		q2.setParameter("nombreuser", nombre);
+    		empleado=(Empleados)q2.getSingleResult();
+    		Query q=session.createQuery("FROM Medicos WHERE empleados= :empleado ");
+    		q.setParameter("empleado", empleado);
     		medicos=(Medicos) q.getSingleResult();
     		
     		session.getTransaction();
@@ -325,8 +329,6 @@ public class ControladorHibernet {
             if (medico != null) {
                 medico.setEspecialidad(nuevaEspecialidad);
                 medico.setHorario(nuevoHorario);
-
-
                 session.saveOrUpdate(medico);
                 session.getTransaction().commit();
                 System.out.println("Médico actualizado correctamente.");
@@ -379,21 +381,23 @@ public class ControladorHibernet {
     }
     public void crearHistorialMedico(String nombrePaciente, String nombreMedico, String diagnostico, String tratamiento, String receta, Date fecha) {
        Session session=null;
-       Pacientes paciente=null;
-       Medicos medicos=null;
+       Pacientes paciente=new Pacientes();
+       Medicos medicos=new Medicos();
         try {
         	 session =sessionFactory.getCurrentSession();
         	 session.beginTransaction();
         	 
-            Query querypaciente=session.createQuery("FROM Pacientes WHERE nombre = :nombre");
-            		querypaciente.setParameter("nombre", nombrePaciente);
+            Query querypaciente=session.createQuery("FROM Pacientes WHERE nombre=:nombrep");
+            		querypaciente.setParameter("nombrep", nombrePaciente);
             		paciente=(Pacientes) querypaciente.uniqueResult();
 
                     
-            Query medicosquery =session.createQuery("FROM Medicos WHERE nombre = :nombre");
-            medicosquery.setParameter("nombre", nombreMedico);
+            Query medicosquery =session.createQuery("FROM Medicos WHERE nombre=:nombrem");
+            medicosquery.setParameter("nombrem", nombreMedico);
             medicos=(Medicos) medicosquery.uniqueResult();
-
+            
+            System.out.println("Paciente encontrado: " + (paciente != null));
+            System.out.println("Médico encontrado: " + (medicos != null));
             if (paciente != null && medicos != null) {
                
                 HistorialesMedicos historial = new HistorialesMedicos();

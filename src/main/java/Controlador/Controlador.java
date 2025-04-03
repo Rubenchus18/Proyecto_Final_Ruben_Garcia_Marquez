@@ -150,8 +150,7 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.scrollPane_2.setVisible(false);
 			this.vista.panelFiltrarCitas.setVisible(false);
 			medicos=hibernate.verDatosMedicos(this.vista.lblNewLabelNombreUsuarioMostrarMedico.getText());
-			
-				this.vista.lblNewLabelNombreMedico.setText(medicos.getNombre());
+				this.vista.textFieldlblNombreMedico.setText(medicos.getNombre());
 				this.vista.textFieldEspecialidadMedico.setText(medicos.getEspecialidad());
 				this.vista.textFieldHorarioMedico.setText(medicos.getHorario());
 			
@@ -164,6 +163,7 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelCrearHistorialMedico.setVisible(false);
 			this.vista.scrollPane_2.setVisible(false);
 			this.vista.panelFiltrarCitas.setVisible(false);
+			this.vista.panelEsqueleto.setVisible(false);
 			}
 		if(e.getSource()==this.vista.lblRegistro) {
 			this.vista.panelCrearHistorialMedico.setVisible(true);
@@ -173,6 +173,7 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelFiltar.setVisible(false);
 			this.vista.scrollPane_2.setVisible(false);
 			this.vista.panelFiltrarCitas.setVisible(false);
+			this.vista.panelEsqueleto.setVisible(false);
 		}
 		if(e.getSource()==this.vista.lblVerCitas) {
 			
@@ -183,12 +184,14 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelCrearHistorialMedico.setVisible(false);
 			this.vista.scrollPane_2.setVisible(true);
 			this.vista.panelFiltrarCitas.setVisible(true);
+			this.vista.panelEsqueleto.setVisible(false);
 		}
 		if(e.getSource() == this.vista.tableHistorialMedico) {
 		    int seleccion_historial = this.vista.tableHistorialMedico.getSelectedRow();
 		    if (seleccion_historial >= 0) {  		      
 		        this.vista.panelEsqueleto.removeAll(); 
 		        EsqueletoInteractivoAPI panelEsqueleto = new EsqueletoInteractivoAPI();
+		        panelEsqueleto.setOpaque(true);
 		        panelEsqueleto.setPreferredSize(new Dimension(100, 100)); 
 		        this.vista.panelEsqueleto.setLayout(new BorderLayout());
 		        this.vista.panelEsqueleto.add(panelEsqueleto, BorderLayout.CENTER);
@@ -299,6 +302,9 @@ public class Controlador implements ActionListener,MouseListener{
 					 hibernate.crearFacturaPorNombrePaciente(nombrePaciente, importetext, sqlDate);
 					 mostrarLabelTemporalmente(this.vista.lblErrorCrearFacturasPaciente,"Creado perfectamente");
 					 this.vista.lblErrorCrearFacturasPaciente.setForeground(Color.GREEN);
+					 this.vista.textFieldNombredelPaciente.setText("");
+					 this.vista.textFieldImporte.setText("");
+					 
 				 }
 				    
 			}
@@ -435,6 +441,10 @@ public class Controlador implements ActionListener,MouseListener{
 					        hibernate.actualizarEstadoFactura(direccion, monto, fechaSQL);
 					        this.vista.panelDatos_Cliente_Factura.setVisible(false);
 					        List<Object[]> detallesCitas=hibernate.obtenerFacturaCliente(nombre);
+					        this.vista.lblNewLabelNombreUsuarioMostrarPaciente.setText("");
+					        this.vista.textField_Titular_Tarjeta.setText("");
+					        this.vista.textField_Numero_Tarjeta.setText("");
+					        this.vista.textField_CSV_Tarjeta.setText("");
 							mostrarFacturasCliente(detallesCitas,this.vista.tableVerFacturas_Paciente);
 							this.vista.panelDatos_Cliente_Factura.setVisible(false);
 							this.vista.tableVerFacturas_Paciente.setEnabled(true);
@@ -551,18 +561,26 @@ public class Controlador implements ActionListener,MouseListener{
 		    	System.out.println(rol);
 		    	if(rol.equalsIgnoreCase("admin")) {
 		    		hibernate.crearUsuario(nombre, contraseña, rol);
+		    		this.vista.textFieldNombreUsuarioCrear.setText("");
+		    		this.vista.textFieldContraseñaCrear.setText("");
 		    	}else if(rol.equalsIgnoreCase("medico")) {
 		    		id=hibernate.crearUsuario(nombre, contraseña, rol);
 		    		hibernate.crearMedico(nombre,id);
 			        mostrarUsuariosEnJTable(); 
+			        this.vista.textFieldNombreUsuarioCrear.setText("");
+		    		this.vista.textFieldContraseñaCrear.setText("");
 		    	}else if(rol.equalsIgnoreCase("recepcionista")) {
 		    		id=hibernate.crearUsuario(nombre, contraseña, rol);
 		    		hibernate.crearRecepcionista(nombre);
 			        mostrarUsuariosEnJTable(); 
+			        this.vista.textFieldNombreUsuarioCrear.setText("");
+		    		this.vista.textFieldContraseñaCrear.setText("");
 		    	}else if(rol.equalsIgnoreCase("paciente")){
 		    		id=hibernate.crearUsuario(nombre, contraseña, rol);
 		    		hibernate.crearPaciente(nombre,id);
 			        mostrarUsuariosEnJTable(); 
+			        this.vista.textFieldNombreUsuarioCrear.setText("");
+		    		this.vista.textFieldContraseñaCrear.setText("");
 		    	}
 		      
 		        this.vista.panelCrearAdmin.setVisible(false);
@@ -628,7 +646,7 @@ public class Controlador implements ActionListener,MouseListener{
 		    } 
 		}
 		if(e.getSource()==this.vista.btnRellenarDatos) {
-			String nombre=this.vista.lblNewLabelNombreMedico.getText();
+			String nombre=this.vista.textFieldlblNombreMedico.getText();
 			String especialidad=this.vista.textFieldEspecialidadMedico.getText();
 			String horaria=this.vista.textFieldHorarioMedico.getText();
 			
@@ -649,12 +667,12 @@ public class Controlador implements ActionListener,MouseListener{
 				
 			}else {
 				mostrarHistorialMedico(nombre,direccion);
+				this.vista.textFieldBuscarHistorialPaciente.setText("");
+				this.vista.textFieldDireccionPaciente.setText("");
 			}
 		}
 		if(e.getSource() == this.vista.btnGuardarHistorialMedico) {
-		    String nombrepaciente = this.vista.textFieldNombrePaciente.getText();
-		    String nombre=this.vista.lblNewLabelNombreUsuarioMostrarMedico.getText();
-		    this.vista.textFieldNombreMedico.setText(nombre);
+		    String nombrepaciente = this.vista.textFieldNombrePaciente.getText();		 
 		    String nombremedico= this.vista.textFieldNombreMedico.getText();
 		    String diagnostico = this.vista.textFieldDiagnostico.getText();
 		    String tratamiento = this.vista.textFieldTratamiento.getText();
@@ -670,6 +688,11 @@ public class Controlador implements ActionListener,MouseListener{
 		    }else {
 		    	hibernate.crearHistorialMedico(nombrepaciente, nombremedico, diagnostico, tratamiento, receta, sqlDate);
 		    	mostrarLabelTemporalmente(this.vista.lblErrorRegistroMedico,"Creada perfectamente");
+		    	this.vista.textFieldNombrePaciente.setText("");
+		    	this.vista.textFieldNombreMedico.setText("");
+		    	this.vista.textFieldDiagnostico.setText("");
+		    	this.vista.textFieldTratamiento.setText("");
+		    	this.vista.textFieldReceta.setText("");
 		    }
 		    
 		}
@@ -688,6 +711,7 @@ public class Controlador implements ActionListener,MouseListener{
 		        List<Citas> citas = hibernate.obtenerCitasPorMedicoYFecha(nombre, sqlDate);
 		      
 		            mostrarCitasEnTabla(this.vista.tableMostrarResultadoCitas, citas);
+		            this.vista.textFieldNombreMedicoCita.setText("");
 		        
 		    }
 		}
@@ -705,7 +729,12 @@ public class Controlador implements ActionListener,MouseListener{
 		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.RED);
 		    }else{
 		    	hibernate.crearPacienteRecepcionista(nombre, contraseña, direccion, telefono, fechaNacimientoPaciente);
-		    	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Se ha creado en todo momento");
+		    	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Se ha creado correctamente");
+		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.GREEN);
+		    	this.vista.textField_NombrePaciente.setText("");
+		    	this.vista.passwordFieldContraseñaPacienteRecepcion.setText("");
+		    	this.vista.textFieldDireccionPacienteRecepcion.setText("");
+		    	this.vista.textFieldTelefonoPacienteRecepcion.setText("");
 		    }
 		}
 		if(e.getSource()==this.vista.btnNewButtonCrearCitaRecepcion) {
@@ -726,6 +755,12 @@ public class Controlador implements ActionListener,MouseListener{
 			    try {
 			        Time hora = Time.valueOf(horaTexto + ":00"); 
 			        hibernate.crearCitaRecepcion(nombreCliente, nombreMedico, fechaCitaPaciente, hora, motivo);
+			    	mostrarLabelTemporalmente( this.vista.lblNewLabelErrorCrearCitaRecpecion,"Cita Creada");
+			        this.vista.lblNewLabelErrorCrearCitaRecpecion.setForeground(Color.GREEN);
+			        this.vista.textFieldNombrePacienteCitaRecepcion.setText("");
+			        this.vista.textFieldNombreMedicoCitaRecepcion.setText("");
+			        this.vista.textFieldHoraCitaPaciente.setText(""); 
+			        this.vista.textFieldMotivoCitaRecepcion.setText("");
 			    } catch (Exception g) {
 			    	mostrarLabelTemporalmente( this.vista.lblNewLabelErrorCrearCitaRecpecion,"Error al procesar la hora");
 			        this.vista.lblNewLabelErrorCrearCitaRecpecion.setForeground(Color.RED);
@@ -918,10 +953,10 @@ public class Controlador implements ActionListener,MouseListener{
 		    DefaultTableModel model = new DefaultTableModel();
 		    model.addColumn("Paciente");
 		    model.addColumn("Médico");
-		    model.addColumn("Especialidad");
+		    model.addColumn("Diagnostico");
+		    model.addColumn("Tratamiento");
+		    model.addColumn("Receta");
 		    model.addColumn("Fecha");
-		    model.addColumn("Hora");
-		    model.addColumn("Motivo");
 
 	
 		    for (Object[] detalle : detallesCitas) {
