@@ -40,7 +40,6 @@ import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
 
-import com.stripe.model.Event.Data;
 
 import Api.EsqueletoInteractivoAPI;
 import Api.EsqueletoInteractivoAPI.ZonaEsqueleto;
@@ -81,7 +80,7 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.lblNewLabelCaraRecepcionista.addMouseListener(this);
 		   this.vista.lblNewLabelSalidaRecepcionista.addMouseListener(this);
 		   this.vista.lblRegistro_Nuevo_Pacientes.addMouseListener(this);
-		   this.vista.btnNewButtonCrearPacienteRecepcion.addActionListener(this);
+		   this.vista.lblNewLabel_CrearPacienteRecepcion.addMouseListener(this);
 		   this.vista.lbl_Programacion_Citas.addMouseListener(this);
 		   this.vista.btnNewButtonCrearCitaRecepcion.addActionListener(this);
 		   this.vista.lblEmision_de_Facturas.addMouseListener(this);
@@ -204,12 +203,33 @@ public class Controlador implements ActionListener,MouseListener{
 		    }
 		}
 		//Recepcionista
+		if(e.getSource()==this.vista.lblNewLabel_CrearPacienteRecepcion) {
+			String nombre=this.vista.textField_NombrePaciente.getText();
+			String contraseña=this.vista.passwordFieldContraseñaPacienteRecepcion.getText();
+			String direccion=this.vista.textFieldDireccionPacienteRecepcion.getText();
+			String telefono=this.vista.textFieldTelefonoPacienteRecepcion.getText();
+			Calendar calendario = this.vista.calendarFechaNacimientoPacienteRecepcion.getCalendar();
+		    java.util.Date utilDate = calendario.getTime();
+		    java.sql.Date fechaNacimientoPaciente = new java.sql.Date(utilDate.getTime());
+		    if(nombre.isEmpty()||contraseña.isEmpty()|| direccion.isEmpty()|| telefono.isEmpty()) {
+		    	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Campos obligatorios");
+		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.RED);
+		    }else{
+		    	hibernate.crearPacienteRecepcionista(nombre, contraseña, direccion, telefono, fechaNacimientoPaciente);
+		    	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Se ha creado correctamente");
+		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.GREEN);
+		    	this.vista.textField_NombrePaciente.setText("");
+		    	this.vista.passwordFieldContraseñaPacienteRecepcion.setText("");
+		    	this.vista.textFieldDireccionPacienteRecepcion.setText("");
+		    	this.vista.textFieldTelefonoPacienteRecepcion.setText("");
+		    }
+		}
 		if(e.getSource()== this.vista.lblNewLabelCaraRecepcionista) {
 			this.vista.panelInformacionPaciente.setVisible(true);
 			Recepcionistas recepecionista=new Recepcionistas();
 			String nombre=this.vista.lblNewLabelNombreUsuarioMostrarRecepcionista.getText();
 			recepecionista=hibernate.cogerDatosRecpecionista(nombre);
-			this.vista.lblNewLabelNombrePaciente.setText(recepecionista.getNombre());
+			this.vista.textFieldNombreInfoRecepcionista.setText(recepecionista.getNombre());
 			this.vista.panelProgramarCitasRecpecionosta.setVisible(false);
 			this.vista.panelCrearPacienteRecepcion.setVisible(false);
 			this.vista.panelExportacion.setVisible(false);
@@ -532,6 +552,7 @@ public class Controlador implements ActionListener,MouseListener{
 			}
 			
 		}
+		//Administrador
 		if(e.getSource()==this.vista.btnNewButtonCrear) {
 			this.vista.btnNewButtonEditar.setEnabled(false);
 			this.vista.btnNewButtonCrear.setEnabled(false);
@@ -658,7 +679,7 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.panelVerDatosMedicos.setVisible(false);
 			}
 		}
-	
+		//Medico
 		if(e.getSource()==this.vista.btnBuscarHistorial) {
 			String nombre=this.vista.textFieldBuscarHistorialPaciente.getText();
 			String direccion=this.vista.textFieldDireccionPaciente.getText();
@@ -716,27 +737,7 @@ public class Controlador implements ActionListener,MouseListener{
 		    }
 		}
 		//Recepcionista
-		if(e.getSource()==this.vista.btnNewButtonCrearPacienteRecepcion) {
-			String nombre=this.vista.textField_NombrePaciente.getText();
-			String contraseña=this.vista.passwordFieldContraseñaPacienteRecepcion.getText();
-			String direccion=this.vista.textFieldDireccionPacienteRecepcion.getText();
-			String telefono=this.vista.textFieldTelefonoPacienteRecepcion.getText();
-			Calendar calendario = this.vista.calendarFechaNacimientoPacienteRecepcion.getCalendar();
-		    java.util.Date utilDate = calendario.getTime();
-		    java.sql.Date fechaNacimientoPaciente = new java.sql.Date(utilDate.getTime());
-		    if(nombre.isEmpty()||contraseña.isEmpty()|| direccion.isEmpty()|| telefono.isEmpty()) {
-		    	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Campos obligatorios");
-		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.RED);
-		    }else{
-		    	hibernate.crearPacienteRecepcionista(nombre, contraseña, direccion, telefono, fechaNacimientoPaciente);
-		    	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Se ha creado correctamente");
-		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.GREEN);
-		    	this.vista.textField_NombrePaciente.setText("");
-		    	this.vista.passwordFieldContraseñaPacienteRecepcion.setText("");
-		    	this.vista.textFieldDireccionPacienteRecepcion.setText("");
-		    	this.vista.textFieldTelefonoPacienteRecepcion.setText("");
-		    }
-		}
+		
 		if(e.getSource()==this.vista.btnNewButtonCrearCitaRecepcion) {
 			String nombreCliente = this.vista.textFieldNombrePacienteCitaRecepcion.getText();
 			String nombreMedico = this.vista.textFieldNombreMedicoCitaRecepcion.getText();
@@ -769,9 +770,13 @@ public class Controlador implements ActionListener,MouseListener{
 		}
 		if(e.getSource()==this.vista.btnNewButtonExprotarCSV) {
 			hibernate.exportarFacturasACSV("documentos/FacturasConsulta.csv");
+			mostrarLabelTemporalmente(this.vista.lblConfirmarExportacion,"Exportado exitosamente a csv");
+			this.vista.lblConfirmarExportacion.setForeground(Color.green);
 		}
 		if(e.getSource()==this.vista.btnNewButtonExportarPDF) {
 			hibernate.exportarFacturasAPDF("documentos/FacturasConsulta.pdf");
+			mostrarLabelTemporalmente(this.vista.lblConfirmarExportacion,"Exportado exitosamente a pdf");
+			this.vista.lblConfirmarExportacion.setForeground(Color.green);
 		}
 		
 				
@@ -831,7 +836,7 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.lblNewLabelFondoRecepcionista.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoRecepcionista, "imagenes/fondo_aplicacion.jpg"));
 		 this.vista.lblNewLabelFondoPerfilRecepcionista.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoRecepcionista, "imagenes/fondo_admin_panel.jpg"));
 		 this.vista.lblNewLabelFondoPanelCrearPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoRecepcionista, "imagenes/fondo_admin_panel.jpg"));
-		 this.vista.btnNewButtonCrearPacienteRecepcion.setIcon(fotoEscalarButton(this.vista.btnNewButtonCrearPacienteRecepcion, "imagenes/botonGuardar.png"));
+		 this.vista.lblNewLabel_CrearPacienteRecepcion.setIcon(fotoEscalarLabel(this.vista.lblNewLabel_CrearPacienteRecepcion, "imagenes/botonGuardar.png"));
 		 this.vista.lblNewLabelMarcoMapa.setIcon(fotoEscalarLabel(this.vista.lblNewLabelMarcoMapa, "imagenes/marcomapa.png"));
 		 this.vista.btnNewButtonCrearCitaRecepcion.setIcon(fotoEscalarButton(this.vista.btnNewButtonCrearCitaRecepcion, "imagenes/botonGuardar.png"));
 		 this.vista.lblNewLabelFondoPanelCrearCitaRecepcion.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoPanelCrearCitaRecepcion, "imagenes/fondo_admin_panel.jpg"));
@@ -851,7 +856,7 @@ public class Controlador implements ActionListener,MouseListener{
 		this.vista.lblPagarFacturas_Definitiva.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas_Definitiva, "imagenes/btn_pagar.png"));
 		this.vista.lblCrearFacturas.setIcon(fotoEscalarLabel(this.vista.lblCrearFacturas, "imagenes/btnCrearFacturas.png"));
 		this.vista.lbFondo_Panel_Crear_Facturas.setIcon(fotoEscalarLabel(this.vista.lbFondo_Panel_Crear_Facturas, "imagenes/fondo_admin_panel.jpg"));
-		this.vista.lblCCrearFacturasFinal.setIcon(fotoEscalarLabel(this.vista.lblCCrearFacturasFinal, "imagenes/btn_pagar.png"));
+		this.vista.lblCCrearFacturasFinal.setIcon(fotoEscalarLabel(this.vista.lblCCrearFacturasFinal, "imagenes/boton_crear.png"));
 	 }
 	 public void añadidoRolesComboBox() {
 		  this.vista.comboBoxRoles.addItem("admin");
