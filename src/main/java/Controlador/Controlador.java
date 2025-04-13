@@ -152,7 +152,9 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.textFieldlblNombreMedico.setText(medicos.getNombre());
 				this.vista.textFieldEspecialidadMedico.setText(medicos.getEspecialidad());
 				this.vista.textFieldHorarioMedico.setText(medicos.getHorario());
-			
+				this.vista.lblVerCitas.setIcon(fotoEscalarLabel(this.vista.lblVerCitas, "imagenes/vercitas.png"));
+				this.vista.lblHistorialPaciente.setIcon(fotoEscalarLabel(this.vista.lblHistorialPaciente, "imagenes/Historial.png"));
+				this.vista.lblRegistro.setIcon(fotoEscalarLabel(this.vista.lblRegistro, "imagenes/Registro.png"));
 		}
 		
 		if(e.getSource()==this.vista.lblHistorialPaciente) {
@@ -163,6 +165,9 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.scrollPane_2.setVisible(false);
 			this.vista.panelFiltrarCitas.setVisible(false);
 			this.vista.panelEsqueleto.setVisible(false);
+			this.vista.lblVerCitas.setIcon(fotoEscalarLabel(this.vista.lblVerCitas, "imagenes/vercitas.png"));
+			this.vista.lblHistorialPaciente.setIcon(fotoEscalarLabel(this.vista.lblHistorialPaciente, "imagenes/Historial_seleccionado.png"));
+			this.vista.lblRegistro.setIcon(fotoEscalarLabel(this.vista.lblRegistro, "imagenes/Registro.png"));
 			}
 		if(e.getSource()==this.vista.lblRegistro) {
 			this.vista.panelCrearHistorialMedico.setVisible(true);
@@ -173,6 +178,9 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.scrollPane_2.setVisible(false);
 			this.vista.panelFiltrarCitas.setVisible(false);
 			this.vista.panelEsqueleto.setVisible(false);
+			this.vista.lblVerCitas.setIcon(fotoEscalarLabel(this.vista.lblVerCitas, "imagenes/vercitas.png"));
+			this.vista.lblHistorialPaciente.setIcon(fotoEscalarLabel(this.vista.lblHistorialPaciente, "imagenes/Historial.png"));
+			this.vista.lblRegistro.setIcon(fotoEscalarLabel(this.vista.lblRegistro, "imagenes/Registro_seleccionado.png"));
 		}
 		if(e.getSource()==this.vista.lblVerCitas) {
 			
@@ -184,6 +192,9 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.scrollPane_2.setVisible(true);
 			this.vista.panelFiltrarCitas.setVisible(true);
 			this.vista.panelEsqueleto.setVisible(false);
+			this.vista.lblVerCitas.setIcon(fotoEscalarLabel(this.vista.lblVerCitas, "imagenes/vercitas_seleccionado.png"));
+			this.vista.lblHistorialPaciente.setIcon(fotoEscalarLabel(this.vista.lblHistorialPaciente, "imagenes/Historial.png"));
+			this.vista.lblRegistro.setIcon(fotoEscalarLabel(this.vista.lblRegistro, "imagenes/Registro.png"));
 		}
 		if(e.getSource() == this.vista.tableHistorialMedico) {
 		    int seleccion_historial = this.vista.tableHistorialMedico.getSelectedRow();
@@ -235,6 +246,10 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelExportacion.setVisible(false);
 			this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
 			this.vista.panelCrearFacturasRecepcion.setVisible(false);
+			 this.vista.lblRegistro_Nuevo_Pacientes.setIcon(fotoEscalarLabel(this.vista.lblRegistro_Nuevo_Pacientes, "imagenes/NuevoPaciente.png")); 
+			 this.vista.lbl_Programacion_Citas.setIcon(fotoEscalarLabel(this.vista.lbl_Programacion_Citas, "imagenes/NuevaCita.png"));
+			 this.vista.lblEmision_de_Facturas.setIcon(fotoEscalarLabel(this.vista.lblEmision_de_Facturas, "imagenes/emisionFacturas.png"));
+			 this.vista.lblCrearFacturas.setIcon(fotoEscalarLabel(this.vista.lblCrearFacturas, "imagenes/btnCrearFacturas.png"));
 		}
 		if(e.getSource()==this.vista.lblNewLabelSalidaRecepcionista) {
 			this.vista.panelInicio.setVisible(true);
@@ -242,6 +257,7 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelExportacion.setVisible(false);
 			   this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
 			   this.vista.panelCrearFacturasRecepcion.setVisible(false);
+			   
 		}
 		if(e.getSource()==this.vista.lblRegistro_Nuevo_Pacientes) {
 			this.vista.panelCrearPacienteRecepcion.setVisible(true);
@@ -249,6 +265,10 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelExportacion.setVisible(false);
 			   this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
 			   this.vista.panelCrearFacturasRecepcion.setVisible(false);
+			   this.vista.lblRegistro_Nuevo_Pacientes.setIcon(fotoEscalarLabel(this.vista.lblRegistro_Nuevo_Pacientes, "imagenes/NuevoPaciente_seleccionado.png"));
+			   this.vista.lbl_Programacion_Citas.setIcon(fotoEscalarLabel(this.vista.lbl_Programacion_Citas, "imagenes/NuevaCita.png"));
+			   this.vista.lblEmision_de_Facturas.setIcon(fotoEscalarLabel(this.vista.lblEmision_de_Facturas, "imagenes/emisionFacturas.png"));
+			   this.vista.lblCrearFacturas.setIcon(fotoEscalarLabel(this.vista.lblCrearFacturas, "imagenes/btnCrearFacturas.png"));
 		}
 		if(e.getSource()==this.vista.lbl_Programacion_Citas) {
 			this.vista.panelProgramarCitasRecpecionosta.setVisible(true);
@@ -256,6 +276,10 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelExportacion.setVisible(false);
 			   this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
 			   this.vista.panelCrearFacturasRecepcion.setVisible(false);
+			   this.vista.lblRegistro_Nuevo_Pacientes.setIcon(fotoEscalarLabel(this.vista.lblRegistro_Nuevo_Pacientes, "imagenes/NuevoPaciente.png"));
+			   this.vista.lbl_Programacion_Citas.setIcon(fotoEscalarLabel(this.vista.lbl_Programacion_Citas, "imagenes/NuevaCita_seleccionado.png"));
+			   this.vista.lblEmision_de_Facturas.setIcon(fotoEscalarLabel(this.vista.lblEmision_de_Facturas, "imagenes/emisionFacturas.png"));
+			   this.vista.lblCrearFacturas.setIcon(fotoEscalarLabel(this.vista.lblCrearFacturas, "imagenes/btnCrearFacturas.png"));
 		}
 		if (e.getSource() == this.vista.lblEmision_de_Facturas) {
 		    double[] totales = hibernate.obtenerTotalesFacturas(); 
@@ -291,6 +315,10 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelCrearPacienteRecepcion.setVisible(false);
 			this.vista.panelInformacionPaciente.setVisible(false);
 			this.vista.panelCrearFacturasRecepcion.setVisible(false);
+			 this.vista.lblRegistro_Nuevo_Pacientes.setIcon(fotoEscalarLabel(this.vista.lblRegistro_Nuevo_Pacientes, "imagenes/NuevoPaciente.png"));
+			 this.vista.lbl_Programacion_Citas.setIcon(fotoEscalarLabel(this.vista.lbl_Programacion_Citas, "imagenes/NuevaCita.png"));
+			 this.vista.lblEmision_de_Facturas.setIcon(fotoEscalarLabel(this.vista.lblEmision_de_Facturas, "imagenes/emisionFacturas_seleccionado.png"));
+			 this.vista.lblCrearFacturas.setIcon(fotoEscalarLabel(this.vista.lblCrearFacturas, "imagenes/btnCrearFacturas.png"));
 		    
 		}
 		if(e.getSource()== this.vista.lblCrearFacturas) {
@@ -300,6 +328,10 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelExportacion.setVisible(false);
 			this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
 			this.vista.panelCrearFacturasRecepcion.setVisible(true);
+			 this.vista.lblRegistro_Nuevo_Pacientes.setIcon(fotoEscalarLabel(this.vista.lblRegistro_Nuevo_Pacientes, "imagenes/NuevoPaciente.png"));
+			 this.vista.lbl_Programacion_Citas.setIcon(fotoEscalarLabel(this.vista.lbl_Programacion_Citas, "imagenes/NuevaCita.png"));
+			 this.vista.lblEmision_de_Facturas.setIcon(fotoEscalarLabel(this.vista.lblEmision_de_Facturas, "imagenes/emisionFacturas.png"));
+			 this.vista.lblCrearFacturas.setIcon(fotoEscalarLabel(this.vista.lblCrearFacturas, "imagenes/btnCrearFacturas_seleccionada.png"));
 			
 			
 			}
@@ -352,6 +384,9 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.lblPagarFacturas_Definitiva.setVisible(false);
 				this.vista.tableVerFacturas_Paciente.setEnabled(true);
 				this.vista.panelDatos_Cliente_Factura.setVisible(false);
+				this.vista.lblVerCitasPaciente.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/vercitas.png"));
+				this.vista.lblVerHistorialMedico.setIcon(fotoEscalarLabel(this.vista.lblVerHistorialMedico, "imagenes/Historial.png"));
+				this.vista.lblPagarFacturas.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas, "imagenes/btnPagarFacturas.png"));
 			}
 			if(e.getSource()==this.vista.lblVerCitasPaciente) {
 				String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();	
@@ -369,6 +404,9 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.tableVerFacturas_Paciente.setEnabled(true);
 				List<Object[]> detallesCitas = hibernate.obtenerDetallesCitasPorPaciente(nombre);
 				mostrarCitasEnTabla(detallesCitas,this.vista.tableVerCitasPacientes);
+				this.vista.lblVerCitasPaciente.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/vercitas_seleccionado.png"));
+				this.vista.lblVerHistorialMedico.setIcon(fotoEscalarLabel(this.vista.lblVerHistorialMedico, "imagenes/Historial.png"));
+				this.vista.lblPagarFacturas.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas, "imagenes/btnPagarFacturas.png"));
 				
 			}
 			if(e.getSource()==this.vista.lblVerHistorialMedico) {
@@ -387,6 +425,9 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.tableVerFacturas_Paciente.setEnabled(true);
 				List<Object[]> detallesCitas = hibernate.obtenerHistorialMedicoPaciente(nombre);
 				mostrarHistorialClienteEnTabla(detallesCitas,this.vista.tableVerHistorialMedico);
+				this.vista.lblVerCitasPaciente.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/vercitas.png"));
+				this.vista.lblVerHistorialMedico.setIcon(fotoEscalarLabel(this.vista.lblVerHistorialMedico, "imagenes/Historial_seleccionado.png"));
+				this.vista.lblPagarFacturas.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas, "imagenes/btnPagarFacturas.png"));
 			}
 			if(e.getSource()==this.vista.lblPagarFacturas) {
 				String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();
@@ -403,6 +444,9 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.tableVerFacturas_Paciente.setEnabled(true);
 				List<Object[]> detallesCitas=hibernate.obtenerFacturaCliente(nombre);
 				mostrarFacturasCliente(detallesCitas,this.vista.tableVerFacturas_Paciente);
+				this.vista.lblVerCitasPaciente.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/vercitas.png"));
+				this.vista.lblVerHistorialMedico.setIcon(fotoEscalarLabel(this.vista.lblVerHistorialMedico, "imagenes/Historial.png"));
+				this.vista.lblPagarFacturas.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas, "imagenes/btnPagarFacturas_seleccionado.png"));
 			}
 			if(e.getSource() == this.vista.tableVerFacturas_Paciente) {
 			    int seleccionfactura = this.vista.tableVerFacturas_Paciente.getSelectedRow();
@@ -531,12 +575,14 @@ public class Controlador implements ActionListener,MouseListener{
 					this.vista.lblNewLabelNombreUsuarioMostrarMedico.setText(nombre);
 					this.vista.panelFiltrarCitas.setVisible(true);
 					this.vista.scrollPane_2.setVisible(true);
+					this.vista.lblVerCitas.setIcon(fotoEscalarLabel(this.vista.lblVerCitas, "imagenes/vercitas_seleccionado.png"));
 					this.vista.tableMostrarResultadoCitas.setVisible(true);
 				}else if(rol.equalsIgnoreCase("recepcionista")) {
 					this.vista.panelInicio.setVisible(false);
 					this.vista.panelRececipnista.setVisible(true);
 					this.vista.lblNewLabelNombreUsuarioMostrarRecepcionista.setText(nombre);
 					this.vista.panelCrearPacienteRecepcion.setVisible(true);
+					 this.vista.lblRegistro_Nuevo_Pacientes.setIcon(fotoEscalarLabel(this.vista.lblRegistro_Nuevo_Pacientes, "imagenes/NuevoPaciente_seleccionado.png"));
 				}else if(rol.equalsIgnoreCase("paciente")) {
 					this.vista.panelInicio.setVisible(false);
 					this.vista.panelPacientes.setVisible(true);
@@ -545,6 +591,7 @@ public class Controlador implements ActionListener,MouseListener{
 					this.vista.scrollPane_3.setVisible(true);
 					List<Object[]> detallesCitas = hibernate.obtenerDetallesCitasPorPaciente(nombre);
 					mostrarCitasEnTabla(detallesCitas,this.vista.tableVerCitasPacientes);
+					this.vista.lblVerCitasPaciente.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/vercitas_seleccionado.png"));
 				}
 			}else {
 				mostrarLabelTemporalmente(this.vista.lblNewLabelError,"Usuario o Contraseña no existe");
@@ -845,7 +892,7 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.btnNewButtonExprotarCSV.setIcon(fotoEscalarButton(this.vista.btnNewButtonExprotarCSV, "imagenes/botonExportarCSV.png"));
 		 this.vista.lblNewLabelSalida_Paciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelSalida_Paciente, "imagenes/botonVolver.png"));
 		 this.vista.lblVerCitasPaciente.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/vercitas.png"));
-		 this.vista.lblVerHistorialMedico.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/Historial.png"));
+		 this.vista.lblVerHistorialMedico.setIcon(fotoEscalarLabel(this.vista.lblVerHistorialMedico, "imagenes/Historial.png"));
 		 this.vista.lblPagarFacturas.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas, "imagenes/btnPagarFacturas.png"));
 		 this.vista.lblNewLabelFondoPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoPaciente, "imagenes/fondo_aplicacion.jpg"));
 		 this.vista.lblNewLabelCaraPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCaraPaciente, "imagenes/foto_perfil.png"));

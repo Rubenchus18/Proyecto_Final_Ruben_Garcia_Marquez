@@ -302,16 +302,16 @@ public class ControladorHibernet {
     		q.setParameter("empleado", empleado);
     		medicos=(Medicos) q.getSingleResult();
     		
-    		session.getTransaction();
+    		session.getTransaction().commit();;
     		
     	}catch(Exception e) {
     		if(session!=null) {
-    			session.close();
+    			  session.getTransaction().rollback();
     		}
     		e.printStackTrace();
     	}finally{
     		if(session!=null) {
-    			session.close();
+    			 session.close();
     		}
     	}
 		return medicos;
@@ -342,7 +342,7 @@ public class ControladorHibernet {
             e.printStackTrace();
         } finally {
             if (session != null) {
-                session.close();
+            	 session.close();
             }
         }
     }

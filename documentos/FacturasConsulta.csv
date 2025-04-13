@@ -1,13 +1,6 @@
 ID,Nombre del Cliente,Importe,Fecha,Tratamiento,¿Pagado?
 1,Ruben,150,00,2023-10-20,Dieta baja en sal y ejercicio,No
+1,Ruben,150,00,2023-10-20,Tiene dierna,No
+1,Ruben,150,00,2023-10-20,Reposo,No
 2,María Gómez,100,00,2023-10-21,Seguimiento en 6 meses,Sí
-3,Ruben,99,48,2023-10-08,Dieta baja en sal y ejercicio,Sí
-4,Ruben,65,25,2023-10-29,Dieta baja en sal y ejercicio,No
-5,María Gómez,74,72,2023-10-13,Seguimiento en 6 meses,No
-6,Ruben,93,68,2023-10-09,Dieta baja en sal y ejercicio,No
-7,Ruben,229,89,2023-10-20,Dieta baja en sal y ejercicio,No
-8,María Gómez,214,58,2023-10-12,Seguimiento en 6 meses,Sí
-9,Ruben,128,96,2023-10-16,Dieta baja en sal y ejercicio,Sí
-10,Ruben,201,63,2023-10-11,Dieta baja en sal y ejercicio,Sí
-11,Ruben,62,23,2023-10-04,Dieta baja en sal y ejercicio,Sí
-12,María Gómez,161,60,2023-10-15,Seguimiento en 6 meses,No
+3,David,150,00,2025-04-08,Sin tratamiento,No
