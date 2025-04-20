@@ -40,7 +40,7 @@ import org.knowm.xchart.XChartPanel;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
 
-
+import Api.EmailSender;
 import Api.EsqueletoInteractivoAPI;
 import Api.EsqueletoInteractivoAPI.ZonaEsqueleto;
 import Vista.Vista;
@@ -97,6 +97,8 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.lblNewLabelSalida_Paciente.addMouseListener(this);
 		   this.vista.lblCrearFacturas.addMouseListener(this);
 		   this.vista.lblCCrearFacturasFinal.addMouseListener(this);
+		   this.vista.lblEnviarCorreo.addMouseListener(this);
+		   this.vista.lblEnviarCorreElectronico.addMouseListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
@@ -148,6 +150,7 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelCrearHistorialMedico.setVisible(false);
 			this.vista.scrollPane_2.setVisible(false);
 			this.vista.panelFiltrarCitas.setVisible(false);
+			this.vista.panelEnviarCorreo.setVisible(false);
 			medicos=hibernate.verDatosMedicos(this.vista.lblNewLabelNombreUsuarioMostrarMedico.getText());
 				this.vista.textFieldlblNombreMedico.setText(medicos.getNombre());
 				this.vista.textFieldEspecialidadMedico.setText(medicos.getEspecialidad());
@@ -155,6 +158,7 @@ public class Controlador implements ActionListener,MouseListener{
 				this.vista.lblVerCitas.setIcon(fotoEscalarLabel(this.vista.lblVerCitas, "imagenes/vercitas.png"));
 				this.vista.lblHistorialPaciente.setIcon(fotoEscalarLabel(this.vista.lblHistorialPaciente, "imagenes/Historial.png"));
 				this.vista.lblRegistro.setIcon(fotoEscalarLabel(this.vista.lblRegistro, "imagenes/Registro.png"));
+				this.vista.lblEnviarCorreo.setIcon(fotoEscalarLabel(this.vista.lblEnviarCorreo, "imagenes/btnEnviarCorreo.png"));
 		}
 		
 		if(e.getSource()==this.vista.lblHistorialPaciente) {
@@ -165,9 +169,11 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.scrollPane_2.setVisible(false);
 			this.vista.panelFiltrarCitas.setVisible(false);
 			this.vista.panelEsqueleto.setVisible(false);
+			this.vista.panelEnviarCorreo.setVisible(false);
 			this.vista.lblVerCitas.setIcon(fotoEscalarLabel(this.vista.lblVerCitas, "imagenes/vercitas.png"));
 			this.vista.lblHistorialPaciente.setIcon(fotoEscalarLabel(this.vista.lblHistorialPaciente, "imagenes/Historial_seleccionado.png"));
 			this.vista.lblRegistro.setIcon(fotoEscalarLabel(this.vista.lblRegistro, "imagenes/Registro.png"));
+			this.vista.lblEnviarCorreo.setIcon(fotoEscalarLabel(this.vista.lblEnviarCorreo, "imagenes/btnEnviarCorreo.png"));
 			}
 		if(e.getSource()==this.vista.lblRegistro) {
 			this.vista.panelCrearHistorialMedico.setVisible(true);
@@ -178,9 +184,11 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.scrollPane_2.setVisible(false);
 			this.vista.panelFiltrarCitas.setVisible(false);
 			this.vista.panelEsqueleto.setVisible(false);
+			this.vista.panelEnviarCorreo.setVisible(false);
 			this.vista.lblVerCitas.setIcon(fotoEscalarLabel(this.vista.lblVerCitas, "imagenes/vercitas.png"));
 			this.vista.lblHistorialPaciente.setIcon(fotoEscalarLabel(this.vista.lblHistorialPaciente, "imagenes/Historial.png"));
 			this.vista.lblRegistro.setIcon(fotoEscalarLabel(this.vista.lblRegistro, "imagenes/Registro_seleccionado.png"));
+			this.vista.lblEnviarCorreo.setIcon(fotoEscalarLabel(this.vista.lblEnviarCorreo, "imagenes/btnEnviarCorreo.png"));
 		}
 		if(e.getSource()==this.vista.lblVerCitas) {
 			
@@ -189,12 +197,14 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelFiltar.setVisible(false);
 			this.vista.panelVerDatosMedicos.setVisible(false);
 			this.vista.panelCrearHistorialMedico.setVisible(false);
+			this.vista.panelEnviarCorreo.setVisible(false);
 			this.vista.scrollPane_2.setVisible(true);
 			this.vista.panelFiltrarCitas.setVisible(true);
 			this.vista.panelEsqueleto.setVisible(false);
 			this.vista.lblVerCitas.setIcon(fotoEscalarLabel(this.vista.lblVerCitas, "imagenes/vercitas_seleccionado.png"));
 			this.vista.lblHistorialPaciente.setIcon(fotoEscalarLabel(this.vista.lblHistorialPaciente, "imagenes/Historial.png"));
 			this.vista.lblRegistro.setIcon(fotoEscalarLabel(this.vista.lblRegistro, "imagenes/Registro.png"));
+			this.vista.lblEnviarCorreo.setIcon(fotoEscalarLabel(this.vista.lblEnviarCorreo, "imagenes/btnEnviarCorreo.png"));
 		}
 		if(e.getSource() == this.vista.tableHistorialMedico) {
 		    int seleccion_historial = this.vista.tableHistorialMedico.getSelectedRow();
@@ -212,6 +222,40 @@ public class Controlador implements ActionListener,MouseListener{
 		        this.vista.panelEsqueleto.repaint();
 		        SwingUtilities.updateComponentTreeUI(this.vista.panelEsqueleto.getTopLevelAncestor());
 		    }
+		}
+		if(e.getSource()==this.vista.lblEnviarCorreo) {
+			this.vista.tableHistorialMedico.setVisible(false);
+			this.vista.panelFiltar.setVisible(false);
+			this.vista.scrollPane_1.setVisible(false);
+			this.vista.panelVerDatosMedicos.setVisible(true);
+			this.vista.panelCrearHistorialMedico.setVisible(false);
+			this.vista.scrollPane_2.setVisible(false);
+			this.vista.panelFiltrarCitas.setVisible(false);
+			this.vista.panelVerDatosMedicos.setVisible(false);
+			this.vista.panelEnviarCorreo.setVisible(true);
+			this.vista.lblEnviarCorreo.setIcon(fotoEscalarLabel(this.vista.lblEnviarCorreo, "imagenes/btnEnviarCorreoSeleccionado.png"));
+			this.vista.lblVerCitas.setIcon(fotoEscalarLabel(this.vista.lblVerCitas, "imagenes/vercitas.png"));
+			this.vista.lblHistorialPaciente.setIcon(fotoEscalarLabel(this.vista.lblHistorialPaciente, "imagenes/Historial.png"));
+			this.vista.lblRegistro.setIcon(fotoEscalarLabel(this.vista.lblRegistro, "imagenes/Registro.png"));
+		}
+		if(e.getSource()==this.vista.lblEnviarCorreElectronico) {
+			String correoelectronico=this.vista.textFieldCorreoElectronicoPaciente.getText();
+			String asunto=this.vista.textFieldAsuntoDeCorreoElectronico.getText();
+			String campo=this.vista.textPaneCampodeTextoCorreo.getText();
+			if(correoelectronico.isEmpty()|| asunto.isEmpty()||campo.isEmpty()) {
+				mostrarLabelTemporalmente(this.vista.lblConfirmarEnviar,"Rellenar todos los campos");
+		    	this.vista.lblConfirmarEnviar.setForeground(Color.red);
+			}else{
+				try {
+		            EmailSender.sendEmail(correoelectronico,asunto,campo);
+		            mostrarLabelTemporalmente(this.vista.lblConfirmarEnviar,"Enviado correctamente");
+			    	this.vista.lblConfirmarEnviar.setForeground(Color.green);
+		        } catch (Exception i) {
+		            System.err.println("Error en Main: " + i.getMessage());
+		            mostrarLabelTemporalmente(this.vista.lblConfirmarEnviar,"Correo electronico no existente o mal escrito");
+			    	this.vista.lblConfirmarEnviar.setForeground(Color.red);
+		        }
+			}	
 		}
 		//Recepcionista
 		if(e.getSource()==this.vista.lblNewLabel_CrearPacienteRecepcion) {
@@ -904,6 +948,9 @@ public class Controlador implements ActionListener,MouseListener{
 		this.vista.lblCrearFacturas.setIcon(fotoEscalarLabel(this.vista.lblCrearFacturas, "imagenes/btnCrearFacturas.png"));
 		this.vista.lbFondo_Panel_Crear_Facturas.setIcon(fotoEscalarLabel(this.vista.lbFondo_Panel_Crear_Facturas, "imagenes/fondo_admin_panel.jpg"));
 		this.vista.lblCCrearFacturasFinal.setIcon(fotoEscalarLabel(this.vista.lblCCrearFacturasFinal, "imagenes/boton_crear.png"));
+		this.vista.lblEnviarCorreo.setIcon(fotoEscalarLabel(this.vista.lblEnviarCorreo, "imagenes/btnEnviarCorreo.png"));
+		this.vista.lblFondoCorreoElectronico.setIcon(fotoEscalarLabel(this.vista.lblFondoCorreoElectronico, "imagenes/fondo_admin_panel.jpg"));
+		this.vista.lblEnviarCorreElectronico.setIcon(fotoEscalarLabel(this.vista.lblEnviarCorreElectronico, "imagenes/btnEnviar.png"));
 	 }
 	 public void añadidoRolesComboBox() {
 		  this.vista.comboBoxRoles.addItem("admin");
