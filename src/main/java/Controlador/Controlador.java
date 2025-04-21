@@ -259,7 +259,7 @@ public class Controlador implements ActionListener,MouseListener{
 				try {
 		            EmailSender.sendEmail(correoelectronico,asunto,campo);
 		            mostrarLabelTemporalmente(this.vista.lblConfirmarEnviar,"Enviado correctamente");
-			    	this.vista.lblConfirmarEnviar.setForeground(Color.green);
+			    	this.vista.lblConfirmarEnviar.setForeground(new Color(47, 113, 9));
 			    	this.vista.textFieldCorreoElectronicoPaciente.setText("");
 			    	this.vista.textFieldAsuntoDeCorreoElectronico.setText("");
 			    	this.vista.textPaneCampodeTextoCorreo.setText("");
@@ -285,7 +285,7 @@ public class Controlador implements ActionListener,MouseListener{
 		    }else{
 		    	hibernate.crearPacienteRecepcionista(nombre, contraseña, direccion, telefono, fechaNacimientoPaciente);
 		    	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Se ha creado correctamente");
-		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.GREEN);
+		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(new Color(47, 113, 9));
 		    	this.vista.textField_NombrePaciente.setText("");
 		    	this.vista.passwordFieldContraseñaPacienteRecepcion.setText("");
 		    	this.vista.textFieldDireccionPacienteRecepcion.setText("");
@@ -314,6 +314,10 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelExportacion.setVisible(false);
 			   this.vista.panelEmisiondeFacturasRecepcionista.setVisible(false);
 			   this.vista.panelCrearFacturasRecepcion.setVisible(false);
+			   this.vista.lblRegistro_Nuevo_Pacientes.setIcon(fotoEscalarLabel(this.vista.lblRegistro_Nuevo_Pacientes, "imagenes/NuevoPaciente_seleccionado.png"));
+			   this.vista.lbl_Programacion_Citas.setIcon(fotoEscalarLabel(this.vista.lbl_Programacion_Citas, "imagenes/NuevaCita.png"));
+			   this.vista.lblEmision_de_Facturas.setIcon(fotoEscalarLabel(this.vista.lblEmision_de_Facturas, "imagenes/emisionFacturas.png"));
+			   this.vista.lblCrearFacturas.setIcon(fotoEscalarLabel(this.vista.lblCrearFacturas, "imagenes/btnCrearFacturas.png"));
 			   
 		}
 		if(e.getSource()==this.vista.lblRegistro_Nuevo_Pacientes) {
@@ -355,7 +359,7 @@ public class Controlador implements ActionListener,MouseListener{
 		                    Arrays.asList("Facturas Pagadas", "Facturas Sin Pagar"), 
 		                    Arrays.asList(totalPagadas, totalNoPagadas)); 
 
-		    chart.getStyler().setSeriesColors(new Color[]{Color.green}); 
+		    chart.getStyler().setSeriesColors(new Color[]{Color.orange}); 
 		    chart.getStyler().setChartBackgroundColor(Color.white);
 		    chart.getStyler().setChartFontColor(Color.BLACK);
 		    XChartPanel<CategoryChart> chartPanel_3 = new XChartPanel<>(chart);
@@ -410,7 +414,7 @@ public class Controlador implements ActionListener,MouseListener{
 				 }else{
 					 hibernate.crearFacturaPorNombrePaciente(nombrePaciente, importetext, sqlDate);
 					 mostrarLabelTemporalmente(this.vista.lblErrorCrearFacturasPaciente,"Creado perfectamente");
-					 this.vista.lblErrorCrearFacturasPaciente.setForeground(Color.GREEN);
+					 this.vista.lblErrorCrearFacturasPaciente.setForeground(new Color(47, 113, 9));
 					 this.vista.textFieldNombredelPaciente.setText("");
 					 this.vista.textFieldImporte.setText("");
 					 
@@ -870,7 +874,7 @@ public class Controlador implements ActionListener,MouseListener{
 			        Time hora = Time.valueOf(horaTexto + ":00"); 
 			        hibernate.crearCitaRecepcion(nombreCliente, nombreMedico, fechaCitaPaciente, hora, motivo);
 			    	mostrarLabelTemporalmente( this.vista.lblNewLabelErrorCrearCitaRecpecion,"Cita Creada");
-			        this.vista.lblNewLabelErrorCrearCitaRecpecion.setForeground(Color.GREEN);
+			        this.vista.lblNewLabelErrorCrearCitaRecpecion.setForeground(new Color(47, 113, 9));
 			        this.vista.textFieldNombrePacienteCitaRecepcion.setText("");
 			        this.vista.textFieldNombreMedicoCitaRecepcion.setText("");
 			        this.vista.textFieldHoraCitaPaciente.setText(""); 
@@ -884,12 +888,12 @@ public class Controlador implements ActionListener,MouseListener{
 		if(e.getSource()==this.vista.btnNewButtonExprotarCSV) {
 			hibernate.exportarFacturasACSV("documentos/FacturasConsulta.csv");
 			mostrarLabelTemporalmente(this.vista.lblConfirmarExportacion,"Exportado exitosamente a csv");
-			this.vista.lblConfirmarExportacion.setForeground(Color.green);
+			this.vista.lblConfirmarExportacion.setForeground(new Color(47, 113, 9));
 		}
 		if(e.getSource()==this.vista.btnNewButtonExportarPDF) {
 			hibernate.exportarFacturasAPDF("documentos/FacturasConsulta.pdf");
 			mostrarLabelTemporalmente(this.vista.lblConfirmarExportacion,"Exportado exitosamente a pdf");
-			this.vista.lblConfirmarExportacion.setForeground(Color.green);
+			this.vista.lblConfirmarExportacion.setForeground(new Color(47, 113, 9));
 		}
 		
 				
