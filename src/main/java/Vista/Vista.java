@@ -332,426 +332,1010 @@ public class Vista extends JFrame {
 	        
 		setContentPane(contentPane);
 		 contentPane.setLayout(null);
-		                         
-		                          panelPacientes = new JPanel();
-		                          panelPacientes.setBounds(0, 0, 1329, 734);
-		                          panelPacientes.setVisible(false);
-		                          
-		                           panelRececipnista = new JPanel();
-		                           panelRececipnista.setBounds(0, 0, 1329, 734);
-		                           panelRececipnista.setVisible(false);
-		                           panelRececipnista.setVisible(false);
 		                              
 		                               panelAdmin = new JPanel();
 		                               panelAdmin.setBounds(0, 0, 1329, 734);
 		                               panelAdmin.setVisible(false);
-		                               
-		                                panelMedico = new JPanel();
-		                                panelMedico.setBounds(0, 0, 1329, 734);
-		                                panelMedico.setVisible(false);
-		                                contentPane.add(panelMedico);
-		                                panelMedico.setLayout(null);
 		                                
-		                                scrollPane_1 = new JScrollPane();
-		                                scrollPane_1.setBounds(54, 90, 874, 633);
-		                                scrollPane_1.setVisible(false);
-		                                
-		                                scrollPane_2 = new JScrollPane();
-		                                scrollPane_2.setBounds(66, 90, 862, 633);
-		                                scrollPane_2.setVisible(false);
-		                                
-		                                panelCrearHistorialMedico = new JPanel();
-		                                panelCrearHistorialMedico.setBounds(66, 90, 862, 633);
-		                                panelCrearHistorialMedico.setVisible(false);
-		                                
-		                                panelFiltar = new JPanel();
-		                                panelFiltar.setBounds(938, 90, 290, 633);
-		                                panelFiltar.setVisible(false);
-		                                
-		                                panelEnviarCorreo = new JPanel();
-		                                panelEnviarCorreo.setBounds(42, 89, 886, 634);
-		                                panelMedico.add(panelEnviarCorreo);
-		                                panelEnviarCorreo.setVisible(false);
-		                                panelEnviarCorreo.setLayout(null);
-		                                
-		                                lblConfirmarEnviar = new JLabel("");
-		                                lblConfirmarEnviar.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblConfirmarEnviar.setForeground(new Color(255, 128, 0));
-		                                lblConfirmarEnviar.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblConfirmarEnviar.setBounds(383, 521, 511, 68);
-		                                panelEnviarCorreo.add(lblConfirmarEnviar);
-		                                
-		                                lblEnviarCorreElectronico = new JLabel("");
-		                                lblEnviarCorreElectronico.setHorizontalAlignment(SwingConstants.RIGHT);
-		                                lblEnviarCorreElectronico.setForeground(new Color(255, 128, 0));
-		                                lblEnviarCorreElectronico.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblEnviarCorreElectronico.setBounds(81, 429, 292, 215);
-		                                panelEnviarCorreo.add(lblEnviarCorreElectronico);
-		                                
-		                                textFieldAsuntoDeCorreoElectronico = new JTextField();
-		                                textFieldAsuntoDeCorreoElectronico.setColumns(10);
-		                                textFieldAsuntoDeCorreoElectronico.setBounds(470, 124, 414, 68);
-		                                panelEnviarCorreo.add(textFieldAsuntoDeCorreoElectronico);
-		                                
-		                                textPaneCampodeTextoCorreo = new JTextPane();
-		                                textPaneCampodeTextoCorreo.setBounds(81, 258, 768, 215);
-		                                panelEnviarCorreo.add(textPaneCampodeTextoCorreo);
-		                                
-		                                textFieldCorreoElectronicoPaciente = new JTextField();
-		                                textFieldCorreoElectronicoPaciente.setBounds(46, 124, 414, 68);
-		                                panelEnviarCorreo.add(textFieldCorreoElectronicoPaciente);
-		                                textFieldCorreoElectronicoPaciente.setColumns(10);
-		                                
-		                                lblNewLabelNombre_34 = new JLabel("Campo de texto");
-		                                lblNewLabelNombre_34.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelNombre_34.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelNombre_34.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNewLabelNombre_34.setBounds(258, 203, 424, 68);
-		                                panelEnviarCorreo.add(lblNewLabelNombre_34);
-		                                
-		                                lblNewLabelNombre_33 = new JLabel("Asunto");
-		                                lblNewLabelNombre_33.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelNombre_33.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelNombre_33.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNewLabelNombre_33.setBounds(452, 45, 424, 68);
-		                                panelEnviarCorreo.add(lblNewLabelNombre_33);
-		                                
-		                                lblNewLabelNombre_32 = new JLabel("Correo Electronico");
-		                                lblNewLabelNombre_32.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelNombre_32.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelNombre_32.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNewLabelNombre_32.setBounds(36, 45, 424, 68);
-		                                panelEnviarCorreo.add(lblNewLabelNombre_32);
-		                                
-		                                lblFondoCorreoElectronico = new JLabel("");
-		                                lblFondoCorreoElectronico.setBounds(0, 0, 886, 634);
-		                                panelEnviarCorreo.add(lblFondoCorreoElectronico);
-		                                
-		                                panelFiltrarCitas = new JPanel();
-		                                panelFiltrarCitas.setBounds(938, 112, 290, 566);
-		                                panelMedico.add(panelFiltrarCitas);
-		                                panelFiltrarCitas.setVisible(false);
-		                                panelFiltrarCitas.setLayout(null);
-		                                
-		                                calendarioCitas = new JCalendar();
-		                                calendarioCitas.setBounds(42, 215, 238, 153);
-		                                panelFiltrarCitas.add(calendarioCitas);
-		                                
-		                                lblNewLabelErrorCitas = new JLabel("");
-		                                lblNewLabelErrorCitas.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelErrorCitas.setForeground(new Color(255, 0, 0));
-		                                lblNewLabelErrorCitas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 20));
-		                                lblNewLabelErrorCitas.setBounds(32, 487, 248, 68);
-		                                panelFiltrarCitas.add(lblNewLabelErrorCitas);
-		                                
-		                                btnFiltrarCitas = new JButton("");
-		                                btnFiltrarCitas.setBounds(42, 318, 238, 237);
-		                                btnFiltrarCitas.setOpaque(false);
-		                                btnFiltrarCitas.setContentAreaFilled(false);
-		                                btnFiltrarCitas.setBorderPainted(false);
-		                                panelFiltrarCitas.add(btnFiltrarCitas);
-		                                
-		                                textFieldNombreMedicoCita = new JTextField();
-		                                textFieldNombreMedicoCita.setBounds(42, 109, 238, 47);
-		                                panelFiltrarCitas.add(textFieldNombreMedicoCita);
-		                                textFieldNombreMedicoCita.setColumns(10);
-		                                
-		                                lblNewLabelFechaCita = new JLabel("Fecha de Cita");
-		                                lblNewLabelFechaCita.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelFechaCita.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelFechaCita.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNewLabelFechaCita.setBounds(32, 167, 248, 68);
-		                                panelFiltrarCitas.add(lblNewLabelFechaCita);
-		                                
-		                                lblNewLabelNombreMecicoCita = new JLabel("Nombre medico");
-		                                lblNewLabelNombreMecicoCita.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelNombreMecicoCita.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelNombreMecicoCita.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNewLabelNombreMecicoCita.setBounds(32, 30, 248, 68);
-		                                panelFiltrarCitas.add(lblNewLabelNombreMecicoCita);
-		                                
-		                                lblNewLabelFondoFiltrarCita = new JLabel("");
-		                                lblNewLabelFondoFiltrarCita.setBounds(0, 0, 290, 566);
-		                                panelFiltrarCitas.add(lblNewLabelFondoFiltrarCita);
-		                                
-		                                panelMedico.add(panelFiltar);
-		                                panelFiltar.setLayout(null);
-		                                
-		                                panelEsqueleto = new JPanel();
-		                                panelEsqueleto.setBounds(26, 266, 244, 367);
-		                                panelEsqueleto.setVisible(false);
-		                                panelEsqueleto.setOpaque(true);
-		                                panelFiltar.add(panelEsqueleto);
-		                                panelEsqueleto.setLayout(null);
-		                                
-		                                textFieldDireccionPaciente = new JTextField();
-		                                textFieldDireccionPaciente.setColumns(10);
-		                                textFieldDireccionPaciente.setBounds(26, 152, 244, 46);
-		                                panelFiltar.add(textFieldDireccionPaciente);
-		                                
-		                                lblDireccion = new JLabel("Direccion");
-		                                lblDireccion.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblDireccion.setForeground(new Color(255, 128, 0));
-		                                lblDireccion.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblDireccion.setBounds(0, 101, 290, 68);
-		                                panelFiltar.add(lblDireccion);
-		                                
-		                                lblErrorFiltro = new JLabel("");
-		                                lblErrorFiltro.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblErrorFiltro.setForeground(new Color(255, 128, 0));
-		                                lblErrorFiltro.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 15));
-		                                lblErrorFiltro.setBounds(0, 382, 290, 68);
-		                                panelFiltar.add(lblErrorFiltro);
-		                                
-		                                lblNombreDelCliente = new JLabel("Nombre Cliente");
-		                                lblNombreDelCliente.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNombreDelCliente.setForeground(new Color(255, 128, 0));
-		                                lblNombreDelCliente.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNombreDelCliente.setBounds(0, 0, 290, 68);
-		                                panelFiltar.add(lblNombreDelCliente);
-		                                
-		                                textFieldBuscarHistorialPaciente = new JTextField();
-		                                textFieldBuscarHistorialPaciente.setBounds(26, 51, 244, 46);
-		                                panelFiltar.add(textFieldBuscarHistorialPaciente);
-		                                textFieldBuscarHistorialPaciente.setColumns(10);
-		                                
-		                                btnBuscarHistorial = new JButton("");
-		                                btnBuscarHistorial.setOpaque(false);
-		                                btnBuscarHistorial.setContentAreaFilled(false);
-		                                btnBuscarHistorial.setBorderPainted(false);
-		                                btnBuscarHistorial.setBounds(36, 180, 224, 191);
-		                                panelFiltar.add(btnBuscarHistorial);
-		                                
-		                                lblFondoFiltrarHistorial = new JLabel("");
-		                                lblFondoFiltrarHistorial.setBounds(0, 0, 290, 633);
-		                                panelFiltar.add(lblFondoFiltrarHistorial);
-		                                
-		                                panelVerDatosMedicos = new JPanel();
-		                                panelVerDatosMedicos.setBounds(1014, 111, 272, 483);
-		                                panelMedico.add(panelVerDatosMedicos);
-		                                panelVerDatosMedicos.setVisible(false);
-		                                panelVerDatosMedicos.setLayout(null);
-		                                
-		                                textFieldlblNombreMedico = new JTextField();
-		                                textFieldlblNombreMedico.setBounds(60, 118, 168, 45);
-		                                panelVerDatosMedicos.add(textFieldlblNombreMedico);
-		                                textFieldlblNombreMedico.setColumns(10);
-		                                
-		                                lblNewLabel_2 = new JLabel("Nombre Usuario");
-		                                lblNewLabel_2.setBounds(60, 82, 168, 25);
-		                                lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabel_2.setForeground(new Color(255, 128, 0));
-		                                lblNewLabel_2.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 20));
-		                                panelVerDatosMedicos.add(lblNewLabel_2);
-		                                
-		                                lblNewLabelEspecialidadMedica = new JLabel("Especialidad");
-		                                lblNewLabelEspecialidadMedica.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelEspecialidadMedica.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelEspecialidadMedica.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 20));
-		                                lblNewLabelEspecialidadMedica.setBounds(60, 204, 168, 25);
-		                                panelVerDatosMedicos.add(lblNewLabelEspecialidadMedica);
-		                                
-		                                btnRellenarDatos = new JButton("");
-		                                btnRellenarDatos.addActionListener(new ActionListener() {
-		                                	public void actionPerformed(ActionEvent e) {
-		                                	}
-		                                });
-		                                btnRellenarDatos.setBounds(60, 344, 168, 113);
-		                                btnRellenarDatos.setOpaque(false);
-		                                btnRellenarDatos.setContentAreaFilled(false);
-		                                btnRellenarDatos.setBorderPainted(false);
-		                                panelVerDatosMedicos.add(btnRellenarDatos);
-		                                
-		                                lblNewLabel_5 = new JLabel("Horario");
-		                                lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabel_5.setForeground(new Color(255, 128, 0));
-		                                lblNewLabel_5.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 20));
-		                                lblNewLabel_5.setBounds(60, 289, 168, 25);
-		                                panelVerDatosMedicos.add(lblNewLabel_5);
-		                                
-		                                textFieldHorarioMedico = new JTextField();
-		                                textFieldHorarioMedico.setBounds(60, 325, 168, 45);
-		                                panelVerDatosMedicos.add(textFieldHorarioMedico);
-		                                textFieldHorarioMedico.setColumns(10);
-		                                
-		                                textFieldEspecialidadMedico = new JTextField();
-		                                textFieldEspecialidadMedico.setColumns(10);
-		                                textFieldEspecialidadMedico.setBounds(60, 233, 168, 45);
-		                                panelVerDatosMedicos.add(textFieldEspecialidadMedico);
-		                                
-		                                lblNewLabelErrorPefilMedico = new JLabel("");
-		                                lblNewLabelErrorPefilMedico.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelErrorPefilMedico.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelErrorPefilMedico.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 18));
-		                                lblNewLabelErrorPefilMedico.setBounds(0, 447, 262, 25);
-		                                panelVerDatosMedicos.add(lblNewLabelErrorPefilMedico);
-		                                
-		                                lblNewLabelFondoPerfilMedico = new JLabel("");
-		                                lblNewLabelFondoPerfilMedico.setBounds(0, 0, 272, 483);
-		                                panelVerDatosMedicos.add(lblNewLabelFondoPerfilMedico);
-		                                panelMedico.add(panelCrearHistorialMedico);
-		                                
-		                                panelCrearHistorialMedico.setLayout(null);
-		                                
-		                                lblErrorRegistroMedico = new JLabel("");
-		                                lblErrorRegistroMedico.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblErrorRegistroMedico.setForeground(new Color(255, 128, 0));
-		                                lblErrorRegistroMedico.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblErrorRegistroMedico.setBounds(346, 552, 506, 68);
-		                                panelCrearHistorialMedico.add(lblErrorRegistroMedico);
-		                                
-		                                lblNewLabelNombre_2 = new JLabel("Nombre paciente");
-		                                lblNewLabelNombre_2.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelNombre_2.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelNombre_2.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNewLabelNombre_2.setBounds(38, 35, 248, 68);
-		                                panelCrearHistorialMedico.add(lblNewLabelNombre_2);
-		                                
-		                                textFieldNombrePaciente = new JTextField();
-		                                textFieldNombrePaciente.setBounds(38, 114, 248, 36);
-		                                panelCrearHistorialMedico.add(textFieldNombrePaciente);
-		                                textFieldNombrePaciente.setColumns(10);
-		                                
-		                                lblNewLabelNombre_3 = new JLabel("Nombre medico");
-		                                lblNewLabelNombre_3.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelNombre_3.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelNombre_3.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNewLabelNombre_3.setBounds(509, 35, 248, 68);
-		                                panelCrearHistorialMedico.add(lblNewLabelNombre_3);
-		                                
-		                                textFieldNombreMedico = new JTextField();
-		                                textFieldNombreMedico.setColumns(10);
-		                                textFieldNombreMedico.setBounds(509, 114, 248, 36);
-		                                panelCrearHistorialMedico.add(textFieldNombreMedico);
-		                                
-		                                lblNewLabelNombre_4 = new JLabel("Diagnostico");
-		                                lblNewLabelNombre_4.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelNombre_4.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelNombre_4.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNewLabelNombre_4.setBounds(38, 168, 248, 68);
-		                                panelCrearHistorialMedico.add(lblNewLabelNombre_4);
-		                                
-		                                textFieldDiagnostico = new JTextField();
-		                                textFieldDiagnostico.setColumns(10);
-		                                textFieldDiagnostico.setBounds(38, 230, 248, 105);
-		                                panelCrearHistorialMedico.add(textFieldDiagnostico);
-		                                
-		                                lblNewLabelNombre_5 = new JLabel("Tratamiento");
-		                                lblNewLabelNombre_5.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelNombre_5.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelNombre_5.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNewLabelNombre_5.setBounds(509, 161, 248, 68);
-		                                panelCrearHistorialMedico.add(lblNewLabelNombre_5);
-		                                
-		                                textFieldTratamiento = new JTextField();
-		                                textFieldTratamiento.setColumns(10);
-		                                textFieldTratamiento.setBounds(509, 230, 248, 105);
-		                                panelCrearHistorialMedico.add(textFieldTratamiento);
-		                                
-		                                lblNewLabelNombre_6 = new JLabel("Receta");
-		                                lblNewLabelNombre_6.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelNombre_6.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelNombre_6.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNewLabelNombre_6.setBounds(38, 357, 248, 68);
-		                                panelCrearHistorialMedico.add(lblNewLabelNombre_6);
-		                                
-		                                textFieldReceta = new JTextField();
-		                                textFieldReceta.setColumns(10);
-		                                textFieldReceta.setBounds(38, 436, 248, 105);
-		                                panelCrearHistorialMedico.add(textFieldReceta);
-		                                
-		                                lblNewLabelNombre_7 = new JLabel("Fecha");
-		                                lblNewLabelNombre_7.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelNombre_7.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelNombre_7.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNewLabelNombre_7.setBounds(495, 357, 248, 68);
-		                                panelCrearHistorialMedico.add(lblNewLabelNombre_7);
-		                                
-		                                calendarioMedico = new JCalendar();
-		                                calendarioMedico.setBounds(509, 425, 238, 135);
-		                                panelCrearHistorialMedico.add(calendarioMedico);
-		                                
-		                                btnGuardarHistorialMedico = new JButton("");
-		                                btnGuardarHistorialMedico.setOpaque(false);
-		                                btnGuardarHistorialMedico.setContentAreaFilled(false);
-		                                btnGuardarHistorialMedico.setBorderPainted(false);
-		                                btnGuardarHistorialMedico.setBounds(10, 491, 310, 191);
-		                                panelCrearHistorialMedico.add(btnGuardarHistorialMedico);
-		                                
-		                                lblNewLabelFondoHistorialMedico = new JLabel("");
-		                                lblNewLabelFondoHistorialMedico.setBounds(0, 0, 874, 633);
-		                                panelCrearHistorialMedico.add(lblNewLabelFondoHistorialMedico);
-		                                panelMedico.add(scrollPane_2);
-		                                
-		                                tableMostrarResultadoCitas = new JTable();
-		                                scrollPane_2.setViewportView(tableMostrarResultadoCitas);
-		                                panelMedico.add(scrollPane_1);
-		                                tableHistorialMedico = new JTable();
-		                                scrollPane_1.setViewportView(tableHistorialMedico);
-		                                tableHistorialMedico.setVisible(false);
-		                                
-		                                lblNewLabelLogoMedico = new JLabel("");
-		                                lblNewLabelLogoMedico.setBounds(592, 0, 108, 79);
-		                                panelMedico.add(lblNewLabelLogoMedico);
-		                                
-		                                lblNewLabelNombre_1 = new JLabel("VitalMed");
-		                                lblNewLabelNombre_1.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblNewLabelNombre_1.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelNombre_1.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNewLabelNombre_1.setBounds(568, 11, 424, 68);
-		                                panelMedico.add(lblNewLabelNombre_1);
-		                                
-		                                lblVerCitas = new JLabel("");
-		                                lblVerCitas.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblVerCitas.setForeground(new Color(255, 128, 0));
-		                                lblVerCitas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblVerCitas.setBounds(142, -23, 113, 134);
-		                                panelMedico.add(lblVerCitas);
-		                                
-		                                lblHistorialPaciente = new JLabel("");
-		                                lblHistorialPaciente.setHorizontalAlignment(SwingConstants.CENTER);
-		                                lblHistorialPaciente.setForeground(new Color(255, 128, 0));
-		                                lblHistorialPaciente.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblHistorialPaciente.setBounds(265, -23, 113, 134);
-		                                panelMedico.add(lblHistorialPaciente);
-		                                
-		                                lblRegistro = new JLabel("");
-		                                lblRegistro.setHorizontalAlignment(SwingConstants.RIGHT);
-		                                lblRegistro.setForeground(new Color(255, 128, 0));
-		                                lblRegistro.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblRegistro.setBounds(377, -23, 113, 134);
-		                                panelMedico.add(lblRegistro);
-		                                
-		                                lblNewLabelCaraMedico = new JLabel("");
-		                                lblNewLabelCaraMedico.setBounds(1235, 11, 84, 68);
-		                                panelMedico.add(lblNewLabelCaraMedico);
-		                                
-		                                lblNewLabelNombreUsuarioMostrarMedico = new JLabel("");
-		                                lblNewLabelNombreUsuarioMostrarMedico.setHorizontalAlignment(SwingConstants.RIGHT);
-		                                lblNewLabelNombreUsuarioMostrarMedico.setForeground(new Color(255, 128, 0));
-		                                lblNewLabelNombreUsuarioMostrarMedico.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblNewLabelNombreUsuarioMostrarMedico.setBounds(1014, 11, 189, 68);
-		                                panelMedico.add(lblNewLabelNombreUsuarioMostrarMedico);
-		                                
-		                                separator_1 = new JSeparator();
-		                                separator_1.setForeground(new Color(255, 128, 0));
-		                                separator_1.setBounds(0, 77, 1319, 2);
-		                                panelMedico.add(separator_1);
-		                                
-		                                lblEnviarCorreo = new JLabel("");
-		                                lblEnviarCorreo.setHorizontalAlignment(SwingConstants.RIGHT);
-		                                lblEnviarCorreo.setForeground(new Color(255, 128, 0));
-		                                lblEnviarCorreo.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                lblEnviarCorreo.setBounds(487, -23, 113, 134);
-		                                panelMedico.add(lblEnviarCorreo);
-		                                
-		                                lblNewLabelSalidaMedico = new JLabel("");
-		                                lblNewLabelSalidaMedico.setBounds(0, 0, 84, 79);
-		                                panelMedico.add(lblNewLabelSalidaMedico);
-		                                
-		                                lblNewLabelFondoMedico = new JLabel("");
-		                                lblNewLabelFondoMedico.setBounds(0, 0, 1319, 734);
-		                                panelMedico.add(lblNewLabelFondoMedico);
+		                                 panelRececipnista = new JPanel();
+		                                 panelRececipnista.setBounds(0, 0, 1329, 734);
+		                                 panelRececipnista.setVisible(false);
+		                                 panelRececipnista.setVisible(false);
+		                                    
+		                                     panelPacientes = new JPanel();
+		                                     panelPacientes.setBounds(0, 0, 1329, 734);
+		                                     panelPacientes.setVisible(false);
+		                                     
+		                                      panelMedico = new JPanel();
+		                                      panelMedico.setBounds(0, 0, 1329, 734);
+		                                      panelMedico.setVisible(false);
+		                                      contentPane.add(panelMedico);
+		                                      panelMedico.setLayout(null);
+		                                      
+		                                      scrollPane_1 = new JScrollPane();
+		                                      scrollPane_1.setBounds(54, 90, 874, 633);
+		                                      scrollPane_1.setVisible(false);
+		                                      
+		                                      scrollPane_2 = new JScrollPane();
+		                                      scrollPane_2.setBounds(66, 90, 862, 633);
+		                                      scrollPane_2.setVisible(false);
+		                                      
+		                                      panelCrearHistorialMedico = new JPanel();
+		                                      panelCrearHistorialMedico.setBounds(66, 90, 862, 633);
+		                                      panelCrearHistorialMedico.setVisible(false);
+		                                      
+		                                      panelFiltar = new JPanel();
+		                                      panelFiltar.setBounds(938, 90, 290, 633);
+		                                      panelFiltar.setVisible(false);
+		                                      
+		                                      panelEnviarCorreo = new JPanel();
+		                                      panelEnviarCorreo.setBounds(42, 89, 886, 634);
+		                                      panelMedico.add(panelEnviarCorreo);
+		                                      panelEnviarCorreo.setVisible(false);
+		                                      panelEnviarCorreo.setLayout(null);
+		                                      
+		                                      lblConfirmarEnviar = new JLabel("");
+		                                      lblConfirmarEnviar.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblConfirmarEnviar.setForeground(new Color(255, 128, 0));
+		                                      lblConfirmarEnviar.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblConfirmarEnviar.setBounds(383, 521, 511, 68);
+		                                      panelEnviarCorreo.add(lblConfirmarEnviar);
+		                                      
+		                                      lblEnviarCorreElectronico = new JLabel("");
+		                                      lblEnviarCorreElectronico.setHorizontalAlignment(SwingConstants.RIGHT);
+		                                      lblEnviarCorreElectronico.setForeground(new Color(255, 128, 0));
+		                                      lblEnviarCorreElectronico.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblEnviarCorreElectronico.setBounds(81, 440, 292, 215);
+		                                      panelEnviarCorreo.add(lblEnviarCorreElectronico);
+		                                      
+		                                      textFieldAsuntoDeCorreoElectronico = new JTextField();
+		                                      textFieldAsuntoDeCorreoElectronico.setColumns(10);
+		                                      textFieldAsuntoDeCorreoElectronico.setBounds(460, 124, 414, 68);
+		                                      panelEnviarCorreo.add(textFieldAsuntoDeCorreoElectronico);
+		                                      
+		                                      textPaneCampodeTextoCorreo = new JTextPane();
+		                                      textPaneCampodeTextoCorreo.setBounds(36, 258, 838, 215);
+		                                      panelEnviarCorreo.add(textPaneCampodeTextoCorreo);
+		                                      
+		                                      textFieldCorreoElectronicoPaciente = new JTextField();
+		                                      textFieldCorreoElectronicoPaciente.setBounds(36, 124, 414, 68);
+		                                      panelEnviarCorreo.add(textFieldCorreoElectronicoPaciente);
+		                                      textFieldCorreoElectronicoPaciente.setColumns(10);
+		                                      
+		                                      lblNewLabelNombre_34 = new JLabel("Campo de texto");
+		                                      lblNewLabelNombre_34.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelNombre_34.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelNombre_34.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNewLabelNombre_34.setBounds(258, 203, 424, 68);
+		                                      panelEnviarCorreo.add(lblNewLabelNombre_34);
+		                                      
+		                                      lblNewLabelNombre_33 = new JLabel("Asunto");
+		                                      lblNewLabelNombre_33.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelNombre_33.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelNombre_33.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNewLabelNombre_33.setBounds(452, 45, 424, 68);
+		                                      panelEnviarCorreo.add(lblNewLabelNombre_33);
+		                                      
+		                                      lblNewLabelNombre_32 = new JLabel("Correo Electronico");
+		                                      lblNewLabelNombre_32.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelNombre_32.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelNombre_32.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNewLabelNombre_32.setBounds(36, 45, 424, 68);
+		                                      panelEnviarCorreo.add(lblNewLabelNombre_32);
+		                                      
+		                                      lblFondoCorreoElectronico = new JLabel("");
+		                                      lblFondoCorreoElectronico.setBounds(0, 0, 886, 634);
+		                                      panelEnviarCorreo.add(lblFondoCorreoElectronico);
+		                                      
+		                                      panelFiltrarCitas = new JPanel();
+		                                      panelFiltrarCitas.setBounds(938, 112, 290, 566);
+		                                      panelMedico.add(panelFiltrarCitas);
+		                                      panelFiltrarCitas.setVisible(false);
+		                                      panelFiltrarCitas.setLayout(null);
+		                                      
+		                                      calendarioCitas = new JCalendar();
+		                                      calendarioCitas.setBounds(42, 215, 238, 153);
+		                                      panelFiltrarCitas.add(calendarioCitas);
+		                                      
+		                                      lblNewLabelErrorCitas = new JLabel("");
+		                                      lblNewLabelErrorCitas.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelErrorCitas.setForeground(new Color(255, 0, 0));
+		                                      lblNewLabelErrorCitas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 20));
+		                                      lblNewLabelErrorCitas.setBounds(32, 487, 248, 68);
+		                                      panelFiltrarCitas.add(lblNewLabelErrorCitas);
+		                                      
+		                                      btnFiltrarCitas = new JButton("");
+		                                      btnFiltrarCitas.setBounds(42, 318, 238, 237);
+		                                      btnFiltrarCitas.setOpaque(false);
+		                                      btnFiltrarCitas.setContentAreaFilled(false);
+		                                      btnFiltrarCitas.setBorderPainted(false);
+		                                      panelFiltrarCitas.add(btnFiltrarCitas);
+		                                      
+		                                      textFieldNombreMedicoCita = new JTextField();
+		                                      textFieldNombreMedicoCita.setBounds(42, 109, 238, 47);
+		                                      panelFiltrarCitas.add(textFieldNombreMedicoCita);
+		                                      textFieldNombreMedicoCita.setColumns(10);
+		                                      
+		                                      lblNewLabelFechaCita = new JLabel("Fecha de Cita");
+		                                      lblNewLabelFechaCita.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelFechaCita.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelFechaCita.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNewLabelFechaCita.setBounds(32, 167, 248, 68);
+		                                      panelFiltrarCitas.add(lblNewLabelFechaCita);
+		                                      
+		                                      lblNewLabelNombreMecicoCita = new JLabel("Nombre medico");
+		                                      lblNewLabelNombreMecicoCita.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelNombreMecicoCita.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelNombreMecicoCita.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNewLabelNombreMecicoCita.setBounds(32, 30, 248, 68);
+		                                      panelFiltrarCitas.add(lblNewLabelNombreMecicoCita);
+		                                      
+		                                      lblNewLabelFondoFiltrarCita = new JLabel("");
+		                                      lblNewLabelFondoFiltrarCita.setBounds(0, 0, 290, 566);
+		                                      panelFiltrarCitas.add(lblNewLabelFondoFiltrarCita);
+		                                      
+		                                      panelMedico.add(panelFiltar);
+		                                      panelFiltar.setLayout(null);
+		                                      
+		                                      panelEsqueleto = new JPanel();
+		                                      panelEsqueleto.setBounds(26, 266, 244, 367);
+		                                      panelEsqueleto.setVisible(false);
+		                                      panelEsqueleto.setOpaque(true);
+		                                      panelFiltar.add(panelEsqueleto);
+		                                      panelEsqueleto.setLayout(null);
+		                                      
+		                                      textFieldDireccionPaciente = new JTextField();
+		                                      textFieldDireccionPaciente.setColumns(10);
+		                                      textFieldDireccionPaciente.setBounds(26, 152, 244, 46);
+		                                      panelFiltar.add(textFieldDireccionPaciente);
+		                                      
+		                                      lblDireccion = new JLabel("Direccion");
+		                                      lblDireccion.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblDireccion.setForeground(new Color(255, 128, 0));
+		                                      lblDireccion.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblDireccion.setBounds(0, 101, 290, 68);
+		                                      panelFiltar.add(lblDireccion);
+		                                      
+		                                      lblErrorFiltro = new JLabel("");
+		                                      lblErrorFiltro.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblErrorFiltro.setForeground(new Color(255, 128, 0));
+		                                      lblErrorFiltro.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 15));
+		                                      lblErrorFiltro.setBounds(0, 382, 290, 68);
+		                                      panelFiltar.add(lblErrorFiltro);
+		                                      
+		                                      lblNombreDelCliente = new JLabel("Nombre Cliente");
+		                                      lblNombreDelCliente.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNombreDelCliente.setForeground(new Color(255, 128, 0));
+		                                      lblNombreDelCliente.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNombreDelCliente.setBounds(0, 0, 290, 68);
+		                                      panelFiltar.add(lblNombreDelCliente);
+		                                      
+		                                      textFieldBuscarHistorialPaciente = new JTextField();
+		                                      textFieldBuscarHistorialPaciente.setBounds(26, 51, 244, 46);
+		                                      panelFiltar.add(textFieldBuscarHistorialPaciente);
+		                                      textFieldBuscarHistorialPaciente.setColumns(10);
+		                                      
+		                                      btnBuscarHistorial = new JButton("");
+		                                      btnBuscarHistorial.setOpaque(false);
+		                                      btnBuscarHistorial.setContentAreaFilled(false);
+		                                      btnBuscarHistorial.setBorderPainted(false);
+		                                      btnBuscarHistorial.setBounds(36, 180, 224, 191);
+		                                      panelFiltar.add(btnBuscarHistorial);
+		                                      
+		                                      lblFondoFiltrarHistorial = new JLabel("");
+		                                      lblFondoFiltrarHistorial.setBounds(0, 0, 290, 633);
+		                                      panelFiltar.add(lblFondoFiltrarHistorial);
+		                                      
+		                                      panelVerDatosMedicos = new JPanel();
+		                                      panelVerDatosMedicos.setBounds(1014, 111, 272, 483);
+		                                      panelMedico.add(panelVerDatosMedicos);
+		                                      panelVerDatosMedicos.setVisible(false);
+		                                      panelVerDatosMedicos.setLayout(null);
+		                                      
+		                                      textFieldlblNombreMedico = new JTextField();
+		                                      textFieldlblNombreMedico.setBounds(60, 118, 168, 45);
+		                                      panelVerDatosMedicos.add(textFieldlblNombreMedico);
+		                                      textFieldlblNombreMedico.setColumns(10);
+		                                      
+		                                      lblNewLabel_2 = new JLabel("Nombre Usuario");
+		                                      lblNewLabel_2.setBounds(60, 82, 168, 25);
+		                                      lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabel_2.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabel_2.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 20));
+		                                      panelVerDatosMedicos.add(lblNewLabel_2);
+		                                      
+		                                      lblNewLabelEspecialidadMedica = new JLabel("Especialidad");
+		                                      lblNewLabelEspecialidadMedica.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelEspecialidadMedica.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelEspecialidadMedica.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 20));
+		                                      lblNewLabelEspecialidadMedica.setBounds(60, 204, 168, 25);
+		                                      panelVerDatosMedicos.add(lblNewLabelEspecialidadMedica);
+		                                      
+		                                      btnRellenarDatos = new JButton("");
+		                                      btnRellenarDatos.addActionListener(new ActionListener() {
+		                                      	public void actionPerformed(ActionEvent e) {
+		                                      	}
+		                                      });
+		                                      btnRellenarDatos.setBounds(60, 344, 168, 113);
+		                                      btnRellenarDatos.setOpaque(false);
+		                                      btnRellenarDatos.setContentAreaFilled(false);
+		                                      btnRellenarDatos.setBorderPainted(false);
+		                                      panelVerDatosMedicos.add(btnRellenarDatos);
+		                                      
+		                                      lblNewLabel_5 = new JLabel("Horario");
+		                                      lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabel_5.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabel_5.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 20));
+		                                      lblNewLabel_5.setBounds(60, 289, 168, 25);
+		                                      panelVerDatosMedicos.add(lblNewLabel_5);
+		                                      
+		                                      textFieldHorarioMedico = new JTextField();
+		                                      textFieldHorarioMedico.setBounds(60, 325, 168, 45);
+		                                      panelVerDatosMedicos.add(textFieldHorarioMedico);
+		                                      textFieldHorarioMedico.setColumns(10);
+		                                      
+		                                      textFieldEspecialidadMedico = new JTextField();
+		                                      textFieldEspecialidadMedico.setColumns(10);
+		                                      textFieldEspecialidadMedico.setBounds(60, 233, 168, 45);
+		                                      panelVerDatosMedicos.add(textFieldEspecialidadMedico);
+		                                      
+		                                      lblNewLabelErrorPefilMedico = new JLabel("");
+		                                      lblNewLabelErrorPefilMedico.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelErrorPefilMedico.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelErrorPefilMedico.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 18));
+		                                      lblNewLabelErrorPefilMedico.setBounds(0, 447, 262, 25);
+		                                      panelVerDatosMedicos.add(lblNewLabelErrorPefilMedico);
+		                                      
+		                                      lblNewLabelFondoPerfilMedico = new JLabel("");
+		                                      lblNewLabelFondoPerfilMedico.setBounds(0, 0, 272, 483);
+		                                      panelVerDatosMedicos.add(lblNewLabelFondoPerfilMedico);
+		                                      panelMedico.add(panelCrearHistorialMedico);
+		                                      
+		                                      panelCrearHistorialMedico.setLayout(null);
+		                                      
+		                                      lblErrorRegistroMedico = new JLabel("");
+		                                      lblErrorRegistroMedico.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblErrorRegistroMedico.setForeground(new Color(255, 128, 0));
+		                                      lblErrorRegistroMedico.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblErrorRegistroMedico.setBounds(346, 552, 506, 68);
+		                                      panelCrearHistorialMedico.add(lblErrorRegistroMedico);
+		                                      
+		                                      lblNewLabelNombre_2 = new JLabel("Nombre paciente");
+		                                      lblNewLabelNombre_2.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelNombre_2.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelNombre_2.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNewLabelNombre_2.setBounds(38, 35, 248, 68);
+		                                      panelCrearHistorialMedico.add(lblNewLabelNombre_2);
+		                                      
+		                                      textFieldNombrePaciente = new JTextField();
+		                                      textFieldNombrePaciente.setBounds(38, 114, 248, 36);
+		                                      panelCrearHistorialMedico.add(textFieldNombrePaciente);
+		                                      textFieldNombrePaciente.setColumns(10);
+		                                      
+		                                      lblNewLabelNombre_3 = new JLabel("Nombre medico");
+		                                      lblNewLabelNombre_3.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelNombre_3.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelNombre_3.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNewLabelNombre_3.setBounds(509, 35, 248, 68);
+		                                      panelCrearHistorialMedico.add(lblNewLabelNombre_3);
+		                                      
+		                                      textFieldNombreMedico = new JTextField();
+		                                      textFieldNombreMedico.setColumns(10);
+		                                      textFieldNombreMedico.setBounds(509, 114, 248, 36);
+		                                      panelCrearHistorialMedico.add(textFieldNombreMedico);
+		                                      
+		                                      lblNewLabelNombre_4 = new JLabel("Diagnostico");
+		                                      lblNewLabelNombre_4.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelNombre_4.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelNombre_4.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNewLabelNombre_4.setBounds(38, 168, 248, 68);
+		                                      panelCrearHistorialMedico.add(lblNewLabelNombre_4);
+		                                      
+		                                      textFieldDiagnostico = new JTextField();
+		                                      textFieldDiagnostico.setColumns(10);
+		                                      textFieldDiagnostico.setBounds(38, 230, 248, 105);
+		                                      panelCrearHistorialMedico.add(textFieldDiagnostico);
+		                                      
+		                                      lblNewLabelNombre_5 = new JLabel("Tratamiento");
+		                                      lblNewLabelNombre_5.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelNombre_5.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelNombre_5.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNewLabelNombre_5.setBounds(509, 161, 248, 68);
+		                                      panelCrearHistorialMedico.add(lblNewLabelNombre_5);
+		                                      
+		                                      textFieldTratamiento = new JTextField();
+		                                      textFieldTratamiento.setColumns(10);
+		                                      textFieldTratamiento.setBounds(509, 230, 248, 105);
+		                                      panelCrearHistorialMedico.add(textFieldTratamiento);
+		                                      
+		                                      lblNewLabelNombre_6 = new JLabel("Receta");
+		                                      lblNewLabelNombre_6.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelNombre_6.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelNombre_6.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNewLabelNombre_6.setBounds(38, 357, 248, 68);
+		                                      panelCrearHistorialMedico.add(lblNewLabelNombre_6);
+		                                      
+		                                      textFieldReceta = new JTextField();
+		                                      textFieldReceta.setColumns(10);
+		                                      textFieldReceta.setBounds(38, 436, 248, 105);
+		                                      panelCrearHistorialMedico.add(textFieldReceta);
+		                                      
+		                                      lblNewLabelNombre_7 = new JLabel("Fecha");
+		                                      lblNewLabelNombre_7.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelNombre_7.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelNombre_7.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNewLabelNombre_7.setBounds(495, 357, 248, 68);
+		                                      panelCrearHistorialMedico.add(lblNewLabelNombre_7);
+		                                      
+		                                      calendarioMedico = new JCalendar();
+		                                      calendarioMedico.setBounds(509, 425, 238, 135);
+		                                      panelCrearHistorialMedico.add(calendarioMedico);
+		                                      
+		                                      btnGuardarHistorialMedico = new JButton("");
+		                                      btnGuardarHistorialMedico.setOpaque(false);
+		                                      btnGuardarHistorialMedico.setContentAreaFilled(false);
+		                                      btnGuardarHistorialMedico.setBorderPainted(false);
+		                                      btnGuardarHistorialMedico.setBounds(10, 491, 310, 191);
+		                                      panelCrearHistorialMedico.add(btnGuardarHistorialMedico);
+		                                      
+		                                      lblNewLabelFondoHistorialMedico = new JLabel("");
+		                                      lblNewLabelFondoHistorialMedico.setBounds(0, 0, 874, 633);
+		                                      panelCrearHistorialMedico.add(lblNewLabelFondoHistorialMedico);
+		                                      panelMedico.add(scrollPane_2);
+		                                      
+		                                      tableMostrarResultadoCitas = new JTable();
+		                                      scrollPane_2.setViewportView(tableMostrarResultadoCitas);
+		                                      panelMedico.add(scrollPane_1);
+		                                      tableHistorialMedico = new JTable();
+		                                      scrollPane_1.setViewportView(tableHistorialMedico);
+		                                      tableHistorialMedico.setVisible(false);
+		                                      
+		                                      lblNewLabelLogoMedico = new JLabel("");
+		                                      lblNewLabelLogoMedico.setBounds(592, 0, 108, 79);
+		                                      panelMedico.add(lblNewLabelLogoMedico);
+		                                      
+		                                      lblNewLabelNombre_1 = new JLabel("VitalMed");
+		                                      lblNewLabelNombre_1.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblNewLabelNombre_1.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelNombre_1.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNewLabelNombre_1.setBounds(568, 11, 424, 68);
+		                                      panelMedico.add(lblNewLabelNombre_1);
+		                                      
+		                                      lblVerCitas = new JLabel("");
+		                                      lblVerCitas.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblVerCitas.setForeground(new Color(255, 128, 0));
+		                                      lblVerCitas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblVerCitas.setBounds(142, -23, 113, 134);
+		                                      panelMedico.add(lblVerCitas);
+		                                      
+		                                      lblHistorialPaciente = new JLabel("");
+		                                      lblHistorialPaciente.setHorizontalAlignment(SwingConstants.CENTER);
+		                                      lblHistorialPaciente.setForeground(new Color(255, 128, 0));
+		                                      lblHistorialPaciente.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblHistorialPaciente.setBounds(265, -23, 113, 134);
+		                                      panelMedico.add(lblHistorialPaciente);
+		                                      
+		                                      lblRegistro = new JLabel("");
+		                                      lblRegistro.setHorizontalAlignment(SwingConstants.RIGHT);
+		                                      lblRegistro.setForeground(new Color(255, 128, 0));
+		                                      lblRegistro.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblRegistro.setBounds(377, -23, 113, 134);
+		                                      panelMedico.add(lblRegistro);
+		                                      
+		                                      lblNewLabelCaraMedico = new JLabel("");
+		                                      lblNewLabelCaraMedico.setBounds(1235, 11, 84, 68);
+		                                      panelMedico.add(lblNewLabelCaraMedico);
+		                                      
+		                                      lblNewLabelNombreUsuarioMostrarMedico = new JLabel("");
+		                                      lblNewLabelNombreUsuarioMostrarMedico.setHorizontalAlignment(SwingConstants.RIGHT);
+		                                      lblNewLabelNombreUsuarioMostrarMedico.setForeground(new Color(255, 128, 0));
+		                                      lblNewLabelNombreUsuarioMostrarMedico.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblNewLabelNombreUsuarioMostrarMedico.setBounds(1014, 11, 189, 68);
+		                                      panelMedico.add(lblNewLabelNombreUsuarioMostrarMedico);
+		                                      
+		                                      separator_1 = new JSeparator();
+		                                      separator_1.setForeground(new Color(255, 128, 0));
+		                                      separator_1.setBounds(0, 77, 1319, 2);
+		                                      panelMedico.add(separator_1);
+		                                      
+		                                      lblEnviarCorreo = new JLabel("");
+		                                      lblEnviarCorreo.setHorizontalAlignment(SwingConstants.RIGHT);
+		                                      lblEnviarCorreo.setForeground(new Color(255, 128, 0));
+		                                      lblEnviarCorreo.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                      lblEnviarCorreo.setBounds(487, -23, 113, 134);
+		                                      panelMedico.add(lblEnviarCorreo);
+		                                      
+		                                      lblNewLabelSalidaMedico = new JLabel("");
+		                                      lblNewLabelSalidaMedico.setBounds(0, 0, 84, 79);
+		                                      panelMedico.add(lblNewLabelSalidaMedico);
+		                                      
+		                                      lblNewLabelFondoMedico = new JLabel("");
+		                                      lblNewLabelFondoMedico.setBounds(0, 0, 1319, 734);
+		                                      panelMedico.add(lblNewLabelFondoMedico);
+		                                     contentPane.add(panelPacientes);
+		                                     panelPacientes.setLayout(null);
+		                                     
+		                                     scrollPane_3 = new JScrollPane();
+		                                     scrollPane_3.setBounds(42, 90, 895, 633);
+		                                     scrollPane_3.setVisible(false);
+		                                     
+		                                     scrollPane_4 = new JScrollPane();
+		                                     scrollPane_4.setBounds(42, 90, 895, 633);
+		                                     scrollPane_4.setVisible(false);
+		                                     
+		                                     panelDatos_Cliente_Factura = new JPanel();
+		                                     panelDatos_Cliente_Factura.setBounds(204, 166, 611, 442);
+		                                     panelDatos_Cliente_Factura.setVisible(false);
+		                                     panelPacientes.add(panelDatos_Cliente_Factura);
+		                                     
+		                                     panelDatos_Cliente_Factura.setLayout(null);
+		                                     
+		                                     lblNewLabelError_Tarjeta = new JLabel("");
+		                                     lblNewLabelError_Tarjeta.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblNewLabelError_Tarjeta.setForeground(new Color(255, 0, 0));
+		                                     lblNewLabelError_Tarjeta.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 20));
+		                                     lblNewLabelError_Tarjeta.setBounds(243, 374, 360, 68);
+		                                     panelDatos_Cliente_Factura.add(lblNewLabelError_Tarjeta);
+		                                     
+		                                     lblPagarFactura = new JLabel("");
+		                                     lblPagarFactura.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblPagarFactura.setForeground(new Color(255, 128, 0));
+		                                     lblPagarFactura.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblPagarFactura.setBounds(384, 291, 113, 134);
+		                                     panelDatos_Cliente_Factura.add(lblPagarFactura);
+		                                     
+		                                     calendar_fecha_expiracion_tarjeta = new JCalendar();
+		                                     calendar_fecha_expiracion_tarjeta.setBounds(49, 236, 184, 153);
+		                                     panelDatos_Cliente_Factura.add(calendar_fecha_expiracion_tarjeta);
+		                                     
+		                                     textField_CSV_Tarjeta = new JTextField();
+		                                     textField_CSV_Tarjeta.setColumns(10);
+		                                     textField_CSV_Tarjeta.setBounds(336, 236, 197, 44);
+		                                     panelDatos_Cliente_Factura.add(textField_CSV_Tarjeta);
+		                                     
+		                                     textField_Numero_Tarjeta = new JTextField();
+		                                     textField_Numero_Tarjeta.setColumns(10);
+		                                     textField_Numero_Tarjeta.setBounds(336, 113, 197, 44);
+		                                     panelDatos_Cliente_Factura.add(textField_Numero_Tarjeta);
+		                                     
+		                                     textField_Titular_Tarjeta = new JTextField();
+		                                     textField_Titular_Tarjeta.setBounds(49, 113, 197, 44);
+		                                     panelDatos_Cliente_Factura.add(textField_Titular_Tarjeta);
+		                                     textField_Titular_Tarjeta.setColumns(10);
+		                                     
+		                                     lblNewLabelNombre_26 = new JLabel("Numero Tarjeta");
+		                                     lblNewLabelNombre_26.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblNewLabelNombre_26.setForeground(new Color(255, 128, 0));
+		                                     lblNewLabelNombre_26.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblNewLabelNombre_26.setBounds(251, 58, 360, 68);
+		                                     panelDatos_Cliente_Factura.add(lblNewLabelNombre_26);
+		                                     
+		                                     lblNewLabelNombre_25 = new JLabel("Titular");
+		                                     lblNewLabelNombre_25.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblNewLabelNombre_25.setForeground(new Color(255, 128, 0));
+		                                     lblNewLabelNombre_25.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblNewLabelNombre_25.setBounds(0, 58, 300, 68);
+		                                     panelDatos_Cliente_Factura.add(lblNewLabelNombre_25);
+		                                     
+		                                     lblNewLabelNombre_27 = new JLabel("Expiracion");
+		                                     lblNewLabelNombre_27.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblNewLabelNombre_27.setForeground(new Color(255, 128, 0));
+		                                     lblNewLabelNombre_27.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblNewLabelNombre_27.setBounds(0, 178, 300, 68);
+		                                     panelDatos_Cliente_Factura.add(lblNewLabelNombre_27);
+		                                     
+		                                     lblNewLabelNombre_28 = new JLabel("CVC");
+		                                     lblNewLabelNombre_28.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblNewLabelNombre_28.setForeground(new Color(255, 128, 0));
+		                                     lblNewLabelNombre_28.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblNewLabelNombre_28.setBounds(251, 178, 360, 68);
+		                                     panelDatos_Cliente_Factura.add(lblNewLabelNombre_28);
+		                                     
+		                                     lblNewLabelFondo_Datos_Cliente_Factura = new JLabel("");
+		                                     lblNewLabelFondo_Datos_Cliente_Factura.setBounds(0, 0, 611, 442);
+		                                     panelDatos_Cliente_Factura.add(lblNewLabelFondo_Datos_Cliente_Factura);
+		                                     
+		                                     lblPagarFacturas_Definitiva = new JLabel("");
+		                                     lblPagarFacturas_Definitiva.setBounds(947, 261, 332, 301);
+		                                     panelPacientes.add(lblPagarFacturas_Definitiva);
+		                                     lblPagarFacturas_Definitiva.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblPagarFacturas_Definitiva.setForeground(new Color(255, 128, 0));
+		                                     lblPagarFacturas_Definitiva.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblPagarFacturas_Definitiva.setVisible(false);
+		                                     
+		                                     lblPagarFacturas = new JLabel("");
+		                                     lblPagarFacturas.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblPagarFacturas.setForeground(new Color(255, 128, 0));
+		                                     lblPagarFacturas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblPagarFacturas.setBounds(387, -23, 113, 134);
+		                                     panelPacientes.add(lblPagarFacturas);
+		                                     
+		                                     scrollPane_5 = new JScrollPane();
+		                                     scrollPane_5.setBounds(42, 90, 895, 633);
+		                                     scrollPane_5.setVisible(false);
+		                                     panelPacientes.add(scrollPane_5);
+		                                     
+		                                     tableVerFacturas_Paciente = new JTable();
+		                                     scrollPane_5.setViewportView(tableVerFacturas_Paciente);
+		                                     tableVerFacturas_Paciente.setVisible(false);
+		                                     panelPacientes.add(scrollPane_4);
+		                                     
+		                                     tableVerHistorialMedico = new JTable();
+		                                     scrollPane_4.setViewportView(tableVerHistorialMedico);
+		                                     tableVerHistorialMedico.setVisible(false);
+		                                     panelPacientes.add(scrollPane_3);
+		                                     
+		                                     tableVerCitasPacientes = new JTable();
+		                                     scrollPane_3.setViewportView(tableVerCitasPacientes);
+		                                     tableVerCitasPacientes.setVisible(false);
+		                                     
+		                                     lblVerHistorialMedico = new JLabel("");
+		                                     lblVerHistorialMedico.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblVerHistorialMedico.setForeground(new Color(255, 128, 0));
+		                                     lblVerHistorialMedico.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblVerHistorialMedico.setBounds(264, -23, 113, 134);
+		                                     panelPacientes.add(lblVerHistorialMedico);
+		                                     
+		                                     lblVerCitasPaciente = new JLabel("");
+		                                     lblVerCitasPaciente.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblVerCitasPaciente.setForeground(new Color(255, 128, 0));
+		                                     lblVerCitasPaciente.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblVerCitasPaciente.setBounds(141, -23, 113, 134);
+		                                     panelPacientes.add(lblVerCitasPaciente);
+		                                     
+		                                     lblNewLabelNombreUsuarioMostrarPaciente = new JLabel("");
+		                                     lblNewLabelNombreUsuarioMostrarPaciente.setHorizontalAlignment(SwingConstants.RIGHT);
+		                                     lblNewLabelNombreUsuarioMostrarPaciente.setForeground(new Color(255, 128, 0));
+		                                     lblNewLabelNombreUsuarioMostrarPaciente.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblNewLabelNombreUsuarioMostrarPaciente.setBounds(1015, 11, 189, 68);
+		                                     panelPacientes.add(lblNewLabelNombreUsuarioMostrarPaciente);
+		                                     
+		                                     lblNewLabelCaraPaciente = new JLabel("");
+		                                     lblNewLabelCaraPaciente.setBounds(1235, 11, 84, 68);
+		                                     panelPacientes.add(lblNewLabelCaraPaciente);
+		                                     
+		                                     lblNewLabelLogoMedico_Paciente = new JLabel("");
+		                                     lblNewLabelLogoMedico_Paciente.setBounds(485, 0, 108, 79);
+		                                     panelPacientes.add(lblNewLabelLogoMedico_Paciente);
+		                                     
+		                                     lblNewLabelNombre_24 = new JLabel("VitalMed");
+		                                     lblNewLabelNombre_24.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblNewLabelNombre_24.setForeground(new Color(255, 128, 0));
+		                                     lblNewLabelNombre_24.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblNewLabelNombre_24.setBounds(462, 0, 424, 68);
+		                                     panelPacientes.add(lblNewLabelNombre_24);
+		                                     
+		                                     lblNewLabelSalida_Paciente = new JLabel("");
+		                                     lblNewLabelSalida_Paciente.setBounds(0, 0, 84, 79);
+		                                     panelPacientes.add(lblNewLabelSalida_Paciente);
+		                                     
+		                                     panelInformacionPaciente_1 = new JPanel();
+		                                     panelInformacionPaciente_1.setLayout(null);
+		                                     panelInformacionPaciente_1.setBounds(1015, 90, 272, 633);
+		                                     panelInformacionPaciente_1.setVisible(false);
+		                                     panelPacientes.add(panelInformacionPaciente_1);
+		                                     
+		                                     lblNewLabelNombre_13 = new JLabel("Nombre");
+		                                     lblNewLabelNombre_13.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblNewLabelNombre_13.setForeground(new Color(255, 128, 0));
+		                                     lblNewLabelNombre_13.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblNewLabelNombre_13.setBounds(-83, 0, 424, 68);
+		                                     panelInformacionPaciente_1.add(lblNewLabelNombre_13);
+		                                     
+		                                     lblNewLabelNombrePaciente_1 = new JLabel("");
+		                                     lblNewLabelNombrePaciente_1.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblNewLabelNombrePaciente_1.setForeground(new Color(255, 128, 0));
+		                                     lblNewLabelNombrePaciente_1.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblNewLabelNombrePaciente_1.setBounds(10, 54, 252, 68);
+		                                     panelInformacionPaciente_1.add(lblNewLabelNombrePaciente_1);
+		                                     
+		                                     lblNewLabelNombre_14 = new JLabel("Direccion");
+		                                     lblNewLabelNombre_14.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblNewLabelNombre_14.setForeground(new Color(255, 128, 0));
+		                                     lblNewLabelNombre_14.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblNewLabelNombre_14.setBounds(-83, 118, 424, 68);
+		                                     panelInformacionPaciente_1.add(lblNewLabelNombre_14);
+		                                     
+		                                     textFieldDireccion_PanelPaciente = new JTextField();
+		                                     textFieldDireccion_PanelPaciente.setColumns(10);
+		                                     textFieldDireccion_PanelPaciente.setBounds(10, 177, 252, 41);
+		                                     panelInformacionPaciente_1.add(textFieldDireccion_PanelPaciente);
+		                                     
+		                                     lblNewLabelNombre_15 = new JLabel("Telefono");
+		                                     lblNewLabelNombre_15.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblNewLabelNombre_15.setForeground(new Color(255, 128, 0));
+		                                     lblNewLabelNombre_15.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblNewLabelNombre_15.setBounds(-83, 229, 424, 68);
+		                                     panelInformacionPaciente_1.add(lblNewLabelNombre_15);
+		                                     
+		                                     textField_Telefono_PanelPaciente = new JTextField();
+		                                     textField_Telefono_PanelPaciente.setColumns(10);
+		                                     textField_Telefono_PanelPaciente.setBounds(10, 288, 252, 41);
+		                                     panelInformacionPaciente_1.add(textField_Telefono_PanelPaciente);
+		                                     
+		                                     lblNewLabelNombre_16 = new JLabel("Fecha Nacimeinto");
+		                                     lblNewLabelNombre_16.setHorizontalAlignment(SwingConstants.CENTER);
+		                                     lblNewLabelNombre_16.setForeground(new Color(255, 128, 0));
+		                                     lblNewLabelNombre_16.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                     lblNewLabelNombre_16.setBounds(-73, 340, 424, 68);
+		                                     panelInformacionPaciente_1.add(lblNewLabelNombre_16);
+		                                     
+		                                     calendarFechaNacimientoPaciente_1 = new JCalendar();
+		                                     calendarFechaNacimientoPaciente_1.setBounds(10, 390, 252, 153);
+		                                     panelInformacionPaciente_1.add(calendarFechaNacimientoPaciente_1);
+		                                     
+		                                     lblNewLabel_FondoInformacionPaciente = new JLabel("");
+		                                     lblNewLabel_FondoInformacionPaciente.setBounds(0, 0, 272, 633);
+		                                     panelInformacionPaciente_1.add(lblNewLabel_FondoInformacionPaciente);
+		                                     
+		                                     separator_4 = new JSeparator();
+		                                     separator_4.setForeground(new Color(255, 128, 0));
+		                                     separator_4.setBounds(0, 77, 1319, 2);
+		                                     panelPacientes.add(separator_4);
+		                                     
+		                                     lblNewLabelFondoPaciente = new JLabel("");
+		                                     lblNewLabelFondoPaciente.setBounds(0, 0, 1321, 734);
+		                                     panelPacientes.add(lblNewLabelFondoPaciente);
+		                                 
+		                                  
+		                                 
+		                                    contentPane.add(panelRececipnista);
+		                                    panelRececipnista.setLayout(null);
+		                                    
+		                                    panelInformacionPaciente = new JPanel();
+		                                    panelInformacionPaciente.setBounds(1014, 104, 272, 197);
+		                                    panelInformacionPaciente.setVisible(false);
+		                                    
+		                                    panelProgramarCitasRecpecionosta = new JPanel();
+		                                    panelProgramarCitasRecpecionosta.setBounds(50, 90, 878, 633);
+		                                    panelProgramarCitasRecpecionosta.setVisible(false);
+		                                    
+		                                    panelCrearPacienteRecepcion = new JPanel();
+		                                    panelCrearPacienteRecepcion.setLayout(null);
+		                                    panelCrearPacienteRecepcion.setBounds(50, 90, 878, 633);
+		                                    panelCrearPacienteRecepcion.setVisible(false);
+		                                    
+		                                    panelExportacion = new JPanel();
+		                                    panelExportacion.setBounds(40, 90, 892, 633);
+		                                    panelRececipnista.add(panelExportacion);
+		                                    panelExportacion.setVisible(false);
+		                                    panelExportacion.setLayout(null);
+		                                    
+		                                    lblConfirmarExportacion = new JLabel("");
+		                                    lblConfirmarExportacion.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblConfirmarExportacion.setForeground(new Color(255, 128, 0));
+		                                    lblConfirmarExportacion.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblConfirmarExportacion.setBounds(211, 575, 424, 68);
+		                                    panelExportacion.add(lblConfirmarExportacion);
+		                                    
+		                                    btnNewButtonExprotarCSV = new JButton("");
+		                                    btnNewButtonExprotarCSV.setOpaque(false);
+		                                    btnNewButtonExprotarCSV.setContentAreaFilled(false);
+		                                    btnNewButtonExprotarCSV.setBorderPainted(false);
+		                                    btnNewButtonExprotarCSV.setBounds(107, 461, 225, 182);
+		                                    panelExportacion.add(btnNewButtonExprotarCSV);
+		                                    
+		                                    btnNewButtonExportarPDF = new JButton("");
+		                                    btnNewButtonExportarPDF.setOpaque(false);
+		                                    btnNewButtonExportarPDF.setContentAreaFilled(false);
+		                                    btnNewButtonExportarPDF.setBorderPainted(false);
+		                                    btnNewButtonExportarPDF.setBounds(553, 461, 225, 182);
+		                                    panelExportacion.add(btnNewButtonExportarPDF);
+		                                    
+		                                    panelEmisiondeFacturasRecepcionista = new JPanel();
+		                                    panelEmisiondeFacturasRecepcionista.setBounds(20, 11, 835, 482);
+		                                    panelEmisiondeFacturasRecepcionista.setOpaque(false);  
+		                                    panelExportacion.add(panelEmisiondeFacturasRecepcionista);
+		                                    panelEmisiondeFacturasRecepcionista.setVisible(false);
+		                                    panelEmisiondeFacturasRecepcionista.setLayout(null);
+		                                    
+		                                    lblNewLabelFondoEmisionFacturasRecepcion = new JLabel("New label");
+		                                    lblNewLabelFondoEmisionFacturasRecepcion.setBounds(0, 0, 892, 633);
+		                                    panelExportacion.add(lblNewLabelFondoEmisionFacturasRecepcion);
+		                                    
+		                                    panelCrearFacturasRecepcion = new JPanel();
+		                                    panelCrearFacturasRecepcion.setBounds(40, 90, 892, 633);
+		                                    panelRececipnista.add(panelCrearFacturasRecepcion);
+		                                    panelCrearFacturasRecepcion.setVisible(false);
+		                                    panelCrearFacturasRecepcion.setLayout(null);
+		                                    
+		                                    lblErrorCrearFacturasPaciente = new JLabel("");
+		                                    lblErrorCrearFacturasPaciente.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblErrorCrearFacturasPaciente.setForeground(new Color(255, 0, 0));
+		                                    lblErrorCrearFacturasPaciente.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblErrorCrearFacturasPaciente.setBounds(54, 521, 780, 68);
+		                                    panelCrearFacturasRecepcion.add(lblErrorCrearFacturasPaciente);
+		                                    
+		                                    calendarFecha_Creacion_Factura = new JCalendar();
+		                                    calendarFecha_Creacion_Factura.setBounds(86, 301, 363, 153);
+		                                    panelCrearFacturasRecepcion.add(calendarFecha_Creacion_Factura);
+		                                    
+		                                    textFieldImporte = new JTextField();
+		                                    textFieldImporte.setColumns(10);
+		                                    textFieldImporte.setBounds(505, 120, 363, 68);
+		                                    panelCrearFacturasRecepcion.add(textFieldImporte);
+		                                    
+		                                    lblCCrearFacturasFinal = new JLabel("");
+		                                    lblCCrearFacturasFinal.setHorizontalAlignment(SwingConstants.RIGHT);
+		                                    lblCCrearFacturasFinal.setForeground(new Color(255, 128, 0));
+		                                    lblCCrearFacturasFinal.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblCCrearFacturasFinal.setBounds(505, 265, 329, 258);
+		                                    panelCrearFacturasRecepcion.add(lblCCrearFacturasFinal);
+		                                    
+		                                    textFieldNombredelPaciente = new JTextField();
+		                                    textFieldNombredelPaciente.setBounds(86, 120, 363, 68);
+		                                    panelCrearFacturasRecepcion.add(textFieldNombredelPaciente);
+		                                    textFieldNombredelPaciente.setColumns(10);
+		                                    
+		                                    lblNewLabelNombre_31 = new JLabel("Fecha creacion factura");
+		                                    lblNewLabelNombre_31.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_31.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_31.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_31.setBounds(55, 235, 424, 68);
+		                                    panelCrearFacturasRecepcion.add(lblNewLabelNombre_31);
+		                                    
+		                                    lblNewLabelNombre_30 = new JLabel("Importe");
+		                                    lblNewLabelNombre_30.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_30.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_30.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_30.setBounds(529, 41, 363, 68);
+		                                    panelCrearFacturasRecepcion.add(lblNewLabelNombre_30);
+		                                    
+		                                    lblNewLabelNombre_29 = new JLabel("Nombre del Paciente");
+		                                    lblNewLabelNombre_29.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_29.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_29.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_29.setBounds(55, 41, 424, 68);
+		                                    panelCrearFacturasRecepcion.add(lblNewLabelNombre_29);
+		                                    
+		                                    lbFondo_Panel_Crear_Facturas = new JLabel("");
+		                                    lbFondo_Panel_Crear_Facturas.setBounds(0, 0, 892, 633);
+		                                    panelCrearFacturasRecepcion.add(lbFondo_Panel_Crear_Facturas);
+		                                    panelRececipnista.add(panelCrearPacienteRecepcion);
+		                                    
+		                                    lblNewLabelNombre_10 = new JLabel("Nombre");
+		                                    lblNewLabelNombre_10.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_10.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_10.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_10.setBounds(10, 39, 424, 68);
+		                                    panelCrearPacienteRecepcion.add(lblNewLabelNombre_10);
+		                                    
+		                                    lblNewLabelNombre_11 = new JLabel("Contraseña");
+		                                    lblNewLabelNombre_11.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_11.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_11.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_11.setBounds(444, 39, 424, 68);
+		                                    panelCrearPacienteRecepcion.add(lblNewLabelNombre_11);
+		                                    
+		                                    textFieldDireccionPacienteRecepcion = new JTextField();
+		                                    textFieldDireccionPacienteRecepcion.setColumns(10);
+		                                    textFieldDireccionPacienteRecepcion.setBounds(100, 245, 252, 41);
+		                                    panelCrearPacienteRecepcion.add(textFieldDireccionPacienteRecepcion);
+		                                    
+		                                    lblNewLabelNombre_12 = new JLabel("Telefono");
+		                                    lblNewLabelNombre_12.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_12.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_12.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_12.setBounds(10, 297, 424, 68);
+		                                    panelCrearPacienteRecepcion.add(lblNewLabelNombre_12);
+		                                    
+		                                    textFieldTelefonoPacienteRecepcion = new JTextField();
+		                                    textFieldTelefonoPacienteRecepcion.setColumns(10);
+		                                    textFieldTelefonoPacienteRecepcion.setBounds(100, 376, 252, 41);
+		                                    panelCrearPacienteRecepcion.add(textFieldTelefonoPacienteRecepcion);
+		                                    
+		                                    lblNewLabelNombre_17 = new JLabel("Fecha Nacimeinto");
+		                                    lblNewLabelNombre_17.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_17.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_17.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_17.setBounds(439, 200, 424, 68);
+		                                    panelCrearPacienteRecepcion.add(lblNewLabelNombre_17);
+		                                    
+		                                    calendarFechaNacimientoPacienteRecepcion = new JCalendar();
+		                                    calendarFechaNacimientoPacienteRecepcion.setBounds(516, 264, 252, 153);
+		                                    panelCrearPacienteRecepcion.add(calendarFechaNacimientoPacienteRecepcion);
+		                                    
+		                                    lblNewLabelNombre_18 = new JLabel("Direccion");
+		                                    lblNewLabelNombre_18.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_18.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_18.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_18.setBounds(10, 186, 424, 68);
+		                                    panelCrearPacienteRecepcion.add(lblNewLabelNombre_18);
+		                                    
+		                                    textField_NombrePaciente = new JTextField();
+		                                    textField_NombrePaciente.setColumns(10);
+		                                    textField_NombrePaciente.setBounds(100, 118, 252, 41);
+		                                    panelCrearPacienteRecepcion.add(textField_NombrePaciente);
+		                                    
+		                                    passwordFieldContraseñaPacienteRecepcion = new JPasswordField();
+		                                    passwordFieldContraseñaPacienteRecepcion.setBounds(516, 118, 252, 41);
+		                                    panelCrearPacienteRecepcion.add(passwordFieldContraseñaPacienteRecepcion);
+		                                    
+		                                    lblNewLabel_CrearPacienteRecepcion = new JLabel("");
+		                                    lblNewLabel_CrearPacienteRecepcion.setBounds(100, 428, 225, 194);
+		                                    panelCrearPacienteRecepcion.add(lblNewLabel_CrearPacienteRecepcion);
+		                                    
+		                                    lblNewLabelErrorCrearPacienteRecepcion = new JLabel("");
+		                                    lblNewLabelErrorCrearPacienteRecepcion.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelErrorCrearPacienteRecepcion.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelErrorCrearPacienteRecepcion.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelErrorCrearPacienteRecepcion.setBounds(410, 487, 424, 68);
+		                                    panelCrearPacienteRecepcion.add(lblNewLabelErrorCrearPacienteRecepcion);
+		                                    
+		                                    lblNewLabelFondoPanelCrearPaciente = new JLabel("");
+		                                    lblNewLabelFondoPanelCrearPaciente.setBounds(0, 0, 878, 633);
+		                                    panelCrearPacienteRecepcion.add(lblNewLabelFondoPanelCrearPaciente);
+		                                    
+		   
+		                                    panelRececipnista.add(panelProgramarCitasRecpecionosta);
+		                                    panelProgramarCitasRecpecionosta.setLayout(null);
+		                                    
+		                                    textFieldMotivoCitaRecepcion = new JTextField();
+		                                    textFieldMotivoCitaRecepcion.setColumns(10);
+		                                    textFieldMotivoCitaRecepcion.setBounds(548, 360, 231, 43);
+		                                    panelProgramarCitasRecpecionosta.add(textFieldMotivoCitaRecepcion);
+		                                    
+		                                    lblNewLabelNombre_19 = new JLabel("Nombre paciente");
+		                                    lblNewLabelNombre_19.setBounds(84, 56, 231, 31);
+		                                    lblNewLabelNombre_19.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_19.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_19.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    panelProgramarCitasRecpecionosta.add(lblNewLabelNombre_19);
+		                                    
+		                                    lblNewLabelNombre_20 = new JLabel("Nombre medico");
+		                                    lblNewLabelNombre_20.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_20.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_20.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_20.setBounds(548, 56, 231, 31);
+		                                    panelProgramarCitasRecpecionosta.add(lblNewLabelNombre_20);
+		                                    
+		                                    lblNewLabelNombre_21 = new JLabel("Fecha cita");
+		                                    lblNewLabelNombre_21.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_21.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_21.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_21.setBounds(84, 208, 231, 31);
+		                                    panelProgramarCitasRecpecionosta.add(lblNewLabelNombre_21);
+		                                    
+		                                    lblNewLabelNombre_22 = new JLabel("Hora");
+		                                    lblNewLabelNombre_22.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_22.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_22.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_22.setBounds(560, 208, 231, 31);
+		                                    panelProgramarCitasRecpecionosta.add(lblNewLabelNombre_22);
+		                                    
+		                                    lblNewLabelNombre_23 = new JLabel("Motivo");
+		                                    lblNewLabelNombre_23.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_23.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_23.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_23.setBounds(548, 318, 231, 31);
+		                                    panelProgramarCitasRecpecionosta.add(lblNewLabelNombre_23);
+		                                    
+		                                    textFieldNombrePacienteCitaRecepcion = new JTextField();
+		                                    textFieldNombrePacienteCitaRecepcion.setBounds(84, 98, 231, 43);
+		                                    panelProgramarCitasRecpecionosta.add(textFieldNombrePacienteCitaRecepcion);
+		                                    textFieldNombrePacienteCitaRecepcion.setColumns(10);
+		                                    
+		                                    textFieldNombreMedicoCitaRecepcion = new JTextField();
+		                                    textFieldNombreMedicoCitaRecepcion.setColumns(10);
+		                                    textFieldNombreMedicoCitaRecepcion.setBounds(548, 98, 231, 43);
+		                                    panelProgramarCitasRecpecionosta.add(textFieldNombreMedicoCitaRecepcion);
+		                                    
+		                                    calendarCitaPaciente = new JCalendar();
+		                                    calendarCitaPaciente.setBounds(84, 250, 231, 153);
+		                                    panelProgramarCitasRecpecionosta.add(calendarCitaPaciente);
+		                                    
+		                                    textFieldHoraCitaPaciente = new JTextField();
+		                                    textFieldHoraCitaPaciente.setColumns(10);
+		                                    textFieldHoraCitaPaciente.setBounds(548, 264, 231, 43);
+		                                    panelProgramarCitasRecpecionosta.add(textFieldHoraCitaPaciente);
+		                                    
+		                                    btnNewButtonCrearCitaRecepcion = new JButton("");
+		                                    btnNewButtonCrearCitaRecepcion.setOpaque(false);
+		                                    btnNewButtonCrearCitaRecepcion.setContentAreaFilled(false);
+		                                    btnNewButtonCrearCitaRecepcion.setBorderPainted(false);
+		                                    btnNewButtonCrearCitaRecepcion.setBounds(99, 428, 225, 182);
+		                                    panelProgramarCitasRecpecionosta.add(btnNewButtonCrearCitaRecepcion);
+		                                    
+		                                    lblNewLabelErrorCrearCitaRecpecion = new JLabel("");
+		                                    lblNewLabelErrorCrearCitaRecpecion.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelErrorCrearCitaRecpecion.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelErrorCrearCitaRecpecion.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelErrorCrearCitaRecpecion.setBounds(409, 487, 424, 68);
+		                                    panelProgramarCitasRecpecionosta.add(lblNewLabelErrorCrearCitaRecpecion);
+		                                    
+		                                    lblNewLabelFondoPanelCrearCitaRecepcion = new JLabel("");
+		                                    lblNewLabelFondoPanelCrearCitaRecepcion.setBounds(0, 0, 878, 633);
+		                                    panelProgramarCitasRecpecionosta.add(lblNewLabelFondoPanelCrearCitaRecepcion);
+		                                    
+		                                    btnNewButtonCrearCitaRecepcion_2 = new JButton("");
+		                                    btnNewButtonCrearCitaRecepcion_2.setOpaque(false);
+		                                    btnNewButtonCrearCitaRecepcion_2.setContentAreaFilled(false);
+		                                    btnNewButtonCrearCitaRecepcion_2.setBorderPainted(false);
+		                                    btnNewButtonCrearCitaRecepcion_2.setBounds(99, 428, 225, 182);
+		                                    panelProgramarCitasRecpecionosta.add(btnNewButtonCrearCitaRecepcion_2);
+		                                    
+		                                    lblCrearFacturas = new JLabel("");
+		                                    lblCrearFacturas.setHorizontalAlignment(SwingConstants.RIGHT);
+		                                    lblCrearFacturas.setForeground(new Color(255, 128, 0));
+		                                    lblCrearFacturas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblCrearFacturas.setBounds(511, -23, 113, 134);
+		                                    panelRececipnista.add(lblCrearFacturas);
+		                                    
+		                                    lblNewLabelSalidaRecepcionista = new JLabel("");
+		                                    lblNewLabelSalidaRecepcionista.setBounds(0, 0, 84, 79);
+		                                    panelRececipnista.add(lblNewLabelSalidaRecepcionista);
+		                                    
+		                                    panelRececipnista.add(panelInformacionPaciente);
+		                                    panelInformacionPaciente.setLayout(null);
+		                                    
+		                                    textFieldNombreInfoRecepcionista = new JTextField();
+		                                    textFieldNombreInfoRecepcionista.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    textFieldNombreInfoRecepcionista.setBounds(10, 90, 252, 68);
+		                                    panelInformacionPaciente.add(textFieldNombreInfoRecepcionista);
+		                                    textFieldNombreInfoRecepcionista.setColumns(10);
+		                                    
+		                                    lblNewLabelNombre_9 = new JLabel("Nombre");
+		                                    lblNewLabelNombre_9.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_9.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_9.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_9.setBounds(-79, 11, 424, 68);
+		                                    panelInformacionPaciente.add(lblNewLabelNombre_9);
+		                                    
+		                                    lblNewLabelFondoPerfilRecepcionista = new JLabel("");
+		                                    lblNewLabelFondoPerfilRecepcionista.setBounds(0, 0, 272, 483);
+		                                    panelInformacionPaciente.add(lblNewLabelFondoPerfilRecepcionista);
+		                                    
+		                                    separator_3 = new JSeparator();
+		                                    separator_3.setForeground(new Color(255, 128, 0));
+		                                    separator_3.setBounds(0, 77, 1319, 2);
+		                                    panelRececipnista.add(separator_3);
+		                                    
+		                                    lblRegistro_Nuevo_Pacientes = new JLabel("");
+		                                    lblRegistro_Nuevo_Pacientes.setHorizontalAlignment(SwingConstants.RIGHT);
+		                                    lblRegistro_Nuevo_Pacientes.setForeground(new Color(255, 128, 0));
+		                                    lblRegistro_Nuevo_Pacientes.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblRegistro_Nuevo_Pacientes.setBounds(142, -23, 113, 134);
+		                                    panelRececipnista.add(lblRegistro_Nuevo_Pacientes);
+		                                    
+		                                    lbl_Programacion_Citas = new JLabel("");
+		                                    lbl_Programacion_Citas.setHorizontalAlignment(SwingConstants.RIGHT);
+		                                    lbl_Programacion_Citas.setForeground(new Color(255, 128, 0));
+		                                    lbl_Programacion_Citas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lbl_Programacion_Citas.setBounds(265, -23, 113, 134);
+		                                    panelRececipnista.add(lbl_Programacion_Citas);
+		                                    
+		                                    lblEmision_de_Facturas = new JLabel("");
+		                                    lblEmision_de_Facturas.setHorizontalAlignment(SwingConstants.RIGHT);
+		                                    lblEmision_de_Facturas.setForeground(new Color(255, 128, 0));
+		                                    lblEmision_de_Facturas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblEmision_de_Facturas.setBounds(388, -23, 113, 134);
+		                                    panelRececipnista.add(lblEmision_de_Facturas);
+		                                    
+		                                    lblNewLabelCaraRecepcionista = new JLabel("");
+		                                    lblNewLabelCaraRecepcionista.setBounds(1213, 11, 106, 68);
+		                                    panelRececipnista.add(lblNewLabelCaraRecepcionista);
+		                                    
+		                                    lblNewLabelNombreUsuarioMostrarRecepcionista = new JLabel("");
+		                                    lblNewLabelNombreUsuarioMostrarRecepcionista.setHorizontalAlignment(SwingConstants.RIGHT);
+		                                    lblNewLabelNombreUsuarioMostrarRecepcionista.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombreUsuarioMostrarRecepcionista.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombreUsuarioMostrarRecepcionista.setBounds(1014, 11, 189, 68);
+		                                    panelRececipnista.add(lblNewLabelNombreUsuarioMostrarRecepcionista);
+		                                    
+		                                    lblNewLabelLogoRecepcionista = new JLabel("");
+		                                    lblNewLabelLogoRecepcionista.setBounds(639, 0, 108, 79);
+		                                    panelRececipnista.add(lblNewLabelLogoRecepcionista);
+		                                    
+		                                    lblNewLabelNombre_8 = new JLabel("VitalMed");
+		                                    lblNewLabelNombre_8.setHorizontalAlignment(SwingConstants.CENTER);
+		                                    lblNewLabelNombre_8.setForeground(new Color(255, 128, 0));
+		                                    lblNewLabelNombre_8.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
+		                                    lblNewLabelNombre_8.setBounds(608, 11, 424, 68);
+		                                    panelRececipnista.add(lblNewLabelNombre_8);
+		                                    
+		                                    lblNewLabelFondoRecepcionista = new JLabel("");
+		                                    lblNewLabelFondoRecepcionista.setBounds(0, 0, 1329, 734);
+		                                    panelRececipnista.add(lblNewLabelFondoRecepcionista);
 		                               contentPane.add(panelAdmin);
 		                               panelAdmin.setLayout(null);
 		                                
@@ -947,590 +1531,6 @@ public class Vista extends JFrame {
 		                                           lblNewLabelFondoAdmin = new JLabel("");
 		                                           lblNewLabelFondoAdmin.setBounds(0, 0, 1321, 734);
 		                                           panelAdmin.add(lblNewLabelFondoAdmin);
-		                           
-		                            
-		                           
-		                              contentPane.add(panelRececipnista);
-		                              panelRececipnista.setLayout(null);
-		                              
-		                              panelInformacionPaciente = new JPanel();
-		                              panelInformacionPaciente.setBounds(1014, 104, 272, 197);
-		                              panelInformacionPaciente.setVisible(false);
-		                              
-		                              panelProgramarCitasRecpecionosta = new JPanel();
-		                              panelProgramarCitasRecpecionosta.setBounds(50, 90, 878, 633);
-		                              panelProgramarCitasRecpecionosta.setVisible(false);
-		                              
-		                              panelCrearPacienteRecepcion = new JPanel();
-		                              panelCrearPacienteRecepcion.setLayout(null);
-		                              panelCrearPacienteRecepcion.setBounds(50, 90, 878, 633);
-		                              panelCrearPacienteRecepcion.setVisible(false);
-		                              
-		                              panelExportacion = new JPanel();
-		                              panelExportacion.setBounds(40, 90, 892, 633);
-		                              panelRececipnista.add(panelExportacion);
-		                              panelExportacion.setVisible(false);
-		                              panelExportacion.setLayout(null);
-		                              
-		                              lblConfirmarExportacion = new JLabel("");
-		                              lblConfirmarExportacion.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblConfirmarExportacion.setForeground(new Color(255, 128, 0));
-		                              lblConfirmarExportacion.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblConfirmarExportacion.setBounds(211, 575, 424, 68);
-		                              panelExportacion.add(lblConfirmarExportacion);
-		                              
-		                              btnNewButtonExprotarCSV = new JButton("");
-		                              btnNewButtonExprotarCSV.setOpaque(false);
-		                              btnNewButtonExprotarCSV.setContentAreaFilled(false);
-		                              btnNewButtonExprotarCSV.setBorderPainted(false);
-		                              btnNewButtonExprotarCSV.setBounds(107, 461, 225, 182);
-		                              panelExportacion.add(btnNewButtonExprotarCSV);
-		                              
-		                              btnNewButtonExportarPDF = new JButton("");
-		                              btnNewButtonExportarPDF.setOpaque(false);
-		                              btnNewButtonExportarPDF.setContentAreaFilled(false);
-		                              btnNewButtonExportarPDF.setBorderPainted(false);
-		                              btnNewButtonExportarPDF.setBounds(553, 461, 225, 182);
-		                              panelExportacion.add(btnNewButtonExportarPDF);
-		                              
-		                              panelEmisiondeFacturasRecepcionista = new JPanel();
-		                              panelEmisiondeFacturasRecepcionista.setBounds(20, 11, 835, 482);
-		                              panelEmisiondeFacturasRecepcionista.setOpaque(false);  
-		                              panelExportacion.add(panelEmisiondeFacturasRecepcionista);
-		                              panelEmisiondeFacturasRecepcionista.setVisible(false);
-		                              panelEmisiondeFacturasRecepcionista.setLayout(null);
-		                              
-		                              lblNewLabelFondoEmisionFacturasRecepcion = new JLabel("New label");
-		                              lblNewLabelFondoEmisionFacturasRecepcion.setBounds(0, 0, 892, 633);
-		                              panelExportacion.add(lblNewLabelFondoEmisionFacturasRecepcion);
-		                              
-		                              panelCrearFacturasRecepcion = new JPanel();
-		                              panelCrearFacturasRecepcion.setBounds(40, 90, 892, 633);
-		                              panelRececipnista.add(panelCrearFacturasRecepcion);
-		                              panelCrearFacturasRecepcion.setVisible(false);
-		                              panelCrearFacturasRecepcion.setLayout(null);
-		                              
-		                              lblErrorCrearFacturasPaciente = new JLabel("");
-		                              lblErrorCrearFacturasPaciente.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblErrorCrearFacturasPaciente.setForeground(new Color(255, 0, 0));
-		                              lblErrorCrearFacturasPaciente.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblErrorCrearFacturasPaciente.setBounds(54, 521, 780, 68);
-		                              panelCrearFacturasRecepcion.add(lblErrorCrearFacturasPaciente);
-		                              
-		                              calendarFecha_Creacion_Factura = new JCalendar();
-		                              calendarFecha_Creacion_Factura.setBounds(86, 301, 363, 153);
-		                              panelCrearFacturasRecepcion.add(calendarFecha_Creacion_Factura);
-		                              
-		                              textFieldImporte = new JTextField();
-		                              textFieldImporte.setColumns(10);
-		                              textFieldImporte.setBounds(505, 120, 363, 68);
-		                              panelCrearFacturasRecepcion.add(textFieldImporte);
-		                              
-		                              lblCCrearFacturasFinal = new JLabel("");
-		                              lblCCrearFacturasFinal.setHorizontalAlignment(SwingConstants.RIGHT);
-		                              lblCCrearFacturasFinal.setForeground(new Color(255, 128, 0));
-		                              lblCCrearFacturasFinal.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblCCrearFacturasFinal.setBounds(505, 265, 329, 258);
-		                              panelCrearFacturasRecepcion.add(lblCCrearFacturasFinal);
-		                              
-		                              textFieldNombredelPaciente = new JTextField();
-		                              textFieldNombredelPaciente.setBounds(86, 120, 363, 68);
-		                              panelCrearFacturasRecepcion.add(textFieldNombredelPaciente);
-		                              textFieldNombredelPaciente.setColumns(10);
-		                              
-		                              lblNewLabelNombre_31 = new JLabel("Fecha creacion factura");
-		                              lblNewLabelNombre_31.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_31.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_31.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_31.setBounds(55, 235, 424, 68);
-		                              panelCrearFacturasRecepcion.add(lblNewLabelNombre_31);
-		                              
-		                              lblNewLabelNombre_30 = new JLabel("Importe");
-		                              lblNewLabelNombre_30.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_30.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_30.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_30.setBounds(529, 41, 363, 68);
-		                              panelCrearFacturasRecepcion.add(lblNewLabelNombre_30);
-		                              
-		                              lblNewLabelNombre_29 = new JLabel("Nombre del Paciente");
-		                              lblNewLabelNombre_29.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_29.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_29.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_29.setBounds(55, 41, 424, 68);
-		                              panelCrearFacturasRecepcion.add(lblNewLabelNombre_29);
-		                              
-		                              lbFondo_Panel_Crear_Facturas = new JLabel("");
-		                              lbFondo_Panel_Crear_Facturas.setBounds(0, 0, 892, 633);
-		                              panelCrearFacturasRecepcion.add(lbFondo_Panel_Crear_Facturas);
-		                              panelRececipnista.add(panelCrearPacienteRecepcion);
-		                              
-		                              lblNewLabelNombre_10 = new JLabel("Nombre");
-		                              lblNewLabelNombre_10.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_10.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_10.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_10.setBounds(10, 39, 424, 68);
-		                              panelCrearPacienteRecepcion.add(lblNewLabelNombre_10);
-		                              
-		                              lblNewLabelNombre_11 = new JLabel("Contraseña");
-		                              lblNewLabelNombre_11.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_11.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_11.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_11.setBounds(444, 39, 424, 68);
-		                              panelCrearPacienteRecepcion.add(lblNewLabelNombre_11);
-		                              
-		                              textFieldDireccionPacienteRecepcion = new JTextField();
-		                              textFieldDireccionPacienteRecepcion.setColumns(10);
-		                              textFieldDireccionPacienteRecepcion.setBounds(100, 245, 252, 41);
-		                              panelCrearPacienteRecepcion.add(textFieldDireccionPacienteRecepcion);
-		                              
-		                              lblNewLabelNombre_12 = new JLabel("Telefono");
-		                              lblNewLabelNombre_12.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_12.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_12.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_12.setBounds(10, 297, 424, 68);
-		                              panelCrearPacienteRecepcion.add(lblNewLabelNombre_12);
-		                              
-		                              textFieldTelefonoPacienteRecepcion = new JTextField();
-		                              textFieldTelefonoPacienteRecepcion.setColumns(10);
-		                              textFieldTelefonoPacienteRecepcion.setBounds(100, 376, 252, 41);
-		                              panelCrearPacienteRecepcion.add(textFieldTelefonoPacienteRecepcion);
-		                              
-		                              lblNewLabelNombre_17 = new JLabel("Fecha Nacimeinto");
-		                              lblNewLabelNombre_17.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_17.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_17.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_17.setBounds(439, 200, 424, 68);
-		                              panelCrearPacienteRecepcion.add(lblNewLabelNombre_17);
-		                              
-		                              calendarFechaNacimientoPacienteRecepcion = new JCalendar();
-		                              calendarFechaNacimientoPacienteRecepcion.setBounds(516, 264, 252, 153);
-		                              panelCrearPacienteRecepcion.add(calendarFechaNacimientoPacienteRecepcion);
-		                              
-		                              lblNewLabelNombre_18 = new JLabel("Direccion");
-		                              lblNewLabelNombre_18.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_18.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_18.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_18.setBounds(10, 186, 424, 68);
-		                              panelCrearPacienteRecepcion.add(lblNewLabelNombre_18);
-		                              
-		                              textField_NombrePaciente = new JTextField();
-		                              textField_NombrePaciente.setColumns(10);
-		                              textField_NombrePaciente.setBounds(100, 118, 252, 41);
-		                              panelCrearPacienteRecepcion.add(textField_NombrePaciente);
-		                              
-		                              passwordFieldContraseñaPacienteRecepcion = new JPasswordField();
-		                              passwordFieldContraseñaPacienteRecepcion.setBounds(516, 118, 252, 41);
-		                              panelCrearPacienteRecepcion.add(passwordFieldContraseñaPacienteRecepcion);
-		                              
-		                              lblNewLabel_CrearPacienteRecepcion = new JLabel("");
-		                              lblNewLabel_CrearPacienteRecepcion.setBounds(100, 428, 225, 194);
-		                              panelCrearPacienteRecepcion.add(lblNewLabel_CrearPacienteRecepcion);
-		                              
-		                              lblNewLabelErrorCrearPacienteRecepcion = new JLabel("");
-		                              lblNewLabelErrorCrearPacienteRecepcion.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelErrorCrearPacienteRecepcion.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelErrorCrearPacienteRecepcion.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelErrorCrearPacienteRecepcion.setBounds(410, 487, 424, 68);
-		                              panelCrearPacienteRecepcion.add(lblNewLabelErrorCrearPacienteRecepcion);
-		                              
-		                              lblNewLabelFondoPanelCrearPaciente = new JLabel("");
-		                              lblNewLabelFondoPanelCrearPaciente.setBounds(0, 0, 878, 633);
-		                              panelCrearPacienteRecepcion.add(lblNewLabelFondoPanelCrearPaciente);
-		                              
-		   
-		                              panelRececipnista.add(panelProgramarCitasRecpecionosta);
-		                              panelProgramarCitasRecpecionosta.setLayout(null);
-		                              
-		                              textFieldMotivoCitaRecepcion = new JTextField();
-		                              textFieldMotivoCitaRecepcion.setColumns(10);
-		                              textFieldMotivoCitaRecepcion.setBounds(548, 360, 231, 43);
-		                              panelProgramarCitasRecpecionosta.add(textFieldMotivoCitaRecepcion);
-		                              
-		                              lblNewLabelNombre_19 = new JLabel("Nombre paciente");
-		                              lblNewLabelNombre_19.setBounds(84, 56, 231, 31);
-		                              lblNewLabelNombre_19.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_19.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_19.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              panelProgramarCitasRecpecionosta.add(lblNewLabelNombre_19);
-		                              
-		                              lblNewLabelNombre_20 = new JLabel("Nombre medico");
-		                              lblNewLabelNombre_20.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_20.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_20.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_20.setBounds(548, 56, 231, 31);
-		                              panelProgramarCitasRecpecionosta.add(lblNewLabelNombre_20);
-		                              
-		                              lblNewLabelNombre_21 = new JLabel("Fecha cita");
-		                              lblNewLabelNombre_21.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_21.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_21.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_21.setBounds(84, 208, 231, 31);
-		                              panelProgramarCitasRecpecionosta.add(lblNewLabelNombre_21);
-		                              
-		                              lblNewLabelNombre_22 = new JLabel("Hora");
-		                              lblNewLabelNombre_22.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_22.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_22.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_22.setBounds(560, 208, 231, 31);
-		                              panelProgramarCitasRecpecionosta.add(lblNewLabelNombre_22);
-		                              
-		                              lblNewLabelNombre_23 = new JLabel("Motivo");
-		                              lblNewLabelNombre_23.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_23.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_23.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_23.setBounds(548, 318, 231, 31);
-		                              panelProgramarCitasRecpecionosta.add(lblNewLabelNombre_23);
-		                              
-		                              textFieldNombrePacienteCitaRecepcion = new JTextField();
-		                              textFieldNombrePacienteCitaRecepcion.setBounds(84, 98, 231, 43);
-		                              panelProgramarCitasRecpecionosta.add(textFieldNombrePacienteCitaRecepcion);
-		                              textFieldNombrePacienteCitaRecepcion.setColumns(10);
-		                              
-		                              textFieldNombreMedicoCitaRecepcion = new JTextField();
-		                              textFieldNombreMedicoCitaRecepcion.setColumns(10);
-		                              textFieldNombreMedicoCitaRecepcion.setBounds(548, 98, 231, 43);
-		                              panelProgramarCitasRecpecionosta.add(textFieldNombreMedicoCitaRecepcion);
-		                              
-		                              calendarCitaPaciente = new JCalendar();
-		                              calendarCitaPaciente.setBounds(84, 250, 231, 153);
-		                              panelProgramarCitasRecpecionosta.add(calendarCitaPaciente);
-		                              
-		                              textFieldHoraCitaPaciente = new JTextField();
-		                              textFieldHoraCitaPaciente.setColumns(10);
-		                              textFieldHoraCitaPaciente.setBounds(548, 264, 231, 43);
-		                              panelProgramarCitasRecpecionosta.add(textFieldHoraCitaPaciente);
-		                              
-		                              btnNewButtonCrearCitaRecepcion = new JButton("");
-		                              btnNewButtonCrearCitaRecepcion.setOpaque(false);
-		                              btnNewButtonCrearCitaRecepcion.setContentAreaFilled(false);
-		                              btnNewButtonCrearCitaRecepcion.setBorderPainted(false);
-		                              btnNewButtonCrearCitaRecepcion.setBounds(99, 428, 225, 182);
-		                              panelProgramarCitasRecpecionosta.add(btnNewButtonCrearCitaRecepcion);
-		                              
-		                              lblNewLabelErrorCrearCitaRecpecion = new JLabel("");
-		                              lblNewLabelErrorCrearCitaRecpecion.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelErrorCrearCitaRecpecion.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelErrorCrearCitaRecpecion.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelErrorCrearCitaRecpecion.setBounds(409, 487, 424, 68);
-		                              panelProgramarCitasRecpecionosta.add(lblNewLabelErrorCrearCitaRecpecion);
-		                              
-		                              lblNewLabelFondoPanelCrearCitaRecepcion = new JLabel("");
-		                              lblNewLabelFondoPanelCrearCitaRecepcion.setBounds(0, 0, 878, 633);
-		                              panelProgramarCitasRecpecionosta.add(lblNewLabelFondoPanelCrearCitaRecepcion);
-		                              
-		                              btnNewButtonCrearCitaRecepcion_2 = new JButton("");
-		                              btnNewButtonCrearCitaRecepcion_2.setOpaque(false);
-		                              btnNewButtonCrearCitaRecepcion_2.setContentAreaFilled(false);
-		                              btnNewButtonCrearCitaRecepcion_2.setBorderPainted(false);
-		                              btnNewButtonCrearCitaRecepcion_2.setBounds(99, 428, 225, 182);
-		                              panelProgramarCitasRecpecionosta.add(btnNewButtonCrearCitaRecepcion_2);
-		                              
-		                              lblCrearFacturas = new JLabel("");
-		                              lblCrearFacturas.setHorizontalAlignment(SwingConstants.RIGHT);
-		                              lblCrearFacturas.setForeground(new Color(255, 128, 0));
-		                              lblCrearFacturas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblCrearFacturas.setBounds(511, -23, 113, 134);
-		                              panelRececipnista.add(lblCrearFacturas);
-		                              
-		                              lblNewLabelSalidaRecepcionista = new JLabel("");
-		                              lblNewLabelSalidaRecepcionista.setBounds(0, 0, 84, 79);
-		                              panelRececipnista.add(lblNewLabelSalidaRecepcionista);
-		                              
-		                              panelRececipnista.add(panelInformacionPaciente);
-		                              panelInformacionPaciente.setLayout(null);
-		                              
-		                              textFieldNombreInfoRecepcionista = new JTextField();
-		                              textFieldNombreInfoRecepcionista.setHorizontalAlignment(SwingConstants.CENTER);
-		                              textFieldNombreInfoRecepcionista.setBounds(10, 90, 252, 68);
-		                              panelInformacionPaciente.add(textFieldNombreInfoRecepcionista);
-		                              textFieldNombreInfoRecepcionista.setColumns(10);
-		                              
-		                              lblNewLabelNombre_9 = new JLabel("Nombre");
-		                              lblNewLabelNombre_9.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_9.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_9.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_9.setBounds(-79, 11, 424, 68);
-		                              panelInformacionPaciente.add(lblNewLabelNombre_9);
-		                              
-		                              lblNewLabelFondoPerfilRecepcionista = new JLabel("");
-		                              lblNewLabelFondoPerfilRecepcionista.setBounds(0, 0, 272, 483);
-		                              panelInformacionPaciente.add(lblNewLabelFondoPerfilRecepcionista);
-		                              
-		                              separator_3 = new JSeparator();
-		                              separator_3.setForeground(new Color(255, 128, 0));
-		                              separator_3.setBounds(0, 77, 1319, 2);
-		                              panelRececipnista.add(separator_3);
-		                              
-		                              lblRegistro_Nuevo_Pacientes = new JLabel("");
-		                              lblRegistro_Nuevo_Pacientes.setHorizontalAlignment(SwingConstants.RIGHT);
-		                              lblRegistro_Nuevo_Pacientes.setForeground(new Color(255, 128, 0));
-		                              lblRegistro_Nuevo_Pacientes.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblRegistro_Nuevo_Pacientes.setBounds(142, -23, 113, 134);
-		                              panelRececipnista.add(lblRegistro_Nuevo_Pacientes);
-		                              
-		                              lbl_Programacion_Citas = new JLabel("");
-		                              lbl_Programacion_Citas.setHorizontalAlignment(SwingConstants.RIGHT);
-		                              lbl_Programacion_Citas.setForeground(new Color(255, 128, 0));
-		                              lbl_Programacion_Citas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lbl_Programacion_Citas.setBounds(265, -23, 113, 134);
-		                              panelRececipnista.add(lbl_Programacion_Citas);
-		                              
-		                              lblEmision_de_Facturas = new JLabel("");
-		                              lblEmision_de_Facturas.setHorizontalAlignment(SwingConstants.RIGHT);
-		                              lblEmision_de_Facturas.setForeground(new Color(255, 128, 0));
-		                              lblEmision_de_Facturas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblEmision_de_Facturas.setBounds(388, -23, 113, 134);
-		                              panelRececipnista.add(lblEmision_de_Facturas);
-		                              
-		                              lblNewLabelCaraRecepcionista = new JLabel("");
-		                              lblNewLabelCaraRecepcionista.setBounds(1213, 11, 106, 68);
-		                              panelRececipnista.add(lblNewLabelCaraRecepcionista);
-		                              
-		                              lblNewLabelNombreUsuarioMostrarRecepcionista = new JLabel("");
-		                              lblNewLabelNombreUsuarioMostrarRecepcionista.setHorizontalAlignment(SwingConstants.RIGHT);
-		                              lblNewLabelNombreUsuarioMostrarRecepcionista.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombreUsuarioMostrarRecepcionista.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombreUsuarioMostrarRecepcionista.setBounds(1014, 11, 189, 68);
-		                              panelRececipnista.add(lblNewLabelNombreUsuarioMostrarRecepcionista);
-		                              
-		                              lblNewLabelLogoRecepcionista = new JLabel("");
-		                              lblNewLabelLogoRecepcionista.setBounds(639, 0, 108, 79);
-		                              panelRececipnista.add(lblNewLabelLogoRecepcionista);
-		                              
-		                              lblNewLabelNombre_8 = new JLabel("VitalMed");
-		                              lblNewLabelNombre_8.setHorizontalAlignment(SwingConstants.CENTER);
-		                              lblNewLabelNombre_8.setForeground(new Color(255, 128, 0));
-		                              lblNewLabelNombre_8.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                              lblNewLabelNombre_8.setBounds(608, 11, 424, 68);
-		                              panelRececipnista.add(lblNewLabelNombre_8);
-		                              
-		                              lblNewLabelFondoRecepcionista = new JLabel("");
-		                              lblNewLabelFondoRecepcionista.setBounds(0, 0, 1329, 734);
-		                              panelRececipnista.add(lblNewLabelFondoRecepcionista);
-		                          contentPane.add(panelPacientes);
-		                          panelPacientes.setLayout(null);
-		                          
-		                          scrollPane_3 = new JScrollPane();
-		                          scrollPane_3.setBounds(42, 90, 895, 633);
-		                          scrollPane_3.setVisible(false);
-		                          
-		                          scrollPane_4 = new JScrollPane();
-		                          scrollPane_4.setBounds(42, 90, 895, 633);
-		                          scrollPane_4.setVisible(false);
-		                          
-		                          panelDatos_Cliente_Factura = new JPanel();
-		                          panelDatos_Cliente_Factura.setBounds(204, 166, 611, 442);
-		                          panelDatos_Cliente_Factura.setVisible(false);
-		                          panelPacientes.add(panelDatos_Cliente_Factura);
-		                          
-		                          panelDatos_Cliente_Factura.setLayout(null);
-		                          
-		                          lblNewLabelError_Tarjeta = new JLabel("");
-		                          lblNewLabelError_Tarjeta.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblNewLabelError_Tarjeta.setForeground(new Color(255, 0, 0));
-		                          lblNewLabelError_Tarjeta.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 20));
-		                          lblNewLabelError_Tarjeta.setBounds(243, 374, 360, 68);
-		                          panelDatos_Cliente_Factura.add(lblNewLabelError_Tarjeta);
-		                          
-		                          lblPagarFactura = new JLabel("");
-		                          lblPagarFactura.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblPagarFactura.setForeground(new Color(255, 128, 0));
-		                          lblPagarFactura.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblPagarFactura.setBounds(384, 291, 113, 134);
-		                          panelDatos_Cliente_Factura.add(lblPagarFactura);
-		                          
-		                          calendar_fecha_expiracion_tarjeta = new JCalendar();
-		                          calendar_fecha_expiracion_tarjeta.setBounds(49, 236, 184, 153);
-		                          panelDatos_Cliente_Factura.add(calendar_fecha_expiracion_tarjeta);
-		                          
-		                          textField_CSV_Tarjeta = new JTextField();
-		                          textField_CSV_Tarjeta.setColumns(10);
-		                          textField_CSV_Tarjeta.setBounds(336, 236, 197, 44);
-		                          panelDatos_Cliente_Factura.add(textField_CSV_Tarjeta);
-		                          
-		                          textField_Numero_Tarjeta = new JTextField();
-		                          textField_Numero_Tarjeta.setColumns(10);
-		                          textField_Numero_Tarjeta.setBounds(336, 113, 197, 44);
-		                          panelDatos_Cliente_Factura.add(textField_Numero_Tarjeta);
-		                          
-		                          textField_Titular_Tarjeta = new JTextField();
-		                          textField_Titular_Tarjeta.setBounds(49, 113, 197, 44);
-		                          panelDatos_Cliente_Factura.add(textField_Titular_Tarjeta);
-		                          textField_Titular_Tarjeta.setColumns(10);
-		                          
-		                          lblNewLabelNombre_26 = new JLabel("Numero Tarjeta");
-		                          lblNewLabelNombre_26.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblNewLabelNombre_26.setForeground(new Color(255, 128, 0));
-		                          lblNewLabelNombre_26.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblNewLabelNombre_26.setBounds(251, 58, 360, 68);
-		                          panelDatos_Cliente_Factura.add(lblNewLabelNombre_26);
-		                          
-		                          lblNewLabelNombre_25 = new JLabel("Titular");
-		                          lblNewLabelNombre_25.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblNewLabelNombre_25.setForeground(new Color(255, 128, 0));
-		                          lblNewLabelNombre_25.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblNewLabelNombre_25.setBounds(0, 58, 300, 68);
-		                          panelDatos_Cliente_Factura.add(lblNewLabelNombre_25);
-		                          
-		                          lblNewLabelNombre_27 = new JLabel("Expiracion");
-		                          lblNewLabelNombre_27.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblNewLabelNombre_27.setForeground(new Color(255, 128, 0));
-		                          lblNewLabelNombre_27.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblNewLabelNombre_27.setBounds(0, 178, 300, 68);
-		                          panelDatos_Cliente_Factura.add(lblNewLabelNombre_27);
-		                          
-		                          lblNewLabelNombre_28 = new JLabel("CVC");
-		                          lblNewLabelNombre_28.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblNewLabelNombre_28.setForeground(new Color(255, 128, 0));
-		                          lblNewLabelNombre_28.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblNewLabelNombre_28.setBounds(251, 178, 360, 68);
-		                          panelDatos_Cliente_Factura.add(lblNewLabelNombre_28);
-		                          
-		                          lblNewLabelFondo_Datos_Cliente_Factura = new JLabel("");
-		                          lblNewLabelFondo_Datos_Cliente_Factura.setBounds(0, 0, 611, 442);
-		                          panelDatos_Cliente_Factura.add(lblNewLabelFondo_Datos_Cliente_Factura);
-		                          
-		                          lblPagarFacturas_Definitiva = new JLabel("");
-		                          lblPagarFacturas_Definitiva.setBounds(947, 261, 332, 301);
-		                          panelPacientes.add(lblPagarFacturas_Definitiva);
-		                          lblPagarFacturas_Definitiva.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblPagarFacturas_Definitiva.setForeground(new Color(255, 128, 0));
-		                          lblPagarFacturas_Definitiva.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblPagarFacturas_Definitiva.setVisible(false);
-		                          
-		                          lblPagarFacturas = new JLabel("");
-		                          lblPagarFacturas.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblPagarFacturas.setForeground(new Color(255, 128, 0));
-		                          lblPagarFacturas.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblPagarFacturas.setBounds(387, -23, 113, 134);
-		                          panelPacientes.add(lblPagarFacturas);
-		                          
-		                          scrollPane_5 = new JScrollPane();
-		                          scrollPane_5.setBounds(42, 90, 895, 633);
-		                          scrollPane_5.setVisible(false);
-		                          panelPacientes.add(scrollPane_5);
-		                          
-		                          tableVerFacturas_Paciente = new JTable();
-		                          scrollPane_5.setViewportView(tableVerFacturas_Paciente);
-		                          tableVerFacturas_Paciente.setVisible(false);
-		                          panelPacientes.add(scrollPane_4);
-		                          
-		                          tableVerHistorialMedico = new JTable();
-		                          scrollPane_4.setViewportView(tableVerHistorialMedico);
-		                          tableVerHistorialMedico.setVisible(false);
-		                          panelPacientes.add(scrollPane_3);
-		                          
-		                          tableVerCitasPacientes = new JTable();
-		                          scrollPane_3.setViewportView(tableVerCitasPacientes);
-		                          tableVerCitasPacientes.setVisible(false);
-		                          
-		                          lblVerHistorialMedico = new JLabel("");
-		                          lblVerHistorialMedico.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblVerHistorialMedico.setForeground(new Color(255, 128, 0));
-		                          lblVerHistorialMedico.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblVerHistorialMedico.setBounds(264, -23, 113, 134);
-		                          panelPacientes.add(lblVerHistorialMedico);
-		                          
-		                          lblVerCitasPaciente = new JLabel("");
-		                          lblVerCitasPaciente.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblVerCitasPaciente.setForeground(new Color(255, 128, 0));
-		                          lblVerCitasPaciente.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblVerCitasPaciente.setBounds(141, -23, 113, 134);
-		                          panelPacientes.add(lblVerCitasPaciente);
-		                          
-		                          lblNewLabelNombreUsuarioMostrarPaciente = new JLabel("");
-		                          lblNewLabelNombreUsuarioMostrarPaciente.setHorizontalAlignment(SwingConstants.RIGHT);
-		                          lblNewLabelNombreUsuarioMostrarPaciente.setForeground(new Color(255, 128, 0));
-		                          lblNewLabelNombreUsuarioMostrarPaciente.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblNewLabelNombreUsuarioMostrarPaciente.setBounds(1015, 11, 189, 68);
-		                          panelPacientes.add(lblNewLabelNombreUsuarioMostrarPaciente);
-		                          
-		                          lblNewLabelCaraPaciente = new JLabel("");
-		                          lblNewLabelCaraPaciente.setBounds(1235, 11, 84, 68);
-		                          panelPacientes.add(lblNewLabelCaraPaciente);
-		                          
-		                          lblNewLabelLogoMedico_Paciente = new JLabel("");
-		                          lblNewLabelLogoMedico_Paciente.setBounds(485, 0, 108, 79);
-		                          panelPacientes.add(lblNewLabelLogoMedico_Paciente);
-		                          
-		                          lblNewLabelNombre_24 = new JLabel("VitalMed");
-		                          lblNewLabelNombre_24.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblNewLabelNombre_24.setForeground(new Color(255, 128, 0));
-		                          lblNewLabelNombre_24.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblNewLabelNombre_24.setBounds(462, 0, 424, 68);
-		                          panelPacientes.add(lblNewLabelNombre_24);
-		                          
-		                          lblNewLabelSalida_Paciente = new JLabel("");
-		                          lblNewLabelSalida_Paciente.setBounds(0, 0, 84, 79);
-		                          panelPacientes.add(lblNewLabelSalida_Paciente);
-		                          
-		                          panelInformacionPaciente_1 = new JPanel();
-		                          panelInformacionPaciente_1.setLayout(null);
-		                          panelInformacionPaciente_1.setBounds(1015, 90, 272, 633);
-		                          panelInformacionPaciente_1.setVisible(false);
-		                          panelPacientes.add(panelInformacionPaciente_1);
-		                          
-		                          lblNewLabelNombre_13 = new JLabel("Nombre");
-		                          lblNewLabelNombre_13.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblNewLabelNombre_13.setForeground(new Color(255, 128, 0));
-		                          lblNewLabelNombre_13.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblNewLabelNombre_13.setBounds(-83, 0, 424, 68);
-		                          panelInformacionPaciente_1.add(lblNewLabelNombre_13);
-		                          
-		                          lblNewLabelNombrePaciente_1 = new JLabel("");
-		                          lblNewLabelNombrePaciente_1.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblNewLabelNombrePaciente_1.setForeground(new Color(255, 128, 0));
-		                          lblNewLabelNombrePaciente_1.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblNewLabelNombrePaciente_1.setBounds(10, 54, 252, 68);
-		                          panelInformacionPaciente_1.add(lblNewLabelNombrePaciente_1);
-		                          
-		                          lblNewLabelNombre_14 = new JLabel("Direccion");
-		                          lblNewLabelNombre_14.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblNewLabelNombre_14.setForeground(new Color(255, 128, 0));
-		                          lblNewLabelNombre_14.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblNewLabelNombre_14.setBounds(-83, 118, 424, 68);
-		                          panelInformacionPaciente_1.add(lblNewLabelNombre_14);
-		                          
-		                          textFieldDireccion_PanelPaciente = new JTextField();
-		                          textFieldDireccion_PanelPaciente.setColumns(10);
-		                          textFieldDireccion_PanelPaciente.setBounds(10, 177, 252, 41);
-		                          panelInformacionPaciente_1.add(textFieldDireccion_PanelPaciente);
-		                          
-		                          lblNewLabelNombre_15 = new JLabel("Telefono");
-		                          lblNewLabelNombre_15.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblNewLabelNombre_15.setForeground(new Color(255, 128, 0));
-		                          lblNewLabelNombre_15.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblNewLabelNombre_15.setBounds(-83, 229, 424, 68);
-		                          panelInformacionPaciente_1.add(lblNewLabelNombre_15);
-		                          
-		                          textField_Telefono_PanelPaciente = new JTextField();
-		                          textField_Telefono_PanelPaciente.setColumns(10);
-		                          textField_Telefono_PanelPaciente.setBounds(10, 288, 252, 41);
-		                          panelInformacionPaciente_1.add(textField_Telefono_PanelPaciente);
-		                          
-		                          lblNewLabelNombre_16 = new JLabel("Fecha Nacimeinto");
-		                          lblNewLabelNombre_16.setHorizontalAlignment(SwingConstants.CENTER);
-		                          lblNewLabelNombre_16.setForeground(new Color(255, 128, 0));
-		                          lblNewLabelNombre_16.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                          lblNewLabelNombre_16.setBounds(-73, 340, 424, 68);
-		                          panelInformacionPaciente_1.add(lblNewLabelNombre_16);
-		                          
-		                          calendarFechaNacimientoPaciente_1 = new JCalendar();
-		                          calendarFechaNacimientoPaciente_1.setBounds(10, 390, 252, 153);
-		                          panelInformacionPaciente_1.add(calendarFechaNacimientoPaciente_1);
-		                          
-		                          lblNewLabel_FondoInformacionPaciente = new JLabel("");
-		                          lblNewLabel_FondoInformacionPaciente.setBounds(0, 0, 272, 633);
-		                          panelInformacionPaciente_1.add(lblNewLabel_FondoInformacionPaciente);
-		                          
-		                          separator_4 = new JSeparator();
-		                          separator_4.setForeground(new Color(255, 128, 0));
-		                          separator_4.setBounds(0, 77, 1319, 2);
-		                          panelPacientes.add(separator_4);
-		                          
-		                          lblNewLabelFondoPaciente = new JLabel("");
-		                          lblNewLabelFondoPaciente.setBounds(0, 0, 1321, 734);
-		                          panelPacientes.add(lblNewLabelFondoPaciente);
 		   
 		panelInicio = new JPanel();
 		panelInicio.setBounds(0, 0, 1329, 742);

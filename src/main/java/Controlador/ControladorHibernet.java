@@ -201,7 +201,7 @@ public class ControladorHibernet {
         Session session = null;
         Empleados emple=new Empleados();
         try {
-            session = sessionFactory.openSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             Query q=session.createQuery("FROM Empleados WHERE username=: nombrea");
             q.setParameter("nombrea", nombre);
@@ -230,7 +230,7 @@ public class ControladorHibernet {
         Session session = null;
         Empleados emple=new Empleados();
         try {
-            session = sessionFactory.openSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             
             Query q=session.createQuery("FROM Empleados WHERE username=: nombrea");
@@ -260,7 +260,7 @@ public class ControladorHibernet {
         Session session = null;
         Empleados emple=new Empleados();
         try {
-            session = sessionFactory.openSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
          
@@ -577,7 +577,7 @@ public class ControladorHibernet {
 	    }
 	  public double[] obtenerTotalesFacturas() {
 		    double[] totales = new double[2];
-		    Session session = sessionFactory.openSession();
+		    Session session = sessionFactory.getCurrentSession();
 		    try {
 		        session.beginTransaction();
 
@@ -824,7 +824,7 @@ public class ControladorHibernet {
 		    Transaction transaction = null;
 		    Pacientes p=new Pacientes();
 		    try {
-		        session = sessionFactory.openSession();
+		        session = sessionFactory.getCurrentSession();
 		         session.beginTransaction();
 		        
 		        Query q=session.createQuery("FROM Pacientes WHERE direccion=: direcciones");
@@ -861,7 +861,7 @@ public class ControladorHibernet {
 		  Session session = null;
 
 	        try {
-	        	 session = sessionFactory.openSession();
+	        	 session = sessionFactory.getCurrentSession();
 		         session.beginTransaction();
 
 	            Pacientes paciente = (Pacientes) session.createQuery(
@@ -887,4 +887,5 @@ public class ControladorHibernet {
 	            session.close();
 	        }
 	    }
+	  
 }

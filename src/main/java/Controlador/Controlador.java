@@ -113,6 +113,14 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelAdmin.setVisible(false);
 		}
 		if(e.getSource()==this.vista.lblNewLabelSalidaMedico) {
+			 DefaultTableModel modelHistorila = (DefaultTableModel) this.vista.tableHistorialMedico.getModel();
+			 modelHistorila.setRowCount(0);			 
+			 DefaultTableModel modelCitas = (DefaultTableModel) this.vista.tableMostrarResultadoCitas.getModel();
+			 modelCitas.setRowCount(0);
+			 this.vista.lblVerCitas.setIcon(fotoEscalarLabel(this.vista.lblVerCitas, "imagenes/vercitas.png"));
+			 this.vista.lblHistorialPaciente.setIcon(fotoEscalarLabel(this.vista.lblHistorialPaciente, "imagenes/Historial.png"));
+			 this.vista.lblRegistro.setIcon(fotoEscalarLabel(this.vista.lblRegistro, "imagenes/Registro.png"));
+			 this.vista.lblEnviarCorreo.setIcon(fotoEscalarLabel(this.vista.lblEnviarCorreo, "imagenes/btnEnviarCorreo.png"));
 			this.vista.panelInicio.setVisible(true);
 			this.vista.panelMedico.setVisible(false);
 			this.vista.tableHistorialMedico.setVisible(false);
@@ -122,6 +130,8 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelCrearHistorialMedico.setVisible(false);
 			this.vista.scrollPane_2.setVisible(false);
 			this.vista.panelFiltrarCitas.setVisible(false);
+			
+			
 		}
 		if(e.getSource()==this.vista.lblNewLabelVolverCrear) {
 			this.vista.panelCrearAdmin.setVisible(false);
@@ -250,6 +260,9 @@ public class Controlador implements ActionListener,MouseListener{
 		            EmailSender.sendEmail(correoelectronico,asunto,campo);
 		            mostrarLabelTemporalmente(this.vista.lblConfirmarEnviar,"Enviado correctamente");
 			    	this.vista.lblConfirmarEnviar.setForeground(Color.green);
+			    	this.vista.textFieldCorreoElectronicoPaciente.setText("");
+			    	this.vista.textFieldAsuntoDeCorreoElectronico.setText("");
+			    	this.vista.textPaneCampodeTextoCorreo.setText("");
 		        } catch (Exception i) {
 		            System.err.println("Error en Main: " + i.getMessage());
 		            mostrarLabelTemporalmente(this.vista.lblConfirmarEnviar,"Correo electronico no existente o mal escrito");
@@ -406,8 +419,17 @@ public class Controlador implements ActionListener,MouseListener{
 			}
 		//Paciente
 			if(e.getSource()==this.vista.lblNewLabelSalida_Paciente) {
+				DefaultTableModel modelverfactura = (DefaultTableModel) this.vista.tableVerFacturas_Paciente.getModel();
+				modelverfactura.setRowCount(0);			 
+				 DefaultTableModel verHistorialCitas = (DefaultTableModel) this.vista.tableVerHistorialMedico.getModel();
+				 verHistorialCitas.setRowCount(0);
+				 DefaultTableModel verCitasPaciente = (DefaultTableModel) this.vista.tableVerCitasPacientes.getModel();
+				 verCitasPaciente.setRowCount(0);
 				this.vista.panelPacientes.setVisible(false);
 				this.vista.panelInicio.setVisible(true);
+				this.vista.lblVerCitasPaciente.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/vercitas.png"));
+				this.vista.lblVerHistorialMedico.setIcon(fotoEscalarLabel(this.vista.lblVerHistorialMedico, "imagenes/Historial.png"));
+				this.vista.lblPagarFacturas.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas, "imagenes/btnPagarFacturas.png"));
 			}
 			if(e.getSource()==this.vista.lblNewLabelCaraPaciente) {
 				this.vista.panelInformacionPaciente_1.setVisible(true);
