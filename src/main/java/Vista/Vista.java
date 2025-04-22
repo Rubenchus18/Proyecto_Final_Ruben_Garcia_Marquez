@@ -300,6 +300,7 @@ public class Vista extends JFrame {
 	public JScrollPane scrollPane_7;
 	public JScrollPane scrollPane_8;
 	public JScrollPane scrollPane_9;
+	public JLabel lblNewLabelSalida_Paciente__Tarjeta;
 	/**
 	 * Launch the application.
 	 */
@@ -372,6 +373,10 @@ public class Vista extends JFrame {
 		                                                    
 		                                                    panelDatos_Cliente_Factura.setLayout(null);
 		                                                    
+		                                                    lblNewLabelSalida_Paciente__Tarjeta = new JLabel("");
+		                                                    lblNewLabelSalida_Paciente__Tarjeta.setBounds(0, 0, 84, 79);
+		                                                    panelDatos_Cliente_Factura.add(lblNewLabelSalida_Paciente__Tarjeta);
+		                                                    
 		                                                    lblNewLabelError_Tarjeta = new JLabel("");
 		                                                    lblNewLabelError_Tarjeta.setHorizontalAlignment(SwingConstants.CENTER);
 		                                                    lblNewLabelError_Tarjeta.setForeground(new Color(255, 0, 0));
@@ -383,7 +388,7 @@ public class Vista extends JFrame {
 		                                                    lblPagarFactura.setHorizontalAlignment(SwingConstants.CENTER);
 		                                                    lblPagarFactura.setForeground(new Color(255, 128, 0));
 		                                                    lblPagarFactura.setFont(new Font("Lucida Sans Typewriter", Font.BOLD, 25));
-		                                                    lblPagarFactura.setBounds(384, 291, 113, 134);
+		                                                    lblPagarFactura.setBounds(336, 236, 197, 189);
 		                                                    panelDatos_Cliente_Factura.add(lblPagarFactura);
 		                                                    
 		                                                    calendar_fecha_expiracion_tarjeta = new JCalendar();

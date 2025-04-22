@@ -100,6 +100,7 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.lblCCrearFacturasFinal.addMouseListener(this);
 		   this.vista.lblEnviarCorreo.addMouseListener(this);
 		   this.vista.lblEnviarCorreElectronico.addMouseListener(this);
+		   this.vista.lblNewLabelSalida_Paciente__Tarjeta.addMouseListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
@@ -591,7 +592,9 @@ public class Controlador implements ActionListener,MouseListener{
 				  }
 				 
 			  }
-			
+			if(e.getSource()==this.vista.lblNewLabelSalida_Paciente__Tarjeta) {
+					this.vista.panelDatos_Cliente_Factura.setVisible(false);
+				}
 		//DobleClick
 		if(e.getClickCount()==2) {
 			if(e.getSource()== this.vista.lblNewLabelCaraRecepcionista) {
@@ -969,11 +972,11 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.lblVerCitasPaciente.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/vercitas.png"));
 		 this.vista.lblVerHistorialMedico.setIcon(fotoEscalarLabel(this.vista.lblVerHistorialMedico, "imagenes/Historial.png"));
 		 this.vista.lblPagarFacturas.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas, "imagenes/btnPagarFacturas.png"));
-		 this.vista.lblNewLabelFondoPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoPaciente, "imagenes/fondo_panel_cobro.jpg"));
+		 this.vista.lblNewLabelFondoPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoPaciente, "imagenes/fondo_admin_panel.jpg"));
 		 this.vista.lblNewLabelCaraPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCaraPaciente, "imagenes/foto_perfil.png"));
 		 this.vista.lblNewLabelLogoMedico_Paciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCaraPaciente, "imagenes/logo.png"));
 		 this.vista.lblNewLabel_FondoInformacionPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabel_FondoInformacionPaciente, "imagenes/fondo_admin_panel.jpg"));
-		 this.vista.lblNewLabelFondo_Datos_Cliente_Factura.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondo_Datos_Cliente_Factura, "imagenes/fondo_admin_panel.jpg"));
+		 this.vista.lblNewLabelFondo_Datos_Cliente_Factura.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondo_Datos_Cliente_Factura, "imagenes/fondo_panel_cobro.jpg"));
 		 this.vista.lblPagarFactura.setIcon(fotoEscalarLabel(this.vista.lblPagarFactura, "imagenes/btn_pagar.png"));
 		this.vista.lblPagarFacturas_Definitiva.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas_Definitiva, "imagenes/btn_pagar.png"));
 		this.vista.lblCrearFacturas.setIcon(fotoEscalarLabel(this.vista.lblCrearFacturas, "imagenes/btnCrearFacturas.png"));
@@ -982,6 +985,7 @@ public class Controlador implements ActionListener,MouseListener{
 		this.vista.lblEnviarCorreo.setIcon(fotoEscalarLabel(this.vista.lblEnviarCorreo, "imagenes/btnEnviarCorreo.png"));
 		this.vista.lblFondoCorreoElectronico.setIcon(fotoEscalarLabel(this.vista.lblFondoCorreoElectronico, "imagenes/fondo_admin_panel.jpg"));
 		this.vista.lblEnviarCorreElectronico.setIcon(fotoEscalarLabel(this.vista.lblEnviarCorreElectronico, "imagenes/btnEnviar.png"));
+		this.vista.lblNewLabelSalida_Paciente__Tarjeta.setIcon(fotoEscalarLabel(this.vista.lblNewLabelSalida_Paciente__Tarjeta, "imagenes/botonVolver.png"));
 	 }
 	 public void añadidoRolesComboBox() {
 		  this.vista.comboBoxRoles.addItem("admin");
