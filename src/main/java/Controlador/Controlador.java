@@ -30,6 +30,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.table.DefaultTableModel;
@@ -103,7 +104,11 @@ public class Controlador implements ActionListener,MouseListener{
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
 		    añadidoRolesComboBox();
-		   
+		   //Saltos de texArea
+		    saltosTextArea( this.vista.textAreaCampodeTextoCorreo);
+		    saltosTextArea( this.vista.textAreaDiagnostico);
+		    saltosTextArea( this.vista.textAreaTratamiento);
+		    saltosTextArea( this.vista.textAreaReceta);
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -248,10 +253,10 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.lblHistorialPaciente.setIcon(fotoEscalarLabel(this.vista.lblHistorialPaciente, "imagenes/Historial.png"));
 			this.vista.lblRegistro.setIcon(fotoEscalarLabel(this.vista.lblRegistro, "imagenes/Registro.png"));
 		}
-		if(e.getSource()==this.vista.lblEnviarCorreElectronico) {
+		if(e.getSource()==this.vista.lblEnviarCorreElectronico) {		
 			String correoelectronico=this.vista.textFieldCorreoElectronicoPaciente.getText();
 			String asunto=this.vista.textFieldAsuntoDeCorreoElectronico.getText();
-			String campo=this.vista.textPaneCampodeTextoCorreo.getText();
+			String campo=this.vista.textAreaCampodeTextoCorreo.getText();
 			if(correoelectronico.isEmpty()|| asunto.isEmpty()||campo.isEmpty()) {
 				mostrarLabelTemporalmente(this.vista.lblConfirmarEnviar,"Rellenar todos los campos");
 		    	this.vista.lblConfirmarEnviar.setForeground(Color.red);
@@ -262,7 +267,7 @@ public class Controlador implements ActionListener,MouseListener{
 			    	this.vista.lblConfirmarEnviar.setForeground(new Color(47, 113, 9));
 			    	this.vista.textFieldCorreoElectronicoPaciente.setText("");
 			    	this.vista.textFieldAsuntoDeCorreoElectronico.setText("");
-			    	this.vista.textPaneCampodeTextoCorreo.setText("");
+			    	this.vista.textAreaCampodeTextoCorreo.setText("");
 		        } catch (Exception i) {
 		            System.err.println("Error en Main: " + i.getMessage());
 		            mostrarLabelTemporalmente(this.vista.lblConfirmarEnviar,"Correo electronico no existente o mal escrito");
@@ -812,9 +817,9 @@ public class Controlador implements ActionListener,MouseListener{
 		if(e.getSource() == this.vista.btnGuardarHistorialMedico) {
 		    String nombrepaciente = this.vista.textFieldNombrePaciente.getText();		 
 		    String nombremedico= this.vista.textFieldNombreMedico.getText();
-		    String diagnostico = this.vista.textFieldDiagnostico.getText();
-		    String tratamiento = this.vista.textFieldTratamiento.getText();
-		    String receta = this.vista.textFieldReceta.getText();
+		    String diagnostico = this.vista.textAreaDiagnostico.getText();
+		    String tratamiento = this.vista.textAreaTratamiento.getText();
+		    String receta = this.vista.textAreaReceta.getText();
 		    Calendar calendario = this.vista.calendarioMedico.getCalendar(); 
 		    int day = calendario.get(Calendar.DAY_OF_MONTH);
 		    int month = calendario.get(Calendar.MONTH) + 1; 
@@ -828,9 +833,9 @@ public class Controlador implements ActionListener,MouseListener{
 		    	mostrarLabelTemporalmente(this.vista.lblErrorRegistroMedico,"Creada perfectamente");
 		    	this.vista.textFieldNombrePaciente.setText("");
 		    	this.vista.textFieldNombreMedico.setText("");
-		    	this.vista.textFieldDiagnostico.setText("");
-		    	this.vista.textFieldTratamiento.setText("");
-		    	this.vista.textFieldReceta.setText("");
+		    	this.vista.textAreaDiagnostico.setText("");
+		    	this.vista.textAreaTratamiento.setText("");
+		    	this.vista.textAreaReceta.setText("");
 		    }
 		    
 		}
@@ -964,7 +969,7 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.lblVerCitasPaciente.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/vercitas.png"));
 		 this.vista.lblVerHistorialMedico.setIcon(fotoEscalarLabel(this.vista.lblVerHistorialMedico, "imagenes/Historial.png"));
 		 this.vista.lblPagarFacturas.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas, "imagenes/btnPagarFacturas.png"));
-		 this.vista.lblNewLabelFondoPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoPaciente, "imagenes/fondo_aplicacion.jpg"));
+		 this.vista.lblNewLabelFondoPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoPaciente, "imagenes/fondo_panel_cobro.jpg"));
 		 this.vista.lblNewLabelCaraPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCaraPaciente, "imagenes/foto_perfil.png"));
 		 this.vista.lblNewLabelLogoMedico_Paciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCaraPaciente, "imagenes/logo.png"));
 		 this.vista.lblNewLabel_FondoInformacionPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabel_FondoInformacionPaciente, "imagenes/fondo_admin_panel.jpg"));
@@ -1172,7 +1177,11 @@ public class Controlador implements ActionListener,MouseListener{
 		    }
 	  }
 	 
-	  
+	  public void saltosTextArea(JTextArea textArea) {
+		    textArea.setTabSize(4);             
+		    textArea.setLineWrap(true);        
+		    textArea.setWrapStyleWord(true);    
+		}
 
 	 //Hilo
 	 public void iniciarReloj(JLabel label) {
