@@ -1,0 +1,68 @@
+/*---------- Global Style ----------*/
+body {
+    color: #222;
+    font-family: 'Fauna One', serif;
+    font-size: 17px;
+    line-height: 1.8!important;
+}
+html {
+    overflow-x: hidden;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 200;
+    color: #111;
+    line-height: 1.5em;
+    margin-top: 0;
+}
+p {
+    font-family: 'Fauna One', serif;
+    font-weight: 300;
+    margin-top: 1px;
+}
+.no-gutter {
+    padding-right: 0;
+    padding-left: 0;
+}
+.vcenter {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+}
+.fill {
+    height: 100vh;
+}
+
+/*---------- Header ----------*/
+#header {
+    height: 50%;
+    margin: 0 auto;
+    position: relative;
+    color: #fff;
+    text-align: center;
+    background-size: cover;
+}
+#headslide {
+    position: relative;
+}
+#headslide .img-responsive,
+#headslide .thumbnail > img,
+#headslide .thumbnail a > img,
+#headslide .carousel-inner > .item > img,
+#headslide .carousel-inner > .item > a > img {
+    height: 100vh;
+    max-width: none;
+    object-fit: cover;
+    width: 100%;
+}
+#header h1, #header p {
+    color: #fff;
+}
+#header h1 {
+    font-size: 3.5em;
+}
+#header p {
+    font-size: 1.5em;
+}
