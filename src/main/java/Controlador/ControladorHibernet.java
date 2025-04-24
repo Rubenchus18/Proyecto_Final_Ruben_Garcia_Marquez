@@ -956,4 +956,61 @@ public class ControladorHibernet {
 		    }
 		    return medico;
 		}
+	  public String obtenerTelefonoPorNombre(String nombrePaciente) {
+		    Session session = null;
+		    String telefono = null;
+		    
+		    try {
+		        session = sessionFactory.openSession();
+		        session.beginTransaction();
+		        
+		       
+		        String hql = "SELECT p.telefono FROM Pacientes p WHERE p.nombre = :nombre";
+		        Query<String> query = session.createQuery(hql, String.class);
+		        query.setParameter("nombre", nombrePaciente);
+		        
+		       
+		        telefono = query.uniqueResult();
+		        
+		        session.getTransaction().commit();
+		    } catch (Exception e) {
+		        if (session != null && session.getTransaction() != null) {
+		            session.getTransaction().rollback();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        if (session != null) {
+		            session.close();
+		        }
+		    }
+		    
+		    return telefono;
+		}
+	  	public List<String> obtenerNombresDePacientes() {
+		    Session session = null;
+		    List<String> nombres = new ArrayList<>();
+		    
+		    try {
+		        session = sessionFactory.openSession();
+		        session.beginTransaction();
+		        
+		        
+		        String hql = "SELECT p.nombre FROM Pacientes p";
+		        Query<String> query = session.createQuery(hql, String.class);
+		        nombres = query.getResultList();
+		        
+		        session.getTransaction().commit();
+		    } catch (Exception e) {
+		        if (session != null && session.getTransaction() != null) {
+		            session.getTransaction().rollback();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        if (session != null) {
+		            session.close();
+		        }
+		    }
+		    
+		    return nombres;
+		}
 }

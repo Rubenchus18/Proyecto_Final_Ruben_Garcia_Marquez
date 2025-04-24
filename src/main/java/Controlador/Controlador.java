@@ -102,12 +102,15 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.lblEnviarCorreo.addMouseListener(this);
 		   this.vista.lblEnviarCorreElectronico.addMouseListener(this);
 		   this.vista.lblNewLabelSalida_Paciente__Tarjeta.addMouseListener(this);
+		   this.vista.tableMostrarResultadoCitas.addMouseListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
 		    añadidoRolesComboBox();
 		    cargarCorreosEnComboBox();
 		    cargarMedicos_Recepcion();
+		    cargarNombre_Paciente(this.vista.comboBox_Nombre_Paciente_Facturas);
+		    cargarNombre_Paciente(this.vista.comboBoxNombre_Paciente);
 		   //Saltos de texArea
 		    saltosTextArea( this.vista.textAreaCampodeTextoCorreo);
 		    saltosTextArea( this.vista.textAreaDiagnostico);
@@ -285,6 +288,23 @@ public class Controlador implements ActionListener,MouseListener{
 		        }
 		    }	
 		}
+		if(e.getSource() == this.vista.tableMostrarResultadoCitas) {
+		    int seleccionfila = this.vista.tableMostrarResultadoCitas.getSelectedRow();
+		    if (seleccionfila >= 0 && this.vista.tableMostrarResultadoCitas.getColumnCount() > 0) { 
+		        try {
+		             String nombrepaciente = (String) this.vista.tableMostrarResultadoCitas.getValueAt(seleccionfila, 1); 
+		            this.vista.lblNewLabelNombre_Paciente.setText(nombrepaciente);
+		            String telefono = hibernate.obtenerTelefonoPorNombre(nombrepaciente);
+		            if(telefono != null) {
+		                this.vista.textFieldNumero_Telefono.setText(telefono);
+		            } else {
+		                this.vista.textFieldNumero_Telefono.setText("No disponible");
+		            }
+		        } catch (Exception ex) {
+		            System.err.println("Error al obtener datos de la tabla: " + ex.getMessage());
+		        }
+		    }  
+		}
 		//Recepcionista
 		if(e.getSource()==this.vista.lblNewLabel_CrearPacienteRecepcion) {
 			String nombre=this.vista.textField_NombrePaciente.getText();
@@ -422,7 +442,7 @@ public class Controlador implements ActionListener,MouseListener{
 			if(e.getSource()== this.vista.lblCCrearFacturasFinal) {
 				BigDecimal importetext = null;
 				this.vista.panelCrearFacturasRecepcion.setVisible(true);
-				String nombrePaciente=this.vista.textFieldNombredelPaciente.getText();
+				String nombrePaciente=(String)this.vista.comboBox_Nombre_Paciente_Facturas.getSelectedItem();
 				String importe=this.vista.textFieldImporte.getText();
 				importe = importe.replace(',', '.');
 				importetext = new BigDecimal(importe);	
@@ -438,7 +458,6 @@ public class Controlador implements ActionListener,MouseListener{
 					 hibernate.crearFacturaPorNombrePaciente(nombrePaciente, importetext, sqlDate);
 					 mostrarLabelTemporalmente(this.vista.lblErrorCrearFacturasPaciente,"Creado perfectamente");
 					 this.vista.lblErrorCrearFacturasPaciente.setForeground(new Color(47, 113, 9));
-					 this.vista.textFieldNombredelPaciente.setText("");
 					 this.vista.textFieldImporte.setText("");
 					 
 				 }
@@ -831,11 +850,10 @@ public class Controlador implements ActionListener,MouseListener{
 				mostrarLabelTemporalmente(this.vista.lblErrorFiltro,"Campos obligatorios");
 			}else {
 				mostrarHistorialMedico(telefono);
-				this.vista.textFieldNumero_Telefono.setText("");
 			}
 		}
 		if(e.getSource() == this.vista.btnGuardarHistorialMedico) {
-		    String nombrepaciente = this.vista.textFieldNombrePaciente.getText();		     
+		    String nombrepaciente = this.vista.lblNewLabelNombre_Paciente.getText();		     
 		    String nombremedico= this.vista.lblNewLabelNombre_Usuario_Medico.getText();
 		    String diagnostico = this.vista.textAreaDiagnostico.getText();
 		    String tratamiento = this.vista.textAreaTratamiento.getText();
@@ -851,11 +869,7 @@ public class Controlador implements ActionListener,MouseListener{
 		    }else {
 		    	hibernate.crearHistorialMedico(nombrepaciente, nombremedico, diagnostico, tratamiento, receta, sqlDate);
 		    	mostrarLabelTemporalmente(this.vista.lblErrorRegistroMedico,"Creada perfectamente");
-		    	this.vista.textFieldNombrePaciente.setText("");
 		    	
-		    	this.vista.textAreaDiagnostico.setText("");
-		    	this.vista.textAreaTratamiento.setText("");
-		    	this.vista.textAreaReceta.setText("");
 		    }
 		    
 		}
@@ -881,7 +895,7 @@ public class Controlador implements ActionListener,MouseListener{
 		//Recepcionista
 		
 		if(e.getSource()==this.vista.btnNewButtonCrearCitaRecepcion) {
-			String nombreCliente = this.vista.textFieldNombrePacienteCitaRecepcion.getText();
+			String nombreCliente = (String)this.vista.comboBoxNombre_Paciente.getSelectedItem();
 			String nombreMedico = (String)this.vista.comboBoxNombre_Medicos.getSelectedItem();
 			Calendar calendario = this.vista.calendarCitaPaciente.getCalendar();
 			java.util.Date utilDate = calendario.getTime();
@@ -900,7 +914,6 @@ public class Controlador implements ActionListener,MouseListener{
 			        hibernate.crearCitaRecepcion(nombreCliente, nombreMedico, fechaCitaPaciente, hora, motivo);
 			    	mostrarLabelTemporalmente( this.vista.lblNewLabelErrorCrearCitaRecpecion,"Cita Creada");
 			        this.vista.lblNewLabelErrorCrearCitaRecpecion.setForeground(new Color(47, 113, 9));
-			        this.vista.textFieldNombrePacienteCitaRecepcion.setText("");
 			        this.vista.textFieldHoraCitaPaciente.setText(""); 
 			        this.vista.textFieldMotivoCitaRecepcion.setText("");
 			    } catch (Exception g) {
@@ -1034,6 +1047,17 @@ public class Controlador implements ActionListener,MouseListener{
 		    
 		    this.vista.comboBox_Correo_Electronico.setSelectedItem(null);
 		}
+	 public void cargarNombre_Paciente(JComboBox Jpaciente) {
+		  List<String> nombre_Paciente = hibernate.obtenerNombresDePacientes();
+		    Jpaciente.removeAllItems();
+		    
+		    for (String nombre_Paciente2 : nombre_Paciente) {
+		       Jpaciente.addItem(nombre_Paciente2);
+		    }
+		    
+		    this.vista.comboBox_Correo_Electronico.setSelectedItem(null);
+		}
+	 
 	 public void mostrarUsuariosEnJTable() {
 		 
 		    List<Empleados> usuarios = hibernate.obtenerTodosLosUsuarios();
