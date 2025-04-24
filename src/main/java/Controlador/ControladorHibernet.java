@@ -200,7 +200,7 @@ public class ControladorHibernet {
         }
     }
 
-    
+    //Crear paciente
     public void crearPaciente(String nombre, int empleadoId) {
         Session session = null;
         Empleados emple=new Empleados();
@@ -229,7 +229,7 @@ public class ControladorHibernet {
             }
         }
     }
-
+    //Crear medico	
     public void crearMedico(String nombre, int empleadoId) {
         Session session = null;
         Empleados emple=new Empleados();
@@ -259,7 +259,7 @@ public class ControladorHibernet {
             }
         }
     }
-    
+    //Crear recepcionista
     public void crearRecepcionista(String nombre) {
         Session session = null;
         Empleados emple=new Empleados();
@@ -290,7 +290,7 @@ public class ControladorHibernet {
             }
         }
     }
-    
+    //Ver datos del medico
     public Medicos verDatosMedicos(String nombre) {
     	Session session=null;
     	Medicos medicos=new Medicos();
@@ -320,6 +320,7 @@ public class ControladorHibernet {
     	}
 		return medicos;
     }
+    //Actualizar los datos del medico
     public void actualizarMedico(String nombre, String nuevaEspecialidad, String nuevoHorario) {
         Session session = null;
         try {
@@ -350,6 +351,7 @@ public class ControladorHibernet {
             }
         }
     }
+    //Coger el historial de los usuarios panel medico
     public List<HistorialesMedicos> obtenerHistorialMedicoPorUsuario(String numero_telefono) {
         Session session = null;
         List<HistorialesMedicos> historial = null;
@@ -382,6 +384,7 @@ public class ControladorHibernet {
         }
         return historial;
     }
+    //Crear un historial medico panel medico
     public void crearHistorialMedico(String nombrePaciente, String nombreMedico, String diagnostico, String tratamiento, String receta, Date fecha) {
        Session session=null;
        Pacientes paciente=new Pacientes();
@@ -435,6 +438,7 @@ public class ControladorHibernet {
             }
         }
     }
+    //Obtener las citas 
     public List<Citas> obtenerCitasPorMedicoYFecha(String usernameEmpleado, java.sql.Date fecha) {
         Session session = null;
         List<Citas> citas = null;
@@ -477,6 +481,7 @@ public class ControladorHibernet {
 
         return citas; 
     }
+    //Coger los datos del paciente 
 	public Pacientes cogerDatosPaciente(String nombreCliente) {
 		Session session=null;
 		Pacientes paciente=new Pacientes();
@@ -501,6 +506,7 @@ public class ControladorHibernet {
 		}
 		return paciente;
 	}
+	//Coger datos recepcionista
 	public Recepcionistas cogerDatosRecpecionista(String nombreRecepcionista) {
 		Session session=null;
 		Recepcionistas recpecionista=new Recepcionistas();
@@ -525,6 +531,7 @@ public class ControladorHibernet {
 		}
 		return recpecionista;
 	}
+	//Crear un paciente en recepcion
 	public void crearPacienteRecepcionista(String username, String password, String direccion, String telefono, Date fechaNacimiento) {
 	    Session session = null;
 	    try {
@@ -562,6 +569,7 @@ public class ControladorHibernet {
 	        }
 	    }
 	}
+	//Crear una cita en recepcion 
 	  public void crearCitaRecepcion(String nombrePaciente, String nombreMedico, Date fecha, Time hora, String motivo) {
 	        Session session = sessionFactory.openSession();
 	        try {
@@ -599,6 +607,7 @@ public class ControladorHibernet {
 	            session.close();
 	        }
 	    }
+	  //Obtener todos los datos de la factura
 	  public double[] obtenerTotalesFacturas() {
 		    double[] totales = new double[2];
 		    Session session = sessionFactory.getCurrentSession();
@@ -629,6 +638,7 @@ public class ControladorHibernet {
 		    }
 		    return totales;
 		}
+	  //Exportar en csv los datos 
 	  public void exportarFacturasACSV(String archivoCSV) {
 		    Session session = null;
 		    try {
@@ -676,6 +686,7 @@ public class ControladorHibernet {
 		        }
 		    }
 		}
+	  //Exportar en factura en pdf
 	  public void exportarFacturasAPDF(String archivoPDF) {
 		    Session session = null;
 		    Document document = new Document();
@@ -746,6 +757,7 @@ public class ControladorHibernet {
 		        }
 		    }
 		}
+	  //Obtener del cliente la cita
 	  public List<Object[]> obtenerDetallesCitasPorPaciente(String nombrePaciente) {
 		    Session session=null;
 		    List<Object[]> resultados=null;
@@ -776,6 +788,7 @@ public class ControladorHibernet {
 		  
 		    return resultados;
 		}
+	  //Ver historial medico paciente
 	  public List<Object[]> obtenerHistorialMedicoPaciente(String nombre) {
 		    Session session = null;
 		    List<Object[]> resultados = null;
@@ -807,7 +820,7 @@ public class ControladorHibernet {
 		    }
 		    return resultados;
 		}
-	  
+	  //Poder ver las facturas del cliente
 	  public List<Object[]> obtenerFacturaCliente(String nombre) {
 		    Session session = null;
 		    List<Object[]> resultados = null;
@@ -843,6 +856,7 @@ public class ControladorHibernet {
 		    }
 		    return resultados;
 		}
+	  //Actuliza para ver si esta en pendiente o pagada
 	  public void actualizarEstadoFactura(String direccion, BigDecimal monto, java.sql.Date fecha) {
 		    Session session = null;
 		    Transaction transaction = null;
@@ -881,6 +895,7 @@ public class ControladorHibernet {
 		        }
 		    }
 		}
+	  //Panel recepcion crear fracturas
 	  public void crearFacturaPorNombrePaciente(String nombrePaciente, BigDecimal monto, Date fechaCreacion) {
 		  Session session = null;
 
@@ -913,7 +928,7 @@ public class ControladorHibernet {
 		        }
 	        }
 	    }
-	 
+	 //Combox de ver  nombre medico
 	  public List<String> obtenerNombres_Medico() {
 		    Session session = null;
 		    List<String> medico = new ArrayList<>();
@@ -938,38 +953,7 @@ public class ControladorHibernet {
 		    }
 		    return medico;
 		}
-	  public Map<String, String> obtenerContactoPorNombre(String nombrePaciente) {
-		    Session session = null;
-		    Map<String, String> contacto = new HashMap<>();
-		    
-		    try {
-		        session = sessionFactory.getCurrentSession();
-		        session.beginTransaction();
-		        
-		        String hql = "SELECT p.telefono, p.correoElectronico FROM Pacientes p WHERE p.nombre = :nombre";
-		        Query<Object[]> query = session.createQuery(hql, Object[].class);
-		        query.setParameter("nombre", nombrePaciente);
-		        
-		        Object[] result = query.uniqueResult();
-		        if (result != null) {
-		            contacto.put("telefono", (String) result[0]);
-		            contacto.put("email", (String) result[1]);
-		        }
-		        
-		        session.getTransaction().commit();
-		    } catch (Exception e) {
-		        if (session != null && session.getTransaction() != null) {
-		            session.getTransaction().rollback();
-		        }
-		        e.printStackTrace();
-		    } finally {
-		        if (session != null) {
-		            session.close();
-		        }
-		    }
-		    
-		    return contacto;
-		}
+	  //Combox de ver  nombre paciente
 	  	public List<String> obtenerNombresDePacientes() {
 		    Session session = null;
 		    List<String> nombres = new ArrayList<>();

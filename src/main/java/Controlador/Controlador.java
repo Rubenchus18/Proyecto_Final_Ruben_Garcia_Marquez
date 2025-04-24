@@ -289,13 +289,14 @@ public class Controlador implements ActionListener,MouseListener{
 		    }	
 		}
 		if(e.getSource() == this.vista.tableMostrarResultadoCitas) {
-		    int seleccionfila = this.vista.tableMostrarResultadoCitas.getSelectedRow();
+			Pacientes paciente=new Pacientes();
+			int seleccionfila = this.vista.tableMostrarResultadoCitas.getSelectedRow();
 		    if (seleccionfila >= 0 && this.vista.tableMostrarResultadoCitas.getColumnCount() > 0) { 
 		        String nombrepaciente = (String) this.vista.tableMostrarResultadoCitas.getValueAt(seleccionfila, 1); 
 		        this.vista.lblNewLabelNombre_Paciente.setText(nombrepaciente);
-		        Map<String, String> contacto = hibernate.obtenerContactoPorNombre(nombrepaciente);		      
-		        this.vista.textFieldNumero_Telefono.setText(contacto.get("telefono"));
-		        this.vista.textField_Corre_Electronico_Paciente.setText(contacto.get("email")); 
+		        paciente=hibernate.cogerDatosPaciente(nombrepaciente);		      
+		        this.vista.textFieldNumero_Telefono.setText(paciente.getTelefono());
+		        this.vista.textField_Corre_Electronico_Paciente.setText(paciente.getCorreoElectronico()); 
 		    }  
 		}
 		//Recepcionista
@@ -994,7 +995,7 @@ public class Controlador implements ActionListener,MouseListener{
 		 this.vista.lblVerCitasPaciente.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/vercitas.png"));
 		 this.vista.lblVerHistorialMedico.setIcon(fotoEscalarLabel(this.vista.lblVerHistorialMedico, "imagenes/Historial.png"));
 		 this.vista.lblPagarFacturas.setIcon(fotoEscalarLabel(this.vista.lblPagarFacturas, "imagenes/btnPagarFacturas.png"));
-		 this.vista.lblNewLabelFondoPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoPaciente, "imagenes/fondo_admin_panel.jpg"));
+		 this.vista.lblNewLabelFondoPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelFondoPaciente, "imagenes/fondo_aplicacion.jpg"));
 		 this.vista.lblNewLabelCaraPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCaraPaciente, "imagenes/foto_perfil.png"));
 		 this.vista.lblNewLabelLogoMedico_Paciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabelCaraPaciente, "imagenes/logo.png"));
 		 this.vista.lblNewLabel_FondoInformacionPaciente.setIcon(fotoEscalarLabel(this.vista.lblNewLabel_FondoInformacionPaciente, "imagenes/fondo_admin_panel.jpg"));
