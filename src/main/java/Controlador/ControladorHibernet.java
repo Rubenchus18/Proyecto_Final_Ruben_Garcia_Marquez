@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -346,7 +347,7 @@ public class ControladorHibernet {
             }
         }
     }
-    public List<HistorialesMedicos> obtenerHistorialMedicoPorUsuario(String username,String direccion) {
+    public List<HistorialesMedicos> obtenerHistorialMedicoPorUsuario(String numero_telefono) {
         Session session = null;
         List<HistorialesMedicos> historial = null;
         Pacientes paciente=new Pacientes();
@@ -355,9 +356,8 @@ public class ControladorHibernet {
             session.beginTransaction();
 
          
-            Query queryPaciente = session.createQuery("FROM Pacientes WHERE nombre=: nombrepp and direccion=:direccion", Pacientes.class);
-            queryPaciente.setParameter("nombrepp", username);
-            queryPaciente.setParameter("direccion", direccion);
+            Query queryPaciente = session.createQuery("FROM Pacientes WHERE telefono=: telefonos", Pacientes.class);
+            queryPaciente.setParameter("telefonos", numero_telefono);
              paciente = (Pacientes) queryPaciente.uniqueResult();
 
             if (paciente != null) {
@@ -386,14 +386,23 @@ public class ControladorHibernet {
         try {
         	 session =sessionFactory.getCurrentSession();
         	 session.beginTransaction();
-        	 
+        	 String hqlEmpleado = "FROM Empleados e WHERE e.username = :username";
+             Query<Empleados> queryEmpleado = session.createQuery(hqlEmpleado, Empleados.class);
+             queryEmpleado.setParameter("username", nombreMedico);
+             Empleados empleado = queryEmpleado.uniqueResult();
+
+             String hqlMedico = "FROM Medicos m WHERE m.empleados.id = :empleadoId";
+             Query<Medicos> queryMedico = session.createQuery(hqlMedico, Medicos.class);
+             queryMedico.setParameter("empleadoId", empleado.getId());
+             Medicos medico = queryMedico.uniqueResult();
+             
             Query querypaciente=session.createQuery("FROM Pacientes WHERE nombre=:nombrep");
             		querypaciente.setParameter("nombrep", nombrePaciente);
             		paciente=(Pacientes) querypaciente.uniqueResult();
 
                     
             Query medicosquery =session.createQuery("FROM Medicos WHERE nombre=:nombrem");
-            medicosquery.setParameter("nombrem", nombreMedico);
+            medicosquery.setParameter("nombrem", medico.getNombre());
             medicos=(Medicos) medicosquery.uniqueResult();
             
             System.out.println("Paciente encontrado: " + (paciente != null));
@@ -423,7 +432,7 @@ public class ControladorHibernet {
             }
         }
     }
-    public List<Citas> obtenerCitasPorMedicoYFecha(String nombreMedico, java.sql.Date fecha) {
+    public List<Citas> obtenerCitasPorMedicoYFecha(String usernameEmpleado, java.sql.Date fecha) {
         Session session = null;
         List<Citas> citas = null;
 
@@ -431,13 +440,24 @@ public class ControladorHibernet {
             session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
-          
-            String hql = "FROM Citas c JOIN FETCH c.medicos JOIN FETCH c.pacientes WHERE c.medicos.nombre = :nombreMedico AND c.fecha = :fecha";
-            Query<Citas> query = session.createQuery(hql, Citas.class);
-            query.setParameter("nombreMedico", nombreMedico);
-            query.setParameter("fecha", fecha);
+    
+            String hqlEmpleado = "FROM Empleados e WHERE e.username = :username";
+            Query<Empleados> queryEmpleado = session.createQuery(hqlEmpleado, Empleados.class);
+            queryEmpleado.setParameter("username", usernameEmpleado);
+            Empleados empleado = queryEmpleado.uniqueResult();
 
-            citas = query.getResultList(); // Obtener la lista de citas
+            String hqlMedico = "FROM Medicos m WHERE m.empleados.id = :empleadoId";
+            Query<Medicos> queryMedico = session.createQuery(hqlMedico, Medicos.class);
+            queryMedico.setParameter("empleadoId", empleado.getId());
+            Medicos medico = queryMedico.uniqueResult();
+
+            String hqlCitas = "SELECT c FROM Citas c JOIN FETCH c.medicos m JOIN FETCH c.pacientes p " +
+                             "WHERE m.id = :medicoId AND c.fecha = :fecha";
+            Query<Citas> queryCitas = session.createQuery(hqlCitas, Citas.class);
+            queryCitas.setParameter("medicoId", medico.getId());
+            queryCitas.setParameter("fecha", fecha);
+
+            citas = queryCitas.getResultList();
 
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -445,13 +465,14 @@ public class ControladorHibernet {
                 session.getTransaction().rollback();
             }
             e.printStackTrace();
+            throw new RuntimeException("Error al obtener citas por médico y fecha", e);
         } finally {
             if (session != null) {
                 session.close();
             }
         }
 
-        return citas; // Retornar la lista de citas
+        return citas; 
     }
 	public Pacientes cogerDatosPaciente(String nombreCliente) {
 		Session session=null;
@@ -887,5 +908,52 @@ public class ControladorHibernet {
 	            session.close();
 	        }
 	    }
-	  
+	  public List<String> obtenerCorreosElectronicos() {
+		    Session session = null;
+		    List<String> correos = new ArrayList<>();
+		    try {
+		        session = sessionFactory.openSession();
+		        session.beginTransaction();
+		        
+		        String hql = "SELECT p.correoElectronico FROM Pacientes p WHERE p.correoElectronico IS NOT NULL";
+		        Query<String> query = session.createQuery(hql, String.class);
+		        correos = query.getResultList();
+		        
+		        session.getTransaction().commit();
+		    } catch (Exception e) {
+		        if (session != null && session.getTransaction() != null) {
+		            session.getTransaction().rollback();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        if (session != null) {
+		            session.close();
+		        }
+		    }
+		    return correos;
+		}
+	  public List<String> obtenerNombres_Medico() {
+		    Session session = null;
+		    List<String> medico = new ArrayList<>();
+		    try {
+		        session = sessionFactory.openSession();
+		        session.beginTransaction();
+		        
+		        String hql = "SELECT m.nombre FROM Medicos m";
+		        Query<String> query = session.createQuery(hql, String.class);
+		        medico = query.getResultList();
+		        
+		        session.getTransaction().commit();
+		    } catch (Exception e) {
+		        if (session != null && session.getTransaction() != null) {
+		            session.getTransaction().rollback();
+		        }
+		        e.printStackTrace();
+		    } finally {
+		        if (session != null) {
+		            session.close();
+		        }
+		    }
+		    return medico;
+		}
 }
