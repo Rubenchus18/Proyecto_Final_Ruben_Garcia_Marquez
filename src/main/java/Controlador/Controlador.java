@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -107,7 +108,6 @@ public class Controlador implements ActionListener,MouseListener{
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
 		    añadidoRolesComboBox();
-		    cargarCorreosEnComboBox();
 		    cargarMedicos_Recepcion();
 		    cargarNombre_Paciente(this.vista.comboBox_Nombre_Paciente_Facturas);
 		    cargarNombre_Paciente(this.vista.comboBoxNombre_Paciente);
@@ -158,7 +158,7 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelMedico.setVisible(false);
 			this.vista.tableHistorialMedico.setVisible(false);
 			this.vista.scrollPane_1.setVisible(false);
-			this.vista.panelFiltar.setVisible(false);
+			this.vista.panelFiltar_Historial.setVisible(false);
 			this.vista.panelVerDatosMedicos.setVisible(false);
 			this.vista.panelCrearHistorialMedico.setVisible(false);
 			this.vista.scrollPane_2.setVisible(false);
@@ -170,7 +170,7 @@ public class Controlador implements ActionListener,MouseListener{
 		if(e.getSource()==this.vista.lblNewLabelCaraMedico) {
 			Medicos medicos=new Medicos();
 			this.vista.tableHistorialMedico.setVisible(false);
-			this.vista.panelFiltar.setVisible(false);
+			this.vista.panelFiltar_Historial.setVisible(false);
 			this.vista.scrollPane_1.setVisible(false);
 			this.vista.panelVerDatosMedicos.setVisible(true);
 			this.vista.panelCrearHistorialMedico.setVisible(false);
@@ -190,7 +190,7 @@ public class Controlador implements ActionListener,MouseListener{
 		if(e.getSource()==this.vista.lblHistorialPaciente) {
 			this.vista.tableHistorialMedico.setVisible(true);
 			this.vista.scrollPane_1.setVisible(true);
-			this.vista.panelFiltar.setVisible(true);
+			this.vista.panelFiltar_Historial.setVisible(true);
 			this.vista.panelCrearHistorialMedico.setVisible(false);
 			this.vista.scrollPane_2.setVisible(false);
 			this.vista.panelFiltrarCitas.setVisible(false);
@@ -206,7 +206,7 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.panelVerDatosMedicos.setVisible(false);
 			this.vista.tableHistorialMedico.setVisible(false);
 			this.vista.scrollPane_1.setVisible(false);
-			this.vista.panelFiltar.setVisible(false);
+			this.vista.panelFiltar_Historial.setVisible(false);
 			this.vista.scrollPane_2.setVisible(false);
 			this.vista.panelFiltrarCitas.setVisible(false);
 			this.vista.panelEsqueleto.setVisible(false);
@@ -221,7 +221,7 @@ public class Controlador implements ActionListener,MouseListener{
 			
 			this.vista.tableHistorialMedico.setVisible(false);
 			this.vista.scrollPane_1.setVisible(false);
-			this.vista.panelFiltar.setVisible(false);
+			this.vista.panelFiltar_Historial.setVisible(false);
 			this.vista.panelVerDatosMedicos.setVisible(false);
 			this.vista.panelCrearHistorialMedico.setVisible(false);
 			this.vista.panelEnviarCorreo.setVisible(false);
@@ -252,7 +252,7 @@ public class Controlador implements ActionListener,MouseListener{
 		}
 		if(e.getSource()==this.vista.lblEnviarCorreo) {
 			this.vista.tableHistorialMedico.setVisible(false);
-			this.vista.panelFiltar.setVisible(false);
+			this.vista.panelFiltar_Historial.setVisible(false);
 			this.vista.scrollPane_1.setVisible(false);
 			this.vista.panelVerDatosMedicos.setVisible(true);
 			this.vista.panelCrearHistorialMedico.setVisible(false);
@@ -266,7 +266,7 @@ public class Controlador implements ActionListener,MouseListener{
 			this.vista.lblRegistro.setIcon(fotoEscalarLabel(this.vista.lblRegistro, "imagenes/Registro.png"));
 		}
 		if(e.getSource() == this.vista.lblEnviarCorreElectronico) {
-		    String correoelectronico = (String) this.vista.comboBox_Correo_Electronico.getSelectedItem();
+		    String correoelectronico = this.vista.textField_Corre_Electronico_Paciente.getText();
 		    String asunto = this.vista.textFieldAsuntoDeCorreoElectronico.getText();
 		    String campo = this.vista.textAreaCampodeTextoCorreo.getText();
 		    
@@ -291,18 +291,11 @@ public class Controlador implements ActionListener,MouseListener{
 		if(e.getSource() == this.vista.tableMostrarResultadoCitas) {
 		    int seleccionfila = this.vista.tableMostrarResultadoCitas.getSelectedRow();
 		    if (seleccionfila >= 0 && this.vista.tableMostrarResultadoCitas.getColumnCount() > 0) { 
-		        try {
-		             String nombrepaciente = (String) this.vista.tableMostrarResultadoCitas.getValueAt(seleccionfila, 1); 
-		            this.vista.lblNewLabelNombre_Paciente.setText(nombrepaciente);
-		            String telefono = hibernate.obtenerTelefonoPorNombre(nombrepaciente);
-		            if(telefono != null) {
-		                this.vista.textFieldNumero_Telefono.setText(telefono);
-		            } else {
-		                this.vista.textFieldNumero_Telefono.setText("No disponible");
-		            }
-		        } catch (Exception ex) {
-		            System.err.println("Error al obtener datos de la tabla: " + ex.getMessage());
-		        }
+		        String nombrepaciente = (String) this.vista.tableMostrarResultadoCitas.getValueAt(seleccionfila, 1); 
+		        this.vista.lblNewLabelNombre_Paciente.setText(nombrepaciente);
+		        Map<String, String> contacto = hibernate.obtenerContactoPorNombre(nombrepaciente);		      
+		        this.vista.textFieldNumero_Telefono.setText(contacto.get("telefono"));
+		        this.vista.textField_Corre_Electronico_Paciente.setText(contacto.get("email")); 
 		    }  
 		}
 		//Recepcionista
@@ -1027,16 +1020,6 @@ public class Controlador implements ActionListener,MouseListener{
 		    
 		    this.vista.comboBoxRoles.setSelectedItem(null);
 	 }
-	 public void cargarCorreosEnComboBox() {
-		    List<String> correos = hibernate.obtenerCorreosElectronicos();
-		    this.vista.comboBox_Correo_Electronico.removeAllItems();
-		    
-		    for (String correo : correos) {
-		        this.vista.comboBox_Correo_Electronico.addItem(correo);
-		    }
-		    
-		    this.vista.comboBox_Correo_Electronico.setSelectedItem(null);
-		}
 	 public void cargarMedicos_Recepcion() {
 		    List<String> nombre_med = hibernate.obtenerNombres_Medico();
 		    this.vista.comboBoxNombre_Medicos.removeAllItems();
@@ -1045,7 +1028,7 @@ public class Controlador implements ActionListener,MouseListener{
 		        this.vista.comboBoxNombre_Medicos.addItem(nombre_med2);
 		    }
 		    
-		    this.vista.comboBox_Correo_Electronico.setSelectedItem(null);
+		    this.vista.comboBoxNombre_Medicos.setSelectedItem(null);
 		}
 	 public void cargarNombre_Paciente(JComboBox Jpaciente) {
 		  List<String> nombre_Paciente = hibernate.obtenerNombresDePacientes();
@@ -1055,7 +1038,7 @@ public class Controlador implements ActionListener,MouseListener{
 		       Jpaciente.addItem(nombre_Paciente2);
 		    }
 		    
-		    this.vista.comboBox_Correo_Electronico.setSelectedItem(null);
+		    Jpaciente.setSelectedItem(null);
 		}
 	 
 	 public void mostrarUsuariosEnJTable() {

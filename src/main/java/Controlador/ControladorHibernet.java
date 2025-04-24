@@ -5,7 +5,10 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
@@ -905,38 +908,17 @@ public class ControladorHibernet {
 	            }
 	            e.printStackTrace();
 	        } finally {
-	            session.close();
-	        }
-	    }
-	  public List<String> obtenerCorreosElectronicos() {
-		    Session session = null;
-		    List<String> correos = new ArrayList<>();
-		    try {
-		        session = sessionFactory.openSession();
-		        session.beginTransaction();
-		        
-		        String hql = "SELECT p.correoElectronico FROM Pacientes p WHERE p.correoElectronico IS NOT NULL";
-		        Query<String> query = session.createQuery(hql, String.class);
-		        correos = query.getResultList();
-		        
-		        session.getTransaction().commit();
-		    } catch (Exception e) {
-		        if (session != null && session.getTransaction() != null) {
-		            session.getTransaction().rollback();
-		        }
-		        e.printStackTrace();
-		    } finally {
-		        if (session != null) {
+	        	if (session != null) {
 		            session.close();
 		        }
-		    }
-		    return correos;
-		}
+	        }
+	    }
+	 
 	  public List<String> obtenerNombres_Medico() {
 		    Session session = null;
 		    List<String> medico = new ArrayList<>();
 		    try {
-		        session = sessionFactory.openSession();
+		        session = sessionFactory.getCurrentSession();
 		        session.beginTransaction();
 		        
 		        String hql = "SELECT m.nombre FROM Medicos m";
@@ -956,21 +938,23 @@ public class ControladorHibernet {
 		    }
 		    return medico;
 		}
-	  public String obtenerTelefonoPorNombre(String nombrePaciente) {
+	  public Map<String, String> obtenerContactoPorNombre(String nombrePaciente) {
 		    Session session = null;
-		    String telefono = null;
+		    Map<String, String> contacto = new HashMap<>();
 		    
 		    try {
-		        session = sessionFactory.openSession();
+		        session = sessionFactory.getCurrentSession();
 		        session.beginTransaction();
 		        
-		       
-		        String hql = "SELECT p.telefono FROM Pacientes p WHERE p.nombre = :nombre";
-		        Query<String> query = session.createQuery(hql, String.class);
+		        String hql = "SELECT p.telefono, p.correoElectronico FROM Pacientes p WHERE p.nombre = :nombre";
+		        Query<Object[]> query = session.createQuery(hql, Object[].class);
 		        query.setParameter("nombre", nombrePaciente);
 		        
-		       
-		        telefono = query.uniqueResult();
+		        Object[] result = query.uniqueResult();
+		        if (result != null) {
+		            contacto.put("telefono", (String) result[0]);
+		            contacto.put("email", (String) result[1]);
+		        }
 		        
 		        session.getTransaction().commit();
 		    } catch (Exception e) {
@@ -984,14 +968,14 @@ public class ControladorHibernet {
 		        }
 		    }
 		    
-		    return telefono;
+		    return contacto;
 		}
 	  	public List<String> obtenerNombresDePacientes() {
 		    Session session = null;
 		    List<String> nombres = new ArrayList<>();
 		    
 		    try {
-		        session = sessionFactory.openSession();
+		        session = sessionFactory.getCurrentSession();
 		        session.beginTransaction();
 		        
 		        
