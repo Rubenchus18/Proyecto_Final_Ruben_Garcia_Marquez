@@ -1,6 +1,4 @@
 ID,Nombre del Cliente,Importe,Fecha,Tratamiento,¿Pagado?
 1,Ruben,150,00,2023-10-20,Dieta baja en sal y ejercicio,No
-1,Ruben,150,00,2023-10-20,Tiene dierna,No
 1,Ruben,150,00,2023-10-20,Reposo,No
-2,María Gómez,100,00,2023-10-21,Seguimiento en 6 meses,Sí
-3,David,150,00,2025-04-08,Sin tratamiento,No
+2,María Gómez,100,00,2023-10-21,Seguimiento en 6 meses,Si

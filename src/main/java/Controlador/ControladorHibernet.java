@@ -532,7 +532,7 @@ public class ControladorHibernet {
 		return recpecionista;
 	}
 	//Crear un paciente en recepcion
-	public void crearPacienteRecepcionista(String username, String password, String direccion, String telefono, Date fechaNacimiento) {
+	public void crearPacienteRecepcionista(String username, String password, String direccion, String telefono, Date fechaNacimiento,String correo) {
 	    Session session = null;
 	    try {
 	        session = sessionFactory.getCurrentSession();
@@ -550,7 +550,8 @@ public class ControladorHibernet {
 	        paciente.setNombre(username);         
 	        paciente.setDireccion(direccion);    
 	        paciente.setTelefono(telefono);      
-	        paciente.setFechaNacimiento(fechaNacimiento); 
+	        paciente.setFechaNacimiento(fechaNacimiento);
+	        paciente.setCorreoElectronico(correo);
 	        paciente.setEmpleados(empleado);  
 	        
 	      
@@ -666,7 +667,7 @@ public class ControladorHibernet {
 		                String tratamiento = (fila[5] != null) ? (String) fila[5] : "Sin tratamiento";
 
 		                writer.write(String.format("%d,%s,%.2f,%s,%s,%s\n",
-		                    id, nombreCliente, importe, fecha.toString(), tratamiento, pagado ? "Sí" : "No"));
+		                    id, nombreCliente, importe, fecha.toString(), tratamiento, pagado ? "Si" : "No"));
 		            }
 
 		            System.out.println("Datos exportados correctamente a " + archivoCSV);

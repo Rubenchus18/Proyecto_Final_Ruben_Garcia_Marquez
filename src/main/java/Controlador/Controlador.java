@@ -305,20 +305,22 @@ public class Controlador implements ActionListener,MouseListener{
 			String contraseña=this.vista.passwordFieldContraseñaPacienteRecepcion.getText();
 			String direccion=this.vista.textFieldDireccionPacienteRecepcion.getText();
 			String telefono=this.vista.textFieldTelefonoPacienteRecepcion.getText();
+			String correoelectronico=this.vista.textFieldCorreo_Electronico_paciente.getText();
 			Calendar calendario = this.vista.calendarFechaNacimientoPacienteRecepcion.getCalendar();
 		    java.util.Date utilDate = calendario.getTime();
 		    java.sql.Date fechaNacimientoPaciente = new java.sql.Date(utilDate.getTime());
-		    if(nombre.isEmpty()||contraseña.isEmpty()|| direccion.isEmpty()|| telefono.isEmpty()) {
+		    if(nombre.isEmpty()||contraseña.isEmpty()|| direccion.isEmpty()|| telefono.isEmpty()||correoelectronico.isEmpty()) {
 		    	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Campos obligatorios");
 		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.RED);
 		    }else{
-		    	hibernate.crearPacienteRecepcionista(nombre, contraseña, direccion, telefono, fechaNacimientoPaciente);
+		    	hibernate.crearPacienteRecepcionista(nombre, contraseña, direccion, telefono, fechaNacimientoPaciente,correoelectronico);
 		    	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Se ha creado correctamente");
 		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(new Color(47, 113, 9));
 		    	this.vista.textField_NombrePaciente.setText("");
 		    	this.vista.passwordFieldContraseñaPacienteRecepcion.setText("");
 		    	this.vista.textFieldDireccionPacienteRecepcion.setText("");
 		    	this.vista.textFieldTelefonoPacienteRecepcion.setText("");
+		    	this.vista.textFieldCorreo_Electronico_paciente.setText("");
 		    }
 		}
 		if(e.getSource()== this.vista.lblNewLabelCaraRecepcionista) {
@@ -613,7 +615,7 @@ public class Controlador implements ActionListener,MouseListener{
 					        hibernate.actualizarEstadoFactura(direccion, monto, fechaSQL);
 					        this.vista.panelDatos_Cliente_Factura.setVisible(false);
 					        List<Object[]> detallesCitas=hibernate.obtenerFacturaCliente(nombre);
-					        this.vista.lblNewLabelNombreUsuarioMostrarPaciente.setText("");
+					        this.vista.textField_Titular_Tarjeta.setText("");
 					        this.vista.textField_Titular_Tarjeta.setText("");
 					        this.vista.textField_Numero_Tarjeta.setText("");
 					        this.vista.textField_CSV_Tarjeta.setText("");
@@ -636,7 +638,7 @@ public class Controlador implements ActionListener,MouseListener{
 			if(e.getSource()==this.vista.lblNewLabelCaraMedico) {
 				this.vista.panelVerDatosMedicos.setVisible(false);
 			}
-			if(e.getSource()==this.vista.panelInformacionPaciente_1) {
+			if(e.getSource()==this.vista.lblNewLabelCaraPaciente) {
 				this.vista.panelInformacionPaciente_1.setVisible(false);
 			}
 		}
