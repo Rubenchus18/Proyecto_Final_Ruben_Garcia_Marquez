@@ -672,6 +672,7 @@ public class Controlador implements ActionListener,MouseListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+	//Inicio
 		if(e.getSource()==this.vista.btnNewButtonInicioSesion) {
 			String nombre=this.vista.textFieldNombreUsuario.getText();
 			String contraseña=this.vista.textFieldContraseña.getText();
@@ -690,6 +691,18 @@ public class Controlador implements ActionListener,MouseListener{
 					this.vista.scrollPane_2.setVisible(true);
 					this.vista.lblVerCitas.setIcon(fotoEscalarLabel(this.vista.lblVerCitas, "imagenes/vercitas_seleccionado.png"));
 					this.vista.tableMostrarResultadoCitas.setVisible(true);
+					//Cargar las citas cuando entre el medico 	
+					Calendar calendario = this.vista.calendarioCitas.getCalendar();
+					java.util.Date utilDate = calendario.getTime();
+					java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+					if (nombre.isEmpty()) {
+					    mostrarLabelTemporalmente( this.vista.lblNewLabelErrorCitas,"Campos obligatorios");
+					} else {
+					  this.vista.lblNewLabelErrorCitas.setText("");
+					  List<Citas> citas = hibernate.obtenerCitasPorMedicoYFecha(nombre, sqlDate);
+					  mostrarCitasEnTabla(this.vista.tableMostrarResultadoCitas, citas);      
+					    }
 				}else if(rol.equalsIgnoreCase("recepcionista")) {
 					this.vista.panelInicio.setVisible(false);
 					this.vista.panelRececipnista.setVisible(true);
@@ -702,14 +715,15 @@ public class Controlador implements ActionListener,MouseListener{
 					this.vista.lblNewLabelNombreUsuarioMostrarPaciente.setText(nombre);
 					this.vista.tableVerCitasPacientes.setVisible(true);
 					this.vista.scrollPane_3.setVisible(true);
+					//Cargar citas al inicio paciente
 					List<Object[]> detallesCitas = hibernate.obtenerDetallesCitasPorPaciente(nombre);
 					mostrarCitasEnTabla(detallesCitas,this.vista.tableVerCitasPacientes);
 					this.vista.lblVerCitasPaciente.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/vercitas_seleccionado.png"));
-				}
-			}else {
-				mostrarLabelTemporalmente(this.vista.lblNewLabelError,"Usuario o Contraseña no existe");
-				this.vista.lblNewLabelError.setForeground(new Color(139, 0, 0));
-			}
+				    }
+					}else {
+						mostrarLabelTemporalmente(this.vista.lblNewLabelError,"Usuario o Contraseña no existe");
+						this.vista.lblNewLabelError.setForeground(new Color(139, 0, 0));
+					}
 			
 		}
 		//Administrador
@@ -731,8 +745,8 @@ public class Controlador implements ActionListener,MouseListener{
 		}
 		if (e.getSource() == this.vista.btnCrearTotal) {
 			
-		    String nombre = this.vista.textFieldNombreUsuarioCrear.getText().trim();
-		    String contraseña = this.vista.textFieldContraseñaCrear.getText().trim();
+		    String nombre = this.vista.textFieldNombreUsuarioCrear.getText();
+		    String contraseña = this.vista.textFieldContraseñaCrear.getText();
 		    String rol = (String) this.vista.comboBoxRoles.getSelectedItem(); 
 
 		    if (nombre.isEmpty() || contraseña.isEmpty() || rol.isEmpty()) {
@@ -750,6 +764,7 @@ public class Controlador implements ActionListener,MouseListener{
 			        mostrarUsuariosEnJTable(); 
 			        this.vista.textFieldNombreUsuarioCrear.setText("");
 		    		this.vista.textFieldContraseñaCrear.setText("");
+		    		
 		    	}else if(rol.equalsIgnoreCase("recepcionista")) {
 		    		id=hibernate.crearUsuario(nombre, contraseña, rol);
 		    		hibernate.crearRecepcionista(nombre);
@@ -882,7 +897,6 @@ public class Controlador implements ActionListener,MouseListener{
 
 		        this.vista.lblNewLabelErrorCitas.setText("");
 		        List<Citas> citas = hibernate.obtenerCitasPorMedicoYFecha(nombre, sqlDate);
-		      
 		            mostrarCitasEnTabla(this.vista.tableMostrarResultadoCitas, citas);
 		            
 		        
