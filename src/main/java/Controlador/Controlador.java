@@ -1213,7 +1213,7 @@ public class Controlador implements ActionListener,MouseListener{
 		    if (diagnostico != null) {
 		        String diagLower = diagnostico.toLowerCase();
 		        
-		        if (diagLower.contains("cabeza") || diagLower.contains("cefalea") || diagLower.contains("migraña")) {
+		        if (diagLower.contains("cabeza") || diagLower.contains("cefalea") || diagLower.contains("migraña")|| diagLower.contains("tumor cerebral")) {
 		            esqueleto.setColorSeleccion(colorDolor);
 		            esqueleto.colorearZona(EsqueletoInteractivoAPI.ZonaEsqueleto.CABEZA);
 		        }
@@ -1240,13 +1240,11 @@ public class Controlador implements ActionListener,MouseListener{
 		        
 		    }
 	  }
-	 
 	  public void saltosTextArea(JTextArea textArea) {
 		    textArea.setTabSize(4);             
 		    textArea.setLineWrap(true);        
 		    textArea.setWrapStyleWord(true);    
 		}
-
 	 //Hilo
 	 public void iniciarReloj(JLabel label) {
 		    Thread hiloReloj = new Thread(() -> {

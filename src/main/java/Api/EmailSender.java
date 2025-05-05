@@ -52,8 +52,8 @@ public class EmailSender {
             htmlPart.setContent(
                 "<html><body>" +
                 "<p style='font-family:Arial;font-size:14px'>" + content.replace("\n", "<br>") + "</p>" +
-                "<p style='font-family:Arial;font-size:12px;color:#666'>" +
-                "Este es un correo automático, por favor no responda.</p>" +
+                "<p style='font-family:Arial;font-size:14px;color:#666'>" +
+                "Este es un correo automático, no responda a este correo porfavor</p>" +
                 "</body></html>", 
                 "text/html; charset=UTF-8"
             );
