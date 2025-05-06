@@ -271,7 +271,7 @@ public class Controlador implements ActionListener,MouseListener{
 		    String campo = this.vista.textAreaCampodeTextoCorreo.getText();
 		    
 		    if(correoelectronico == null || correoelectronico.isEmpty() || asunto.isEmpty() || campo.isEmpty()) {
-		        mostrarLabelTemporalmente(this.vista.lblConfirmarEnviar, "Rellenar todos los campos");
+		        mostrarLabelTemporalmente(this.vista.lblConfirmarEnviar, "Rellena todos los campos");
 		        this.vista.lblConfirmarEnviar.setForeground(Color.red);
 		    } else {
 		        try {
@@ -859,6 +859,7 @@ public class Controlador implements ActionListener,MouseListener{
 			String telefono=this.vista.textFieldNumero_Telefono.getText();
 			if(telefono.isEmpty()) {
 				mostrarLabelTemporalmente(this.vista.lblErrorFiltro,"Campos obligatorios");
+				this.vista.lblErrorFiltro.setForeground(Color.RED);
 			}else {
 				mostrarHistorialMedico(telefono);
 			}
@@ -877,10 +878,11 @@ public class Controlador implements ActionListener,MouseListener{
 		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		    if(nombrepaciente.isEmpty()||nombremedico.isEmpty()||diagnostico.isEmpty()||tratamiento.isEmpty()||receta.isEmpty()) {
 		    	mostrarLabelTemporalmente(this.vista.lblErrorRegistroMedico,"Rellena todos los campos");
+		    	this.vista.lblErrorRegistroMedico.setForeground(Color.RED);
 		    }else {
 		    	hibernate.crearHistorialMedico(nombrepaciente, nombremedico, diagnostico, tratamiento, receta, sqlDate);
 		    	mostrarLabelTemporalmente(this.vista.lblErrorRegistroMedico,"Creada perfectamente");
-		    	
+		    	this.vista.lblErrorRegistroMedico.setForeground(Color.GREEN);  	
 		    }
 		    
 		}
@@ -893,8 +895,8 @@ public class Controlador implements ActionListener,MouseListener{
 
 		    if (nombre.isEmpty()) {
 		        mostrarLabelTemporalmente( this.vista.lblNewLabelErrorCitas,"Campos obligatorios");
+		        this.vista.lblNewLabelErrorCitas.setForeground(Color.RED);
 		    } else {
-
 		        this.vista.lblNewLabelErrorCitas.setText("");
 		        List<Citas> citas = hibernate.obtenerCitasPorMedicoYFecha(nombre, sqlDate);
 		            mostrarCitasEnTabla(this.vista.tableMostrarResultadoCitas, citas);
@@ -1044,7 +1046,6 @@ public class Controlador implements ActionListener,MouseListener{
 		    for (String nombre_med2 : nombre_med) {
 		        this.vista.comboBoxNombre_Medicos.addItem(nombre_med2);
 		    }
-		    
 		    this.vista.comboBoxNombre_Medicos.setSelectedItem(null);
 		}
 	 public void cargarNombre_Paciente(JComboBox Jpaciente) {
