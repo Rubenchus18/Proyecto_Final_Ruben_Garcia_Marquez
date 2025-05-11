@@ -104,13 +104,13 @@ public class Controlador implements ActionListener,MouseListener{
 		   this.vista.lblEnviarCorreElectronico.addMouseListener(this);
 		   this.vista.lblNewLabelSalida_Paciente__Tarjeta.addMouseListener(this);
 		   this.vista.tableMostrarResultadoCitas.addMouseListener(this);
+		   this.vista.comboBox_Nombre_Paciente_Facturas.addMouseListener(this);
+		   this.vista.comboBoxNombre_Paciente.addMouseListener(this);
+		   this.vista.comboBoxNombre_Medicos.addMouseListener(this);
 		   this.hibernate=new ControladorHibernet();
 		   imagenes();
 		   iniciarReloj(this.vista.labelHora);
-		    añadidoRolesComboBox();
-		    cargarMedicos_Recepcion();
-		    cargarNombre_Paciente(this.vista.comboBox_Nombre_Paciente_Facturas);
-		    cargarNombre_Paciente(this.vista.comboBoxNombre_Paciente);
+		    añadidoRolesComboBox();		    
 		   //Saltos de texArea
 		    saltosTextArea( this.vista.textAreaCampodeTextoCorreo);
 		    saltosTextArea( this.vista.textAreaDiagnostico);
@@ -435,29 +435,67 @@ public class Controlador implements ActionListener,MouseListener{
 			
 			
 			}
-			if(e.getSource()== this.vista.lblCCrearFacturasFinal) {
-				BigDecimal importetext = null;
-				this.vista.panelCrearFacturasRecepcion.setVisible(true);
-				String nombrePaciente=(String)this.vista.comboBox_Nombre_Paciente_Facturas.getSelectedItem();
-				String importe=this.vista.textFieldImporte.getText();
-				importe = importe.replace(',', '.');
-				importetext = new BigDecimal(importe);	
-				Calendar calendario = this.vista.calendarFecha_Creacion_Factura.getCalendar(); 
-				    int day = calendario.get(Calendar.DAY_OF_MONTH);
-				    int month = calendario.get(Calendar.MONTH) + 1; 
-				    int year = calendario.get(Calendar.YEAR);
-				    java.util.Date utilDate = calendario.getTime();
-				    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-				 if(nombrePaciente.isEmpty()||importe.isEmpty()) {
-					 mostrarLabelTemporalmente( this.vista.lblErrorCrearFacturasPaciente,"Todos los campos son obligatorios");
-				 }else{
-					 hibernate.crearFacturaPorNombrePaciente(nombrePaciente, importetext, sqlDate);
-					 mostrarLabelTemporalmente(this.vista.lblErrorCrearFacturasPaciente,"Creado perfectamente");
-					 this.vista.lblErrorCrearFacturasPaciente.setForeground(new Color(47, 113, 9));
-					 this.vista.textFieldImporte.setText("");
-					 
-				 }
+		if(e.getSource() == this.vista.lblCCrearFacturasFinal) {
+		    this.vista.panelCrearFacturasRecepcion.setVisible(true);
+		    String nombrePaciente = (String)this.vista.comboBox_Nombre_Paciente_Facturas.getSelectedItem();
+		    String importe = this.vista.textFieldImporte.getText().trim();
+		    if(nombrePaciente == null || nombrePaciente.isEmpty() || importe.isEmpty()) {
+		        mostrarLabelTemporalmente(this.vista.lblErrorCrearFacturasPaciente, "Todos los campos son obligatorios");
+		        return;
+		    }else {
+		    	try {
+			        importe = importe.replace(',', '.');
+			        BigDecimal importetext = new BigDecimal(importe);
+			        if(importetext.compareTo(BigDecimal.ZERO) <= 0) {
+			            mostrarLabelTemporalmente(this.vista.lblErrorCrearFacturasPaciente, "El importe debe ser positivo");
+			            return;
+			        }
+			        
+			        Calendar calendario = this.vista.calendarFecha_Creacion_Factura.getCalendar(); 
+			        int day = calendario.get(Calendar.DAY_OF_MONTH);
+			        int month = calendario.get(Calendar.MONTH) + 1; 
+			        int year = calendario.get(Calendar.YEAR);
+			        java.util.Date utilDate = calendario.getTime();
+			        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+			        
+			        hibernate.crearFacturaPorNombrePaciente(nombrePaciente, importetext, sqlDate);
+			        mostrarLabelTemporalmente(this.vista.lblErrorCrearFacturasPaciente, "Creado perfectamente");
+			        this.vista.lblErrorCrearFacturasPaciente.setForeground(new Color(47, 113, 9));
+			        this.vista.textFieldImporte.setText("");
+			    } catch (NumberFormatException ex) {
+			        mostrarLabelTemporalmente(this.vista.lblErrorCrearFacturasPaciente, "Formato de importe inválido");
+			        this.vista.lblErrorCrearFacturasPaciente.setForeground(Color.RED);
+			    }
+		  }  
+		}
+			if(e.getSource()==this.vista.comboBox_Nombre_Paciente_Facturas) {
+				List<String> nombre_Paciente = hibernate.obtenerNombresDePacientes();
+				this.vista.comboBox_Nombre_Paciente_Facturas.removeAllItems();
+			    
+			    for (String nombre_Paciente2 : nombre_Paciente) {
+			    	this.vista.comboBox_Nombre_Paciente_Facturas.addItem(nombre_Paciente2);
+			    }
+			    
+			    this.vista.comboBox_Nombre_Paciente_Facturas.setSelectedItem(null);
+			}
+			if(e.getSource()==this.vista.comboBoxNombre_Paciente) {
+				List<String> nombre_Paciente = hibernate.obtenerNombresDePacientes();
+				this.vista.comboBoxNombre_Paciente.removeAllItems();
+			    
+			    for (String nombre_Paciente2 : nombre_Paciente) {
+			    	this.vista.comboBoxNombre_Paciente.addItem(nombre_Paciente2);
+			    }
+			    
+			    this.vista.comboBoxNombre_Paciente.setSelectedItem(null);
+			}
+			if(e.getSource()==this.vista.comboBoxNombre_Medicos) {
+				   List<String> nombre_med = hibernate.obtenerNombres_Medico();
+				    this.vista.comboBoxNombre_Medicos.removeAllItems();
 				    
+				    for (String nombre_med2 : nombre_med) {
+				        this.vista.comboBoxNombre_Medicos.addItem(nombre_med2);
+				    }
+				    this.vista.comboBoxNombre_Medicos.setSelectedItem(null);
 			}
 		//Paciente
 			if(e.getSource()==this.vista.lblNewLabelSalida_Paciente) {
@@ -1039,26 +1077,6 @@ public class Controlador implements ActionListener,MouseListener{
 		    
 		    this.vista.comboBoxRoles.setSelectedItem(null);
 	 }
-	 public void cargarMedicos_Recepcion() {
-		    List<String> nombre_med = hibernate.obtenerNombres_Medico();
-		    this.vista.comboBoxNombre_Medicos.removeAllItems();
-		    
-		    for (String nombre_med2 : nombre_med) {
-		        this.vista.comboBoxNombre_Medicos.addItem(nombre_med2);
-		    }
-		    this.vista.comboBoxNombre_Medicos.setSelectedItem(null);
-		}
-	 public void cargarNombre_Paciente(JComboBox Jpaciente) {
-		  List<String> nombre_Paciente = hibernate.obtenerNombresDePacientes();
-		    Jpaciente.removeAllItems();
-		    
-		    for (String nombre_Paciente2 : nombre_Paciente) {
-		       Jpaciente.addItem(nombre_Paciente2);
-		    }
-		    
-		    Jpaciente.setSelectedItem(null);
-		}
-	 
 	 public void mostrarUsuariosEnJTable() {
 		 
 		    List<Empleados> usuarios = hibernate.obtenerTodosLosUsuarios();
@@ -1090,11 +1108,11 @@ public class Controlador implements ActionListener,MouseListener{
 		        return; 
 		    }
 
-		    DefaultTableModel model = new DefaultTableModel();
-		    model.addColumn("Diagnóstico");
-		    model.addColumn("Tratamiento");
-		    model.addColumn("Receta");
-		    model.addColumn("Fecha");
+		    DefaultTableModel modelo = new DefaultTableModel();
+		    modelo.addColumn("Diagnóstico");
+		    modelo.addColumn("Tratamiento");
+		    modelo.addColumn("Receta");
+		    modelo.addColumn("Fecha");
 
 		    for (HistorialesMedicos hm : historial) {
 		         Object[]datos={
@@ -1103,18 +1121,18 @@ public class Controlador implements ActionListener,MouseListener{
 		            hm.getReceta(),
 		            hm.getFecha()
 		        };
-		        model.addRow(datos);
+		         modelo.addRow(datos);
 		    }
-		    this.vista.tableHistorialMedico.setModel(model);
+		    this.vista.tableHistorialMedico.setModel(modelo);
 		}
 	 public void mostrarCitasEnTabla(JTable tableMostrarResultadoCitas, List<Citas> citas) {
-		    DefaultTableModel model = new DefaultTableModel();
+		    DefaultTableModel modelo = new DefaultTableModel();
 
-		    model.addColumn("Nombre del Médico");
-		    model.addColumn("Nombre del Paciente");
-		    model.addColumn("Motivo de la Cita");
-		    model.addColumn("Hora de la Cita");
-		    model.addColumn("Fecha de la Cita");
+		    modelo.addColumn("Nombre del Médico");
+		    modelo.addColumn("Nombre del Paciente");
+		    modelo.addColumn("Motivo de la Cita");
+		    modelo.addColumn("Hora de la Cita");
+		    modelo.addColumn("Fecha de la Cita");
 
 		    for (Citas cita : citas) {
 		        Object[] fila = new Object[5];
@@ -1123,54 +1141,54 @@ public class Controlador implements ActionListener,MouseListener{
 		        fila[2] = cita.getMotivo();             
 		        fila[3] = cita.getHora();               
 		        fila[4] = cita.getFecha().toString();   
-		        model.addRow(fila);
+		        modelo.addRow(fila);
 		    }
-		    tableMostrarResultadoCitas.setModel(model);
+		    tableMostrarResultadoCitas.setModel(modelo);
 		}
 	  public static void mostrarCitasEnTabla(List<Object[]> detallesCitas,JTable citas) {
 
-	        DefaultTableModel model = new DefaultTableModel();
-	        model.addColumn("Paciente");
-	        model.addColumn("Médico");
-	        model.addColumn("Especialidad");
-	        model.addColumn("Fecha");
-	        model.addColumn("Hora");
-	        model.addColumn("Motivo");
+	        DefaultTableModel modelo = new DefaultTableModel();
+	        modelo.addColumn("Paciente");
+	        modelo.addColumn("Médico");
+	        modelo.addColumn("Especialidad");
+	        modelo.addColumn("Fecha");
+	        modelo.addColumn("Hora");
+	        modelo.addColumn("Motivo");
 
 	       
 	        for (Object[] detalle : detallesCitas) {
-	            model.addRow(detalle);
+	        	modelo.addRow(detalle);
 	        }
-	        citas.setModel(model);
+	        citas.setModel(modelo);
 	        
 	    }
 	  public static void mostrarHistorialClienteEnTabla(List<Object[]> detallesCitas, JTable historial) {
-		    DefaultTableModel model = new DefaultTableModel();
-		    model.addColumn("Paciente");
-		    model.addColumn("Médico");
-		    model.addColumn("Diagnostico");
-		    model.addColumn("Tratamiento");
-		    model.addColumn("Receta");
-		    model.addColumn("Fecha");
+		    DefaultTableModel modelo = new DefaultTableModel();
+		    modelo.addColumn("Paciente");
+		    modelo.addColumn("Médico");
+		    modelo.addColumn("Diagnostico");
+		    modelo.addColumn("Tratamiento");
+		    modelo.addColumn("Receta");
+		    modelo.addColumn("Fecha");
 
 	
 		    for (Object[] detalle : detallesCitas) {
-		        model.addRow(detalle);
+		    	modelo.addRow(detalle);
 		    }
 
-		    historial.setModel(model);
+		    historial.setModel(modelo);
 		}
 	  public static void mostrarFacturasCliente(List<Object[]> detallesFacturas, JTable facturas) {
-		    DefaultTableModel model = new DefaultTableModel();
+		    DefaultTableModel modelo = new DefaultTableModel();
 		  
-		    model.addColumn("Paciente");
-		    model.addColumn("Dirección");
-		    model.addColumn("Dinero");
-		    model.addColumn("Fecha");
-		    model.addColumn("Estado");
+		    modelo.addColumn("Paciente");
+		    modelo.addColumn("Dirección");
+		    modelo.addColumn("Dinero");
+		    modelo.addColumn("Fecha");
+		    modelo.addColumn("Estado");
 		    
 		  
-		    model.setRowCount(0);
+		    modelo.setRowCount(0);
 		    
 		    if (detallesFacturas != null) {
 		        for (Object[] fila : detallesFacturas) {
@@ -1192,11 +1210,11 @@ public class Controlador implements ActionListener,MouseListener{
 		                rowData[4] = "Pendiente";
 		            }
 		            
-		            model.addRow(rowData);
+		            modelo.addRow(rowData);
 		        }
 		    }
 		    
-		    facturas.setModel(model);
+		    facturas.setModel(modelo);
 		
 		    facturas.getColumnModel().getColumn(0).setPreferredWidth(150);
 		    facturas.getColumnModel().getColumn(1).setPreferredWidth(200);

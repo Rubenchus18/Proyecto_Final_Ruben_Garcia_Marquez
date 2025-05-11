@@ -10,9 +10,10 @@ $contraseña = $_POST["contraseña"];
 $direccion = $_POST["direccion"];
 $telefono = $_POST["telefono"];
 $nacimiento = $_POST["nacimiento"]; 
+$correo = $_POST["correo"]; 
 $rol = 'paciente';
 
-if (empty($nombre) || empty($contraseña) || empty($direccion) || empty($telefono) || empty($nacimiento)) {
+if (empty($nombre) || empty($contraseña) || empty($direccion) || empty($telefono) || empty($nacimiento) || empty($correo)) {
       header("Location: MalRegistrado.html");
       exit();
 }
@@ -21,8 +22,8 @@ $query_empleado = "INSERT INTO Empleados (username, password, rol) VALUES ('$nom
 if (mysqli_query($conexion, $query_empleado)) {
     $empleado_id = mysqli_insert_id($conexion);
 
-    $query_paciente = "INSERT INTO Pacientes (nombre, direccion, telefono, fecha_nacimiento, empleado_id) 
-                       VALUES ('$nombre', '$direccion', '$telefono', '$nacimiento', '$empleado_id')";
+    $query_paciente = "INSERT INTO Pacientes (nombre, direccion, telefono, fecha_nacimiento, empleado_id, correo_electronico) 
+                       VALUES ('$nombre', '$direccion', '$telefono', '$nacimiento', '$empleado_id', '$correo')";
     if (mysqli_query($conexion, $query_paciente)) {
         header("Location: RegistradoCorrectamente.html");
         exit();
