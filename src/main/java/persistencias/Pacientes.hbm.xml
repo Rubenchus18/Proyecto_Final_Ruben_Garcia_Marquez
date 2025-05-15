@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Generated 24 abr 2025, 12:42:16 by Hibernate Tools 6.5.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 may 2025, 10:27:59 by Hibernate Tools 6.5.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class catalog="ClinicaMedica" name="persistencias.Pacientes" optimistic-lock="none" table="Pacientes">
         <id name="id" type="java.lang.Integer">
@@ -9,6 +9,9 @@
         <many-to-one class="persistencias.Empleados" fetch="select" name="empleados">
             <column name="empleado_id" unique="true"/>
         </many-to-one>
+        <property name="dni" type="string">
+            <column length="20" name="dni" unique="true"/>
+        </property>
         <property name="nombre" type="string">
             <column length="100" name="nombre" not-null="true"/>
         </property>

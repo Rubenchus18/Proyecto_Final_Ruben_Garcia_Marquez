@@ -1,5 +1,5 @@
 package persistencias;
-// Generated 24 abr 2025, 12:42:16 by Hibernate Tools 6.5.1.Final
+// Generated 15 may 2025, 10:27:59 by Hibernate Tools 6.5.1.Final
 
 import java.sql.Date;
 import java.util.HashSet;
@@ -12,6 +12,7 @@ public class Pacientes implements java.io.Serializable {
 
 	private Integer id;
 	private Empleados empleados;
+	private String dni;
 	private String nombre;
 	private String direccion;
 	private String telefono;
@@ -28,9 +29,10 @@ public class Pacientes implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	public Pacientes(Empleados empleados, String nombre, String direccion, String telefono, Date fechaNacimiento,
-			String correoElectronico, Set facturases, Set citases, Set historialesMedicoses) {
+	public Pacientes(Empleados empleados, String dni, String nombre, String direccion, String telefono,
+			Date fechaNacimiento, String correoElectronico, Set facturases, Set citases, Set historialesMedicoses) {
 		this.empleados = empleados;
+		this.dni = dni;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.telefono = telefono;
@@ -55,6 +57,14 @@ public class Pacientes implements java.io.Serializable {
 
 	public void setEmpleados(Empleados empleados) {
 		this.empleados = empleados;
+	}
+
+	public String getDni() {
+		return this.dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 
 	public String getNombre() {

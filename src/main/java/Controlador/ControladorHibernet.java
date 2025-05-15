@@ -352,7 +352,7 @@ public class ControladorHibernet {
         }
     }
     //Coger el historial de los usuarios panel medico
-    public List<HistorialesMedicos> obtenerHistorialMedicoPorUsuario(String numero_telefono) {
+    public List<HistorialesMedicos> obtenerHistorialMedicoPorUsuario(String dni) {
         Session session = null;
         List<HistorialesMedicos> historial = null;
         Pacientes paciente=new Pacientes();
@@ -361,8 +361,8 @@ public class ControladorHibernet {
             session.beginTransaction();
 
          
-            Query queryPaciente = session.createQuery("FROM Pacientes WHERE telefono=: telefonos", Pacientes.class);
-            queryPaciente.setParameter("telefonos", numero_telefono);
+            Query queryPaciente = session.createQuery("FROM Pacientes WHERE dni=: dnis", Pacientes.class);
+            queryPaciente.setParameter("dnis", dni);
              paciente = (Pacientes) queryPaciente.uniqueResult();
 
             if (paciente != null) {

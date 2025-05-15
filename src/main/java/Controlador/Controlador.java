@@ -295,7 +295,7 @@ public class Controlador implements ActionListener,MouseListener{
 		        String nombrepaciente = (String) this.vista.tableMostrarResultadoCitas.getValueAt(seleccionfila, 1); 
 		        this.vista.lblNewLabelNombre_Paciente.setText(nombrepaciente);
 		        paciente=hibernate.cogerDatosPaciente(nombrepaciente);		      
-		        this.vista.textFieldNumero_Telefono.setText(paciente.getTelefono());
+		        this.vista.textFieldDNI_paciente.setText(paciente.getDni());
 		        this.vista.textField_Corre_Electronico_Paciente.setText(paciente.getCorreoElectronico()); 
 		    }  
 		}
@@ -894,12 +894,12 @@ public class Controlador implements ActionListener,MouseListener{
 		}
 		//Medico
 		if(e.getSource()==this.vista.btnBuscarHistorial) {
-			String telefono=this.vista.textFieldNumero_Telefono.getText();
-			if(telefono.isEmpty()) {
+			String dni=this.vista.textFieldDNI_paciente.getText();
+			if(dni.isEmpty()) {
 				mostrarLabelTemporalmente(this.vista.lblErrorFiltro,"Campos obligatorios");
 				this.vista.lblErrorFiltro.setForeground(Color.RED);
 			}else {
-				mostrarHistorialMedico(telefono);
+				mostrarHistorialMedico(dni);
 			}
 		}
 		if(e.getSource() == this.vista.btnGuardarHistorialMedico) {
