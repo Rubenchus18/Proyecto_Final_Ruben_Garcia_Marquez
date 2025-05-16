@@ -20,7 +20,7 @@ if (empty($nombre) || empty($contraseña) || empty($direccion) || empty($telefon
 }
 
 if(!preg_match('/^[0-9]{8}[A-Za-z]$/', $dni)) {
-    header("Location: DNIInvalido.html"); 
+    header("Location: MalRegistrado.html"); 
     exit();
 }
 
