@@ -1,4 +1,4 @@
--- Crear la base de datos
+
 DROP DATABASE IF EXISTS ClinicaMedica;
 CREATE DATABASE ClinicaMedica;
 USE ClinicaMedica;
@@ -7,13 +7,14 @@ USE ClinicaMedica;
 CREATE TABLE Empleados (
     id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(100) NOT NULL,
+    password VARCHAR(100)  NOT NULL,
     rol ENUM('admin', 'medico', 'recepcionista', 'paciente') NOT NULL
 );
 
 -- Tabla Pacientes
 CREATE TABLE Pacientes (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    dni VARCHAR(20) UNIQUE,
     nombre VARCHAR(100) NOT NULL,
     direccion VARCHAR(200),
     telefono VARCHAR(15),
@@ -76,7 +77,7 @@ CREATE TABLE Facturas (
     FOREIGN KEY (paciente_id) REFERENCES Pacientes(id) ON DELETE CASCADE
 );
 
--- Insertar datos de ejemplo
+-- Insertar datos 
 
 -- Insertar empleados
 INSERT INTO Empleados (username, password, rol)
@@ -87,9 +88,9 @@ VALUES
     ('ruben', '1234', 'paciente');
 
 -- Insertar pacientes
-INSERT INTO Pacientes (nombre, direccion, telefono, fecha_nacimiento, correo_electronico, empleado_id)
+INSERT INTO Pacientes (dni, nombre, direccion, telefono, fecha_nacimiento, correo_electronico, empleado_id)
 VALUES 
-    ('Ruben', 'Calle Falsa 123', '555-1234', '1985-05-15', 'ruben@example.com', 4);
+    ('12345678A', 'Ruben', 'Calle Falsa 123', '555-1234', '1985-05-15', 'ruben@example.com', 4);
 
 -- Insertar médicos
 INSERT INTO Medicos (nombre, especialidad, horario, empleado_id)
