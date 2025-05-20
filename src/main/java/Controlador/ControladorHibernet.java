@@ -532,7 +532,7 @@ public class ControladorHibernet {
 		return recpecionista;
 	}
 	//Crear un paciente en recepcion
-	public void crearPacienteRecepcionista(String username, String password, String direccion, String telefono, Date fechaNacimiento,String correo) {
+	public void crearPacienteRecepcionista(String username, String password, String direccion, String telefono, Date fechaNacimiento,String correo,String dni) {
 	    Session session = null;
 	    try {
 	        session = sessionFactory.getCurrentSession();
@@ -549,7 +549,8 @@ public class ControladorHibernet {
 	        Pacientes paciente = new Pacientes();
 	        paciente.setNombre(username);         
 	        paciente.setDireccion(direccion);    
-	        paciente.setTelefono(telefono);      
+	        paciente.setTelefono(telefono);
+	        paciente.setDni(dni);
 	        paciente.setFechaNacimiento(fechaNacimiento);
 	        paciente.setCorreoElectronico(correo);
 	        paciente.setEmpleados(empleado);  

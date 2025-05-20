@@ -305,20 +305,22 @@ public class Controlador implements ActionListener,MouseListener{
 			String contraseña=this.vista.passwordFieldContraseñaPacienteRecepcion.getText();
 			String direccion=this.vista.textFieldDireccionPacienteRecepcion.getText();
 			String telefono=this.vista.textFieldTelefonoPacienteRecepcion.getText();
+			String dni=this.vista.textField_DNI_Paciente.getText();
 			String correoelectronico=this.vista.textFieldCorreo_Electronico_paciente.getText();
 			Calendar calendario = this.vista.calendarFechaNacimientoPacienteRecepcion.getCalendar();
 		    java.util.Date utilDate = calendario.getTime();
 		    java.sql.Date fechaNacimientoPaciente = new java.sql.Date(utilDate.getTime());
-		    if(nombre.isEmpty()||contraseña.isEmpty()|| direccion.isEmpty()|| telefono.isEmpty()||correoelectronico.isEmpty()) {
+		    if(nombre.isEmpty()||contraseña.isEmpty()|| direccion.isEmpty()|| telefono.isEmpty()||correoelectronico.isEmpty()||dni.isEmpty()) {
 		    	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Campos obligatorios");
 		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.RED);
 		    }else{
-		    	hibernate.crearPacienteRecepcionista(nombre, contraseña, direccion, telefono, fechaNacimientoPaciente,correoelectronico);
+		    	hibernate.crearPacienteRecepcionista(nombre, contraseña, direccion, telefono, fechaNacimientoPaciente,correoelectronico,dni);
 		    	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Se ha creado correctamente");
 		    	this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(new Color(47, 113, 9));
 		    	this.vista.textField_NombrePaciente.setText("");
 		    	this.vista.passwordFieldContraseñaPacienteRecepcion.setText("");
 		    	this.vista.textFieldDireccionPacienteRecepcion.setText("");
+		    	this.vista.textField_DNI_Paciente.setText("");
 		    	this.vista.textFieldTelefonoPacienteRecepcion.setText("");
 		    	this.vista.textFieldCorreo_Electronico_paciente.setText("");
 		    }
@@ -623,19 +625,19 @@ public class Controlador implements ActionListener,MouseListener{
 			    }
 			}
 			if(e.getSource()==this.vista.lblPagarFacturas_Definitiva) {
-					this.vista.panelDatos_Cliente_Factura.setVisible(true);
-					this.vista.tableVerFacturas_Paciente.setEnabled(false);
+				this.vista.panelDatos_Cliente_Factura.setVisible(true);
+				this.vista.tableVerFacturas_Paciente.setEnabled(false);
 				}
-				if(e.getSource()== this.vista.lblPagarFactura) {
-				  String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();
-				  int seleccionfactura = (Integer) this.vista.tableVerFacturas_Paciente.getClientProperty("selectedRow");
-				  String titular=this.vista.textField_Titular_Tarjeta.getText();
-				  String numero=this.vista.textField_Numero_Tarjeta.getText();
-				  String csv=this.vista.textField_CSV_Tarjeta.getText();
-				  Date fecha_tarjete=this.vista.calendar_fecha_expiracion_tarjeta.getDate();
-				  if(titular.isEmpty()||numero.isEmpty()||csv.isEmpty()) {
+			if(e.getSource()== this.vista.lblPagarFactura) {
+				String nombre=this.vista.lblNewLabelNombreUsuarioMostrarPaciente.getText();
+				int seleccionfactura = (Integer) this.vista.tableVerFacturas_Paciente.getClientProperty("selectedRow");
+				String titular=this.vista.textField_Titular_Tarjeta.getText();
+				String numero=this.vista.textField_Numero_Tarjeta.getText();
+				String csv=this.vista.textField_CSV_Tarjeta.getText();
+				Date fecha_tarjete=this.vista.calendar_fecha_expiracion_tarjeta.getDate();
+				 if(titular.isEmpty()||numero.isEmpty()||csv.isEmpty()) {
 					 mostrarLabelTemporalmente(this.vista.lblNewLabelError_Tarjeta,"Todos los campos obligatorios");
-				  }else {
+				 }else {
 					  if (seleccionfactura >= 0) {
 					        String direccion = (String) this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 1);
 					        Object valorMonto = this.vista.tableVerFacturas_Paciente.getValueAt(seleccionfactura, 2);
@@ -758,10 +760,10 @@ public class Controlador implements ActionListener,MouseListener{
 					mostrarCitasEnTabla(detallesCitas,this.vista.tableVerCitasPacientes);
 					this.vista.lblVerCitasPaciente.setIcon(fotoEscalarLabel(this.vista.lblVerCitasPaciente, "imagenes/vercitas_seleccionado.png"));
 				    }
-					}else {
-						mostrarLabelTemporalmente(this.vista.lblNewLabelError,"Usuario o Contraseña no existe");
-						this.vista.lblNewLabelError.setForeground(new Color(139, 0, 0));
-					}
+			}else {
+					mostrarLabelTemporalmente(this.vista.lblNewLabelError,"Usuario o Contraseña no existe");
+					this.vista.lblNewLabelError.setForeground(new Color(139, 0, 0));
+			}
 			
 		}
 		//Administrador
@@ -1264,7 +1266,7 @@ public class Controlador implements ActionListener,MouseListener{
 		    textArea.setLineWrap(true);        
 		    textArea.setWrapStyleWord(true);    
 		}
-	 //Hilo
+	  //Hilo
 	 public void iniciarReloj(JLabel label) {
 		    Thread hiloReloj = new Thread(() -> {
 		        SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
