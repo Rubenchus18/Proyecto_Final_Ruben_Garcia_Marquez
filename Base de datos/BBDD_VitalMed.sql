@@ -1,4 +1,4 @@
-
+-- Crear la base de datos
 DROP DATABASE IF EXISTS ClinicaMedica;
 CREATE DATABASE ClinicaMedica;
 USE ClinicaMedica;
@@ -77,8 +77,6 @@ CREATE TABLE Facturas (
     FOREIGN KEY (paciente_id) REFERENCES Pacientes(id) ON DELETE CASCADE
 );
 
--- Insertar datos 
-
 -- Insertar empleados
 INSERT INTO Empleados (username, password, rol)
 VALUES 
@@ -91,34 +89,26 @@ VALUES
 INSERT INTO Pacientes (dni, nombre, direccion, telefono, fecha_nacimiento, correo_electronico, empleado_id)
 VALUES 
     ('12345678A', 'Ruben', 'Calle Falsa 123', '555-1234', '1985-05-15', 'ruben@example.com', 4);
-
 -- Insertar médicos
 INSERT INTO Medicos (nombre, especialidad, horario, empleado_id)
 VALUES 
     ('Dr. Carlos López', 'Cardiología', 'Lunes a Viernes, 8:00 - 16:00', 2);
-  
-
 -- Insertar recepcionistas
 INSERT INTO Recepcionistas (nombre, empleado_id)
 VALUES 
     ('Recepcionista Principal', 3); 
-
 -- Insertar citas
 INSERT INTO Citas (fecha, hora, paciente_id, medico_id, motivo)
 VALUES 
     ('2023-10-20', '10:00', 1, 1, 'Dolor en el pecho');
-
 -- Insertar historiales médicos
 INSERT INTO Historiales_Medicos (paciente_id, medico_id, diagnostico, tratamiento, receta, fecha)
 VALUES 
     (1, 1, 'migraña', 'Dieta baja en sal y ejercicio', 'Medicamento X, 1 tableta al día', '2023-10-20');
-
-
 -- Insertar facturas
 INSERT INTO Facturas (paciente_id, monto, fecha, pagado)
 VALUES 
     (1, 150.00, '2023-10-20', FALSE);
-    
 
 
 
