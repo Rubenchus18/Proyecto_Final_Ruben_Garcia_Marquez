@@ -1124,7 +1124,8 @@ public class Controlador implements ActionListener,MouseListener{
 	 public void mostrarHistorialMedico(String numerotelefono) {
 		    List<HistorialesMedicos> historial = hibernate.obtenerHistorialMedicoPorUsuario(numerotelefono);
 		    if (historial.isEmpty()) {
-		        this.vista.lblErrorFiltro.setText("No se encontró historial médico");
+		        mostrarLabelTemporalmente( this.vista.lblErrorFiltro,"No se encontró historial médico");
+                this.vista.lblErrorFiltro.setForeground(Color.RED);
 		        return; 
 		    }
 
