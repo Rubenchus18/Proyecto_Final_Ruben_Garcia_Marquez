@@ -322,6 +322,12 @@ public class Controlador implements ActionListener,MouseListener{
             if(nombre.isEmpty()||contraseña.isEmpty()|| direccion.isEmpty()|| telefono.isEmpty()||correoelectronico.isEmpty()||dni.isEmpty()) {
                 mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Campos obligatorios");
                 this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.RED);
+            }else if(!dni.matches("^[0-9]{8}[A-Z]$")){
+            	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"DNI invalido");
+                this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.RED);
+            }else if(!telefono.matches("^[0-9]{9}$")) {
+            	mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Telefono invalido");
+                this.vista.lblNewLabelErrorCrearPacienteRecepcion.setForeground(Color.RED);
             }else{
                 hibernate.crearPacienteRecepcionista(nombre, contraseña, direccion, telefono, fechaNacimientoPaciente,correoelectronico,dni);
                 mostrarLabelTemporalmente(this.vista.lblNewLabelErrorCrearPacienteRecepcion,"Se ha creado correctamente");
