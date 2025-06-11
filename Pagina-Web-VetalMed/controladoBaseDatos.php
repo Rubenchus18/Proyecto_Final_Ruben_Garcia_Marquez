@@ -33,7 +33,7 @@ if(!preg_match('/^[0-9]{8}[A-Za-z]$/', $dni)) {
 }
 
 
-$conexion = @mysqli_connect("donoso005node.mooo.com:25570", "rubenchus18", "Unlx%bjXVnwt9H4bA", "ClinicaMedica");
+$conexion = @mysqli_connect("donoso005node.duckdns.org:25570", "rubenchus18", "Unlx%bjXVnwt9H4bA", "ClinicaMedica");
 if (!$conexion) {
     handleError();
 }
